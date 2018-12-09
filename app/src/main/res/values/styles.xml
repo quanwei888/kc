@@ -1,0 +1,45 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:background">@color/colorPrimary</item>
+    </style>
+
+    <style name="Text">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+    </style>
+
+    <style name="H0">
+        <item name="android:textSize">30dp</item>
+        <item name="android:textColor">#868686</item>
+    </style>
+    <style name="H1">
+        <item name="android:textSize">24dp</item>
+        <item name="android:textColor">#868686</item>
+    </style>
+    <style name="H2">
+        <item name="android:textSize">20dp</item>
+        <item name="android:textColor">#868686</item>
+    </style>
+    <style name="H2_white">
+        <item name="android:textSize">20dp</item>
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+    <style name="H3">
+        <item name="android:textSize">16dp</item>
+        <item name="android:textColor">#868686</item>
+    </style>
+    <style name="H3_white">
+        <item name="android:textSize">16dp</item>
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+    <style name="H4">
+        <item name="android:textSize">12dp</item>
+        <item name="android:textColor">#868686</item>
+    </style>
+</resources>
