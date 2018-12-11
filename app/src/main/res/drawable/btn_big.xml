@@ -10,7 +10,7 @@
     <!-- stroke设置描边 -->
     <stroke
         android:width="0dp"
-        android:color="#F7F7F7" />
+        android:color="#58AFF6" />
     <corners android:radius="7dp" />
-    <solid android:color="#2EA3FD" />
+    <solid android:color="#58AFF6" />
 </shape>
