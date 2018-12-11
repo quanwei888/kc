@@ -1,4 +1,4 @@
-package com.kanci.ui.main;
+package com.kanci.ui.card;
 
 import android.databinding.ObservableField;
 
@@ -11,7 +11,7 @@ import javax.inject.Inject;
 import io.reactivex.schedulers.Schedulers;
 
 
-public class MainViewModel extends BaseViewModel {
+public class CardViewModel extends BaseViewModel {
     public static interface View {
 
     }
@@ -21,7 +21,7 @@ public class MainViewModel extends BaseViewModel {
     public ObservableField<Book> book = new ObservableField<>();
 
     @Inject
-    public MainViewModel() {
+    public CardViewModel() {
     }
 
 

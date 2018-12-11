@@ -1,28 +1,27 @@
-package com.kanci.ui.main;
+package com.kanci.ui.card;
 
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 
 import com.kanci.BR;
 import com.kanci.R;
+import com.kanci.databinding.ActivityCardBinding;
 import com.kanci.databinding.ActivityMainBinding;
 import com.kanci.di.AppModule;
 import com.kanci.di.DaggerAppComponent;
 import com.kanci.ui.BaseActivity;
-import com.kanci.ui.selectbook.SelectBookActivity;
 
 import javax.inject.Inject;
 
-public class MainActivity extends BaseActivity implements MainViewModel.View {
+public class CardActivity extends BaseActivity implements CardViewModel.View {
     @Inject
-    public MainViewModel vm;
-    public ActivityMainBinding binding;
+    public CardViewModel vm;
+    public ActivityCardBinding binding;
 
     public static Intent newIntent(Context context) {
-        return new Intent(context, MainActivity.class);
+        return new Intent(context, CardActivity.class);
     }
 
     @Override
@@ -37,9 +36,5 @@ public class MainActivity extends BaseActivity implements MainViewModel.View {
 
     protected void setup() {
         vm.loadCurrentBook();
-    }
-
-    public void gotoSelectBookActivity() {
-        startActivity(SelectBookActivity.newIntent(this));
     }
 }

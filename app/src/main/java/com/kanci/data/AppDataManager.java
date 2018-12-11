@@ -37,6 +37,8 @@ import com.kanci.utils.AppConstants;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import io.reactivex.Observable;
 import io.reactivex.Single;
 import retrofit2.Retrofit;

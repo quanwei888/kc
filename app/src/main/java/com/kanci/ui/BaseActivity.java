@@ -1,5 +1,6 @@
-package com.kanci.ui.test;
+package com.kanci.ui;
 
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
