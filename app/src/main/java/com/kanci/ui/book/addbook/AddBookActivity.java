@@ -6,6 +6,8 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.TextView;
 
 import com.kanci.BR;
@@ -47,12 +49,12 @@ public class AddBookActivity extends BaseActivity implements AddBookViewModel.Vi
     public void showBookList(Map<String, BookListAdapter> adapters) {
         for (String key : adapters.keySet()) {
             RecyclerView lv = new RecyclerView(this);
-            RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 3);
+            RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false);
             lv.setLayoutManager(layoutManager);
             lv.setAdapter(adapters.get(key));
 
-            TextView tv = new TextView(this);
-            tv.setText(key);
+            View tv = LayoutInflater.from(this).inflate(R.layout.view_book_tag, null);
+            ((TextView) tv.findViewById(R.id.tag)).setText(key);
             binding.bookGroup.addView(tv);
             binding.bookGroup.addView(lv);
         }
