@@ -13,16 +13,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".ui.demo.DemoActivity" />
-        <activity android:name=".ui.selectbook.SelectBookActivity"></activity>
-        <activity android:name=".ui.main.MainActivity">
+        <activity android:name=".ui.test.Main2Activity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.main.MainActivity"></activity>
         <activity android:name=".ui.login.LoginActivity" />
-        <activity android:name=".ui.test.TestActivity"></activity>
+        <activity android:name=".ui.test.TestActivity" />
     </application>
 
 </manifest>

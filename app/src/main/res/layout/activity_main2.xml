@@ -1,26 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.mindorks.framework.mvvm.com.kanci.ui.login.LoginActivity">
-
-    <data>
-
-        <import type="android.view.View" />
-
-        <variable
-            name="vm"
-            type="com.kanci.ui.card.CardViewModel" />
-    </data>
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginBottom="50dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/white"
             android:orientation="vertical">
 
             <TextView
@@ -157,49 +150,38 @@
                 android:text="例句"
                 android:textColor="@color/fontBlack"
                 android:textSize="14sp" />
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="20dp"
-                android:layout_marginRight="20dp"
-                android:gravity="right|bottom">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="2">
-
-                    <Button
-                        android:layout_width="50dp"
-                        android:layout_height="20dp"
-                        android:background="@drawable/bg_btn"
-                        android:onClick="@{()->vm.selectBook()}"
-                        android:text="砍"
-                        android:textColor="@color/fontGray"
-                        android:textSize="12dp" />
-
-                    <Button
-                        android:layout_width="70dp"
-                        android:layout_height="20dp"
-                        android:layout_marginLeft="10dp"
-                        android:background="@drawable/bg_btn"
-                        android:onClick="@{()->vm.selectBook()}"
-                        android:text="提示"
-                        android:textColor="@color/fontGray"
-                        android:textSize="12dp" />
-
-                </LinearLayout>
-
-            </RelativeLayout>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical" />
-
         </LinearLayout>
     </ScrollView>
-</layout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:gravity="center_vertical|right"
+        android:weightSum="2">
+
+        <Button
+            android:layout_width="50dp"
+            android:layout_height="20dp"
+            android:background="@drawable/bg_btn"
+            android:onClick="@{()->vm.selectBook()}"
+            android:text="砍"
+            android:textColor="@color/fontGray"
+            android:textSize="12dp" />
+
+        <Button
+            android:layout_width="70dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/bg_btn"
+            android:onClick="@{()->vm.selectBook()}"
+            android:text="提示"
+            android:textColor="@color/fontGray"
+            android:textSize="12dp" />
+
+    </LinearLayout>
+
+
+</RelativeLayout>
