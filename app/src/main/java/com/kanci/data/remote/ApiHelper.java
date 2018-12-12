@@ -5,12 +5,14 @@ import com.kanci.data.model.api.Response.CommonResponse;
 import com.kanci.data.model.api.Response.EntityResponse;
 import com.kanci.data.model.api.Response.EntityListResponse;
 import com.kanci.data.model.bean.Book;
+import com.kanci.data.model.bean.User;
 import com.kanci.data.model.db.BookState;
 import com.kanci.data.model.db.BookWord;
 import com.kanci.data.model.db.BookWordDef;
 
 import io.reactivex.Single;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 public interface ApiHelper {
@@ -28,5 +30,11 @@ public interface ApiHelper {
 
     @GET("/bookList.json")
     Single<EntityListResponse<Book>> doGetBookList();
+
+    @POST("/login.php")
+    Single<EntityResponse<User>> doLogin(String userName, String password);
+
+    @GET("/getUserInfo.json")
+    Single<EntityResponse<User>> doGetUserInfo();
 
 }
