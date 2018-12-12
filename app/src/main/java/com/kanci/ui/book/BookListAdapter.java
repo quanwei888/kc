@@ -48,7 +48,7 @@ public class BookListAdapter extends RecyclerView.Adapter<BookListAdapter.BookVi
 
     public class BookViewHolder extends RecyclerView.ViewHolder {
         ItemBookBinding binding;
-        BookItem item;
+        BookItem item = new BookItem();
 
         public BookViewHolder(ItemBookBinding binding) {
             super(binding.getRoot());
@@ -63,10 +63,5 @@ public class BookListAdapter extends RecyclerView.Adapter<BookListAdapter.BookVi
 
     public class BookItem {
         public Book book;
-
-        public BookItem(Book book) {
-            this.book = book;
-        }
-
     }
 }

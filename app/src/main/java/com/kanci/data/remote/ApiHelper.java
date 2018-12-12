@@ -16,10 +16,10 @@ import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 public interface ApiHelper {
-    @GET("/bookState.json")
+    @GET("/doGetBookState")
     Single<EntityResponse<BookState>> doGetBookState();
 
-    @GET("/bookWordList.json")
+    @GET("/doGetBookWordList")
     Single<EntityListResponse<BookWord>> doGetBookWordList(int bookId);
 
     @GET("/bookWordDef.json")
@@ -28,7 +28,7 @@ public interface ApiHelper {
     @GET("/bookWordDefList.json")
     Single<EntityListResponse<BookWordDef>> doGetBookWordDefList(int bookId);
 
-    @GET("/bookList.json")
+    @GET("/doGetBookList")
     Single<EntityListResponse<Book>> doGetBookList();
 
     @POST("/login.php")

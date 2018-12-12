@@ -8,8 +8,6 @@ import com.kanci.ui.book.addbook.AddBookViewModel;
 import com.kanci.ui.card.CardViewModel;
 import com.kanci.ui.main.MainActivity;
 import com.kanci.ui.main.MainViewModel;
-import com.kanci.ui.selectbook.SelectBookActivity;
-import com.kanci.ui.selectbook.SelectBookViewModel;
 
 import dagger.Module;
 import dagger.Provides;
@@ -41,11 +39,6 @@ public class AppModule {
     @Provides
     public CardViewModel.View cardView() {
         return (CardViewModel.View) context;
-    }
-
-    @Provides
-    public SelectBookViewModel.View selectBookView() {
-        return (SelectBookViewModel.View) context;
     }
 
     @Provides

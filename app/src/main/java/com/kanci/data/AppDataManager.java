@@ -17,6 +17,7 @@
 package com.kanci.data;
 
 import android.arch.persistence.db.SimpleSQLiteQuery;
+import android.arch.persistence.room.EmptyResultSetException;
 import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.util.Log;
@@ -72,7 +73,7 @@ public class AppDataManager {
         okHttpClient.interceptors().add(new ReceivedCookiesInterceptor());
 
         this.apiHelper = new Retrofit.Builder()
-                .baseUrl("http://lucky888.vicp.io:10000/")
+                .baseUrl("http://lucky888.vicp.io:10000/index.php/")
                 .client(okHttpClient.build())
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
@@ -117,7 +118,12 @@ public class AppDataManager {
      */
     public BookState getBookState() {
         //local
-        BookState entity = db.bookStateDao().findOne().blockingGet();
+        BookState entity = null;
+        try {
+            entity = db.bookStateDao().findOne().blockingGet();
+        } catch (EmptyResultSetException e) {
+
+        }
         if (entity == null) {
             //remote
             entity = apiHelper.doGetBookState().blockingGet().data;
@@ -166,7 +172,12 @@ public class AppDataManager {
      */
     public BookWordDef getBookWordDef(int bookId, String word) {
         //local
-        BookWordDef entity = db.bookWordDefDao().findByPk(bookId, word).blockingGet();
+        BookWordDef entity = null;
+        try {
+            entity = db.bookWordDefDao().findByPk(bookId, word).blockingGet();
+        } catch (EmptyResultSetException e) {
+
+        }
         if (entity == null) {
             //remote
             entity = apiHelper.doGetBookWordDef(bookId, word).blockingGet().data;

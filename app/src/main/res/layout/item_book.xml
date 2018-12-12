@@ -27,17 +27,22 @@
     </data>
 
     <LinearLayout
-        android:layout_width="100dp"
-        android:layout_height="80dp"
-        android:background="@drawable/book"
+        android:layout_width="300dp"
+        android:layout_height="100dp"
         android:gravity="center"
+        android:background="@drawable/book"
         android:orientation="vertical">
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"/>
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="200dp"
             android:gravity="center"
-            android:text="@{vm.book.bookName}"
+            android:text='@{vm.book.bookName}'
             android:textColor="#FFFFFF"
             android:textSize="18sp"
             tools:text="大学四级" />
@@ -46,7 +51,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="@{String.valueOf(vm.book.wordCount)}"
+            android:text='@{String.valueOf(vm.book.wordCount) + "词"}'
             android:textColor="#8D97A1"
             android:textSize="14sp"
             tools:text="2345词" />

@@ -12,7 +12,6 @@ import com.kanci.databinding.ActivityMainBinding;
 import com.kanci.di.AppModule;
 import com.kanci.di.DaggerAppComponent;
 import com.kanci.ui.BaseActivity;
-import com.kanci.ui.selectbook.SelectBookActivity;
 
 import javax.inject.Inject;
 

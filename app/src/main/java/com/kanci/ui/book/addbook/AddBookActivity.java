@@ -6,18 +6,15 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.GridView;
+import android.widget.TextView;
 
 import com.kanci.BR;
 import com.kanci.R;
 import com.kanci.databinding.ActivityAddBookBinding;
-import com.kanci.databinding.ActivitySelectBookBinding;
 import com.kanci.di.AppModule;
 import com.kanci.di.DaggerAppComponent;
 import com.kanci.ui.BaseActivity;
 import com.kanci.ui.book.BookListAdapter;
-import com.kanci.ui.selectbook.SelectBookAdapter;
-import com.kanci.ui.selectbook.SelectBookViewModel;
 
 import java.util.Map;
 
@@ -50,9 +47,13 @@ public class AddBookActivity extends BaseActivity implements AddBookViewModel.Vi
     public void showBookList(Map<String, BookListAdapter> adapters) {
         for (String key : adapters.keySet()) {
             RecyclerView lv = new RecyclerView(this);
-            RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 1);
+            RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 3);
             lv.setLayoutManager(layoutManager);
             lv.setAdapter(adapters.get(key));
+
+            TextView tv = new TextView(this);
+            tv.setText(key);
+            binding.bookGroup.addView(tv);
             binding.bookGroup.addView(lv);
         }
     }

@@ -36,7 +36,7 @@ public class MainViewModel extends BaseViewModel {
                 .subscribe(
                         result -> {
                             if (result == null) {
-                                ActivityMgr.gotoSelectBook(view);
+                                ActivityMgr.gotoAddBook(view);
                             } else {
                                 bookState.set(result);
                             }
@@ -44,6 +44,10 @@ public class MainViewModel extends BaseViewModel {
                         error -> {
                             view.handleError(error);
                         }
-                ).dispose();
+                );
+    }
+
+    public void gotoAddBook() {
+        ActivityMgr.gotoAddBook(view);
     }
 }

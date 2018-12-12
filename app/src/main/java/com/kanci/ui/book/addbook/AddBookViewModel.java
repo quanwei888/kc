@@ -3,7 +3,6 @@ package com.kanci.ui.book.addbook;
 import com.kanci.data.model.bean.Book;
 import com.kanci.ui.BaseViewModel;
 import com.kanci.ui.book.BookListAdapter;
-import com.kanci.ui.selectbook.SelectBookAdapter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -62,7 +61,7 @@ public class AddBookViewModel extends BaseViewModel {
                         error -> {
                             view.handleError(error);
                         }
-                ).dispose();
+                );
     }
 
 }
