@@ -1,5 +1,6 @@
 package com.kanci.di;
 
+import com.kanci.ui.book.addbook.AddBookActivity;
 import com.kanci.ui.card.CardActivity;
 import com.kanci.ui.main.MainActivity;
 import com.kanci.ui.selectbook.SelectBookActivity;
@@ -19,5 +20,8 @@ public interface AppComponent {
     void inject(MainActivity activity);
 
     void inject(CardActivity activity);
+
     void inject(SelectBookActivity activity);
+
+    void inject(AddBookActivity activity);
 }

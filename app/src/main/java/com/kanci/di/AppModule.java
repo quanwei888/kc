@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.kanci.data.AppDataManager;
 import com.kanci.data.remote.ApiHelper;
+import com.kanci.ui.book.addbook.AddBookViewModel;
 import com.kanci.ui.card.CardViewModel;
 import com.kanci.ui.main.MainActivity;
 import com.kanci.ui.main.MainViewModel;
@@ -45,6 +46,11 @@ public class AppModule {
     @Provides
     public SelectBookViewModel.View selectBookView() {
         return (SelectBookViewModel.View) context;
+    }
+
+    @Provides
+    public AddBookViewModel.View addBookView() {
+        return (AddBookViewModel.View) context;
     }
 
 
