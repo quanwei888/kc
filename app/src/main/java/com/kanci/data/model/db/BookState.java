@@ -14,29 +14,30 @@
  *  limitations under the License
  */
 
-package com.kanci.data.local.db.dao;
+package com.kanci.data.model.db;
 
-import android.arch.persistence.room.Dao;
-import android.arch.persistence.room.Insert;
-import android.arch.persistence.room.OnConflictStrategy;
-import android.arch.persistence.room.Query;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
 
-import com.kanci.data.model.db.UserWord;
-
-import java.util.List;
+import javax.inject.Inject;
 
 /**
  * Created by amitshekhar on 08/07/17.
  */
-@Dao
-public interface UserWordDao {
+@Entity(tableName = "BookState", primaryKeys = {"bookId"})
+public class BookState {
+    public int bookId;
+    public String bookName;
+    public int wordCount;
+    public int wordDone;
+    public int plan;
+    public int isStudying;
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insert(UserWord userWord);
+    public int getRemainWord() {
+        return wordCount - wordDone;
+    }
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertAll(List<UserWord> userWords);
-
-    @Query("SELECT * FROM UserWord")
-    List<UserWord> loadAll();
+    public int getRemainDays() {
+        return getRemainWord() / plan + Math.min(getRemainWord() % plan, 1);
+    }
 }

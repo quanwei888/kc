@@ -12,6 +12,8 @@ import com.kanci.ui.base.BaseViewHolder;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 
 public class SelectBookAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     public List<Book> data = new ArrayList<>();
@@ -19,6 +21,10 @@ public class SelectBookAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     public void addAll(List data) {
         this.data.addAll(data);
         notifyDataSetChanged();
+    }
+
+    @Inject
+    public SelectBookAdapter() {
     }
 
     @Override

@@ -1,26 +1,30 @@
 package com.kanci.ui.selectbook;
 
-import com.kanci.ui.base.BaseActivity;
-import com.kanci.ui.base.BaseViewModel;
-import com.kanci.ui.main.MainActivity;
+import android.databinding.ObservableField;
+
+import com.kanci.data.model.db.Book;
+import com.kanci.ui.BaseViewModel;
 import com.kanci.utils.AppSession;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
+import javax.inject.Inject;
+
 import io.reactivex.schedulers.Schedulers;
 
 
 public class SelectBookViewModel extends BaseViewModel {
-    protected SelectBookActivity view;
-    public SelectBookAdapter adapter = new SelectBookAdapter();
+    public static interface View {
 
-    @Override
-    public SelectBookActivity getView() {
-        return view;
     }
 
-    @Override
-    public void setView(BaseActivity view) {
-        this.view = (SelectBookActivity) view;
+    @Inject
+    public SelectBookViewModel.View view;
+    @Inject
+    public SelectBookAdapter adapter;
+    public ObservableField<Book> book = new ObservableField<>();
+
+
+    @Inject
+    public SelectBookViewModel() {
     }
 
     /**
@@ -29,7 +33,7 @@ public class SelectBookViewModel extends BaseViewModel {
     public void loadBookList() {
         getDataManager().doGetBookList(AppSession.uid)
                 .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+                //.observeOn(Schedulers.SelectBookThread())
                 .subscribe(res -> {
                     adapter.addAll(res.data);
                 });

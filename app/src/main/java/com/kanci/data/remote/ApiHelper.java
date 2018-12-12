@@ -2,6 +2,7 @@ package com.kanci.data.remote;
 
 import com.kanci.data.model.api.BookListResponse;
 import com.kanci.data.model.api.BookResponse;
+import com.kanci.data.model.api.BookStateListResponse;
 import com.kanci.data.model.api.WordListResponse;
 
 import io.reactivex.Single;
@@ -9,6 +10,9 @@ import retrofit2.http.GET;
 import retrofit2.http.Query;
 
 public interface ApiHelper {
+    @GET("/bookStateList.json")
+    Single<BookStateListResponse> doGetBookStateList();
+
     @GET("/bookList.json")
     Single<BookListResponse> doGetBookList(@Query("uid") int uid);
 

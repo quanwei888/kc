@@ -14,29 +14,17 @@
  *  limitations under the License
  */
 
-package com.kanci.data.local.db.dao;
-
-import android.arch.persistence.room.Dao;
-import android.arch.persistence.room.Insert;
-import android.arch.persistence.room.OnConflictStrategy;
-import android.arch.persistence.room.Query;
+package com.kanci.data.model.api;
 
 import com.kanci.data.model.db.Book;
+import com.kanci.data.model.db.BookState;
 
 import java.util.List;
 
 /**
- * Created by amitshekhar on 08/07/17.
+ * Created by amitshekhar on 07/07/17.
  */
-@Dao
-public interface BookDao {
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insert(Book book);
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertAll(List<Book> books);
-
-    @Query("SELECT * FROM Book")
-    List<Book> loadAll();
+public class BookStateListResponse extends ResultResponse {
+    public List<BookState> data;
 }

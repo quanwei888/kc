@@ -25,9 +25,8 @@ import com.google.gson.annotations.Expose;
  */
 @Entity(tableName = "Book", primaryKeys = "bid")
 public class Book {
-    public int bid;
+    public int bookId;
     public String name;
-    public String pic;
     public int status;
     public String desc;
     public String tag;

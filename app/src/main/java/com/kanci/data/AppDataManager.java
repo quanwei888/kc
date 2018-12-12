@@ -23,23 +23,16 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.kanci.data.local.db.AppDatabase;
 import com.kanci.data.local.db.AppDbHelper;
-import com.kanci.data.local.db.DbHelper;
 import com.kanci.data.local.prefs.AppPreferencesHelper;
 import com.kanci.data.local.prefs.PreferencesHelper;
 import com.kanci.data.model.api.BookListResponse;
 import com.kanci.data.model.api.BookResponse;
 import com.kanci.data.model.api.WordListResponse;
-import com.kanci.data.model.db.Book;
-import com.kanci.data.model.db.BookWord;
+import com.kanci.data.model.db.BookState;
+import com.kanci.data.model.db.BookTask;
 import com.kanci.data.remote.ApiHelper;
-import com.kanci.ui.base.BaseViewModel;
 import com.kanci.utils.AppConstants;
 
-import java.util.List;
-
-import javax.inject.Inject;
-
-import io.reactivex.Observable;
 import io.reactivex.Single;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
@@ -51,7 +44,7 @@ public class AppDataManager {
 
     private final Context context;
 
-    private final DbHelper dbHelper;
+    private final AppDbHelper dbHelper;
 
     private final Gson gson;
 
@@ -69,11 +62,19 @@ public class AppDataManager {
 
         this.preferencesHelper = new AppPreferencesHelper(context, AppConstants.PREF_NAME);
         this.apiHelper = new Retrofit.Builder()
-                .baseUrl("http://10.0.2.2:8000")
+                .baseUrl("http://lucky888.vicp.io:10000/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build().create(ApiHelper.class);
         this.gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+    }
+
+    public Single<BookState> getCurrentBookState() {
+        return dbHelper.getCurrentBookState();
+    }
+
+    public Single<BookTask> getBookTask(int bookId) {
+        return dbHelper.getBookTask(bookId);
     }
 
     public Single<BookResponse> doGetCurrentBook(int uid) {

@@ -1,5 +1,7 @@
 package com.kanci.ui;
 
+import android.content.Context;
+
 import com.kanci.data.AppDataManager;
 
 import javax.inject.Inject;
@@ -9,6 +11,12 @@ import javax.inject.Inject;
  */
 
 public abstract class BaseViewModel {
+    public interface View {
+        void handleError(Throwable e);
+
+        Context getContext();
+    }
+
     @Inject
     public AppDataManager dataManager;
 

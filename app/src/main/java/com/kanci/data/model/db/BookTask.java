@@ -14,29 +14,17 @@
  *  limitations under the License
  */
 
-package com.kanci.data.local.db.dao;
+package com.kanci.data.model.db;
 
-import android.arch.persistence.room.Dao;
-import android.arch.persistence.room.Insert;
-import android.arch.persistence.room.OnConflictStrategy;
-import android.arch.persistence.room.Query;
-
-import com.kanci.data.model.db.BookWord;
-
-import java.util.List;
+import android.arch.persistence.room.Entity;
 
 /**
  * Created by amitshekhar on 08/07/17.
  */
-@Dao
-public interface BookWordDao {
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insert(BookWord bookWord);
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertAll(List<BookWord> bookWords);
-
-    @Query("SELECT * FROM BookWord")
-    List<BookWord> loadAll();
+@Entity(tableName = "BookTask", primaryKeys = {"bookId"})
+public class BookTask {
+    public int bookId;
+    public int newWord;
+    public int reviewWord;
+    public int doneWord;
 }

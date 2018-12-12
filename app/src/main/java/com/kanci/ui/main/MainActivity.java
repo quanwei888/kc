@@ -36,10 +36,6 @@ public class MainActivity extends BaseActivity implements MainViewModel.View {
     }
 
     protected void setup() {
-        vm.loadCurrentBook();
-    }
-
-    public void gotoSelectBookActivity() {
-        startActivity(SelectBookActivity.newIntent(this));
+        vm.loadData();
     }
 }

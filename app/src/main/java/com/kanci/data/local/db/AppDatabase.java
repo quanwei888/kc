@@ -19,23 +19,17 @@ package com.kanci.data.local.db;
 import android.arch.persistence.room.Database;
 import android.arch.persistence.room.RoomDatabase;
 
-import com.kanci.data.local.db.dao.BookDao;
-import com.kanci.data.local.db.dao.BookWordDao;
-import com.kanci.data.local.db.dao.UserWordDao;
-import com.kanci.data.model.db.Book;
-import com.kanci.data.model.db.BookWord;
-import com.kanci.data.model.db.UserWord;
+import com.kanci.data.model.db.BookState;
+import com.kanci.data.model.db.BookTask;
 
-/**
- * Created by amitshekhar on 07/07/17.
- */
 
-@Database(entities = {Book.class, BookWord.class, UserWord.class}, version = 2, exportSchema = false)
+@Database(entities = {
+        BookState.class,
+        BookTask.class,
+}, version = 2, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
-    public abstract BookDao bookDao();
+    public abstract AppDao.BookStateDao bookStateDao();
 
-    public abstract BookWordDao bookWordDao();
-
-    public abstract UserWordDao userWordDao();
+    public abstract AppDao.BookTaskDao bookTaskDao();
 
 }

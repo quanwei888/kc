@@ -16,31 +16,33 @@
 
 package com.kanci.data.local.db;
 
+import android.arch.persistence.db.SimpleSQLiteQuery;
+
 import com.kanci.data.model.db.Book;
+import com.kanci.data.model.db.BookState;
+import com.kanci.data.model.db.BookTask;
 
 import java.util.List;
 import java.util.concurrent.Callable;
 
 import io.reactivex.Observable;
+import io.reactivex.Single;
 
-/**
- * Created by amitshekhar on 07/07/17.
- */
+public class AppDbHelper {
 
-public class AppDbHelper implements DbHelper {
+    private final AppDatabase db;
 
-    private final AppDatabase mAppDatabase;
-
-    public AppDbHelper(AppDatabase appDatabase) {
-        this.mAppDatabase = appDatabase;
+    public AppDbHelper(AppDatabase db) {
+        this.db = db;
     }
 
-    public Observable<List<Book>> getAllBooks() {
-        return Observable.fromCallable(new Callable<List<Book>>() {
-            @Override
-            public List<Book> call() throws Exception {
-                return mAppDatabase.bookDao().loadAll();
-            }
-        });
+    public Single<BookState> getCurrentBookState() {
+        SimpleSQLiteQuery query = new SimpleSQLiteQuery("SELECT * FROM BookState WHERE isStudying = 1");
+        return db.bookStateDao().query(query);
     }
+
+    public Single<BookTask> getBookTask(int bookId) {
+        return db.bookTaskDao().findByPk(bookId);
+    }
+
 }
