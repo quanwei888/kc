@@ -37,4 +37,21 @@ public interface ApiHelper {
     @GET("/getUserInfo.json")
     Single<EntityResponse<User>> doGetUserInfo();
 
+    @GET("/logout.json")
+    Single<CommonResponse> doLogout();
+
+    @GET("/setBookWordTag.json")
+    Single<CommonResponse> doUpdateBookWord(int tag, int studyCount);
+
+    @GET("/switchBook.json")
+    Single<CommonResponse> doSwitchBook(int bookId);
+
+    @GET("/addBook.json")
+    Single<CommonResponse> doAddBook(int bookId);
+
+    @POST("/deleteBook.json")
+    Single<CommonResponse> doDeleteBook(int bookId);
+
+    @GET("/setBookPlan.json")
+    Single<CommonResponse> doUpdateBook(int bookId, int plan);
 }

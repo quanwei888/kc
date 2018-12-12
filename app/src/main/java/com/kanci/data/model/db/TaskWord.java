@@ -29,6 +29,7 @@ public class TaskWord {
     public int bookId;
     @NonNull
     public String word;
-    public int type;//0新学，1复习
+    public int rightCount;
+    public int errorCount;
     public int tag;//0学习中,1已砍
 }

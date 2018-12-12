@@ -48,7 +48,7 @@ public class SelectBookActivity extends BaseActivity implements SelectBookViewMo
         for (String key : adapters.keySet()) {
             GridView gv = new GridView(this);
             gv.setAdapter(adapters.get(key));
-            View a = binding.bookGroup;
+            //View a = binding.bookGroup;
         }
     }
 }
