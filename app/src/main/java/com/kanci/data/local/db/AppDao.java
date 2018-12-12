@@ -24,9 +24,10 @@ import android.arch.persistence.room.Query;
 import android.arch.persistence.room.RawQuery;
 import android.arch.persistence.room.Update;
 
-import com.kanci.data.model.db.Book;
 import com.kanci.data.model.db.BookState;
-import com.kanci.data.model.db.BookTask;
+import com.kanci.data.model.db.BookWord;
+import com.kanci.data.model.db.BookWordDef;
+import com.kanci.data.model.db.TaskWord;
 
 import java.util.List;
 
@@ -38,8 +39,8 @@ public interface AppDao {
         @RawQuery
         Single<BookState> query(SupportSQLiteQuery query);
 
-        @Query("select * from BookState where bookId=:bookId")
-        Single<BookState> findByPk(int bookId);
+        @Query("select * from BookState limit 1")
+        Single<BookState> findOne();
 
         @Query("select * from BookState")
         Single<List<BookState>> findAll();
@@ -52,20 +53,59 @@ public interface AppDao {
     }
 
     @Dao
-    public interface BookTaskDao {
+    public interface BookWordDao {
         @RawQuery
-        Single<BookTask> query(SupportSQLiteQuery query);
+        Single<BookWord> query(SupportSQLiteQuery query);
 
-        @Query("select * from BookTask where bookId=:bookId")
-        Single<BookTask> findByPk(int bookId);
+        @RawQuery
+        Single<List<BookWord>> queryAll(SupportSQLiteQuery query);
 
-        @Query("select * from BookTask")
-        Single<List<BookTask>> findAll();
+        @Query("select * from BookWord where bookId=:bookId and word=:word")
+        Single<BookWord> findByPk(int bookId, String word);
+
+        @Query("select * from BookWord")
+        Single<List<BookWord>> findAll();
 
         @Insert(onConflict = OnConflictStrategy.REPLACE)
-        void insert(BookTask entity);
+        void insert(BookWord entity);
 
         @Update
-        void update(BookTask entity);
+        void update(BookWord entity);
+    }
+
+    @Dao
+    public interface BookWordDefDao {
+        @RawQuery
+        Single<BookWordDef> query(SupportSQLiteQuery query);
+
+        @Query("select * from BookWordDef where bookId=:bookId and word=:word")
+        Single<BookWordDef> findByPk(int bookId, String word);
+
+        @Query("select * from BookWordDef")
+        Single<List<BookWordDef>> findAll();
+
+        @Insert(onConflict = OnConflictStrategy.REPLACE)
+        void insert(BookWordDef entity);
+
+        @Update
+        void update(BookWordDef entity);
+    }
+
+    @Dao
+    public interface TaskWordDao {
+        @RawQuery
+        Single<TaskWord> query(SupportSQLiteQuery query);
+
+        @Query("select * from TaskWord where bookId=:bookId and word=:word")
+        Single<TaskWord> findByPk(int bookId, String word);
+
+        @Query("select * from TaskWord")
+        Single<List<TaskWord>> findAll();
+
+        @Insert(onConflict = OnConflictStrategy.REPLACE)
+        void insert(TaskWord entity);
+
+        @Update
+        void update(TaskWord entity);
     }
 }

@@ -18,34 +18,35 @@ package com.kanci.data.local.prefs;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
+
+import java.util.HashSet;
 
 
 /**
  * Created by amitshekhar on 07/07/17.
  */
 
-public class AppPreferencesHelper implements PreferencesHelper {
+public class AppPreferencesHelper {
 
-    private static final String PREF_KEY_USER_ID = "PREF_KEY_USER_ID";
-    private static final String PREF_KEY_USER_NAME = "PREF_KEY_USER_NAME";
-    private static final String PREF_KEY_USER_PIC = "PREF_KEY_USER_PIC";
+    public static final String PREF_KEY_USER_ID = "PREF_KEY_USER_ID";
+    public static final String PREF_KEY_USER_NAME = "PREF_KEY_USER_NAME";
+    public static final String PREF_KEY_USER_PIC = "PREF_KEY_USER_PIC";
+    public static final String PREF_KEY_COOKIE_ID = "PREF_KEY_COOKIE_ID";
 
-    private final SharedPreferences mPrefs;
+    public final SharedPreferences prefs;
 
     public AppPreferencesHelper(Context context, String prefFileName) {
-        mPrefs = context.getSharedPreferences(prefFileName, Context.MODE_PRIVATE);
+        prefs = context.getSharedPreferences(prefFileName, Context.MODE_PRIVATE);
     }
 
-    @Override
-    public int getUserId() {
-        return mPrefs.getInt(PREF_KEY_USER_ID, 0);
+    public HashSet getCookie() {
+        return (HashSet) prefs.getStringSet(PREF_KEY_COOKIE_ID, new HashSet<>());
     }
-    @Override
-    public String getUserName() {
-        return mPrefs.getString(PREF_KEY_USER_NAME, "");
-    }
-    @Override
-    public String getUserPic() {
-        return mPrefs.getString(PREF_KEY_USER_PIC, "");
+
+    public void setCookie(HashSet cookies) {
+        prefs.edit()
+                .putStringSet(PREF_KEY_COOKIE_ID, cookies)
+                .apply();
     }
 }

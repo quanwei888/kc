@@ -14,17 +14,20 @@
  *  limitations under the License
  */
 
-package com.kanci.data.model.api;
+package com.kanci.data.model.db;
+
+import android.arch.persistence.room.Entity;
+
+import android.support.annotation.NonNull;
 
 /**
- * Created by amitshekhar on 07/07/17.
+ * 单词书单词的详细注释，延迟加载
  */
-
-public class ResultResponse {
-    public String message;
-    public int status;
-
-    public boolean isSuccess() {
-        return status == 0;
-    }
+@Entity(tableName = "BookWordDef", primaryKeys = {"bookId", "word"})
+public class BookWordDef {
+    @NonNull
+    public int bookId;
+    @NonNull
+    public String word;
+    public String def;
 }

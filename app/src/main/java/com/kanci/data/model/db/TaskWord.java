@@ -14,17 +14,21 @@
  *  limitations under the License
  */
 
-package com.kanci.data.model.api;
+package com.kanci.data.model.db;
 
-import com.kanci.data.model.db.Book;
-import com.kanci.data.model.db.BookState;
+import android.arch.persistence.room.Entity;
+import android.support.annotation.NonNull;
 
-import java.util.List;
 
 /**
- * Created by amitshekhar on 07/07/17.
+ * 当前任务单词列表，不含详细注释，一次性全量加载
  */
-
-public class BookStateListResponse extends ResultResponse {
-    public List<BookState> data;
+@Entity(tableName = "TaskWord", primaryKeys = {"bookId", "word"})
+public class TaskWord {
+    @NonNull
+    public int bookId;
+    @NonNull
+    public String word;
+    public int type;//0新学，1复习
+    public int tag;//0学习中,1已砍
 }

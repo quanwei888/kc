@@ -18,15 +18,16 @@ package com.kanci.data.model.db;
 
 import android.arch.persistence.room.Entity;
 
-import com.google.gson.annotations.Expose;
+import android.support.annotation.NonNull;
 
 /**
- * Created by amitshekhar on 08/07/17.
+ * 单词书单词列表，不含详细注释，一次性全量加载
  */
-@Entity(tableName = "BookWord", primaryKeys = {"bid", "wid"})
+@Entity(tableName = "BookWord", primaryKeys = {"bookId", "word"})
 public class BookWord {
-    @Expose public int bid;
-    @Expose public int wid;
-    @Expose public String head;
-    @Expose public String def;
+    @NonNull
+    public int bookId;
+    @NonNull
+    public String word;
+    public int tag;//0学习中,1已砍
 }

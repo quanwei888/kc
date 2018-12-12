@@ -37,7 +37,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="@{vm.book.name}"
+            android:text="@{vm.book.bookName}"
             android:textColor="#FFFFFF"
             android:textSize="18sp"
             tools:text="大学四级" />

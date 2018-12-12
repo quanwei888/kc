@@ -20,16 +20,24 @@ import android.arch.persistence.room.Database;
 import android.arch.persistence.room.RoomDatabase;
 
 import com.kanci.data.model.db.BookState;
-import com.kanci.data.model.db.BookTask;
+import com.kanci.data.model.db.BookWord;
+import com.kanci.data.model.db.BookWordDef;
+import com.kanci.data.model.db.TaskWord;
 
 
 @Database(entities = {
         BookState.class,
-        BookTask.class,
+        BookWord.class,
+        BookWordDef.class,
+        TaskWord.class
 }, version = 2, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
     public abstract AppDao.BookStateDao bookStateDao();
 
-    public abstract AppDao.BookTaskDao bookTaskDao();
+    public abstract AppDao.BookWordDao bookWordDao();
+
+    public abstract AppDao.BookWordDefDao bookWordDefDao();
+
+    public abstract AppDao.TaskWordDao taskWordDao();
 
 }

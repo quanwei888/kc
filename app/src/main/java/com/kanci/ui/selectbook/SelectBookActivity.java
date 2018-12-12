@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
+import android.view.View;
+import android.widget.GridView;
 
 import com.kanci.BR;
 import com.kanci.R;
@@ -14,9 +16,11 @@ import com.kanci.di.DaggerAppComponent;
 import com.kanci.ui.BaseActivity;
 import com.malinskiy.superrecyclerview.OnMoreListener;
 
+import java.util.Map;
+
 import javax.inject.Inject;
 
-public class SelectBookActivity extends BaseActivity {
+public class SelectBookActivity extends BaseActivity implements SelectBookViewModel.View {
     @Inject
     public SelectBookViewModel vm;
     public ActivitySelectBookBinding binding;
@@ -36,6 +40,15 @@ public class SelectBookActivity extends BaseActivity {
     }
 
     protected void setup() {
-        vm.loadBookList();
+        vm.loadData();
+    }
+
+    @Override
+    public void showBookList(Map<String, SelectBookAdapter> adapters) {
+        for (String key : adapters.keySet()) {
+            GridView gv = new GridView(this);
+            gv.setAdapter(adapters.get(key));
+            View a = binding.bookGroup;
+        }
     }
 }

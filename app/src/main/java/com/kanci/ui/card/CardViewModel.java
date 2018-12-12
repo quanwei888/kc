@@ -2,7 +2,7 @@ package com.kanci.ui.card;
 
 import android.databinding.ObservableField;
 
-import com.kanci.data.model.db.Book;
+import com.kanci.data.model.bean.Book;
 import com.kanci.ui.BaseViewModel;
 import com.kanci.utils.AppSession;
 
@@ -29,12 +29,6 @@ public class CardViewModel extends BaseViewModel {
      * 加载当前单词书
      */
     public void loadCurrentBook() {
-        getDataManager().doGetCurrentBook(AppSession.uid)
-                .subscribeOn(Schedulers.computation())
-                .observeOn(Schedulers.io())
-                .subscribe(res -> {
-                    book.set(res.data);
-                });
     }
 
     /**

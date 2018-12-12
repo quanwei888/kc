@@ -21,17 +21,22 @@ import android.arch.persistence.room.Ignore;
 
 import javax.inject.Inject;
 
+import android.support.annotation.NonNull;
+
 /**
- * Created by amitshekhar on 08/07/17.
+ * 当前单词书学习的状态
  */
 @Entity(tableName = "BookState", primaryKeys = {"bookId"})
 public class BookState {
+    @NonNull
     public int bookId;
     public String bookName;
     public int wordCount;
     public int wordDone;
     public int plan;
-    public int isStudying;
+    public int taskNewWord;
+    public int taskReviewWord;
+    public int taskDoneWord;
 
     public int getRemainWord() {
         return wordCount - wordDone;

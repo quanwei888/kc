@@ -14,17 +14,29 @@
  *  limitations under the License
  */
 
-package com.kanci.data.local.prefs;
+package com.kanci.data.model.api;
+
+import java.util.List;
 
 /**
  * Created by amitshekhar on 07/07/17.
  */
 
-public interface PreferencesHelper {
+public class Response {
+    public class CommonResponse {
+        public String message;
+        public int status;
 
-    int getUserId();
+        public boolean isSuccess() {
+            return status == 0;
+        }
+    }
 
-    String getUserName();
+    public class EntityResponse<T> extends CommonResponse {
+        public T data;
+    }
 
-    String getUserPic();
+    public class EntityListResponse<T> extends CommonResponse {
+        public List<T> data;
+    }
 }
