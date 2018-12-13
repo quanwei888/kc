@@ -3,10 +3,9 @@ package com.kanci.di;
 import android.content.Context;
 
 import com.kanci.data.AppDataManager;
-import com.kanci.data.remote.ApiHelper;
-import com.kanci.ui.book.addbook.AddBookViewModel;
+import com.kanci.ui.book.add.BookAddViewModel;
+import com.kanci.ui.book.plan.BookPlanViewModel;
 import com.kanci.ui.card.CardViewModel;
-import com.kanci.ui.main.MainActivity;
 import com.kanci.ui.main.MainViewModel;
 
 import dagger.Module;
@@ -42,8 +41,13 @@ public class AppModule {
     }
 
     @Provides
-    public AddBookViewModel.View addBookView() {
-        return (AddBookViewModel.View) context;
+    public BookAddViewModel.View addBookView() {
+        return (BookAddViewModel.View) context;
+    }
+
+    @Provides
+    public BookPlanViewModel.View planBookView() {
+        return (BookPlanViewModel.View) context;
     }
 
 

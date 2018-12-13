@@ -1,4 +1,4 @@
-package com.kanci.ui.book.addbook;
+package com.kanci.ui.book.add;
 
 import com.kanci.data.model.bean.Book;
 import com.kanci.ui.BaseViewModel;
@@ -16,20 +16,20 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 
-public class AddBookViewModel extends BaseViewModel {
+public class BookAddViewModel extends BaseViewModel {
     public static interface View extends BaseViewModel.View {
         void showBookList(Map<String, BookListAdapter> adapters);
     }
 
     @Inject
-    public AddBookViewModel.View view;
+    public BookAddViewModel.View view;
 
     public Map<String, List<Book>> books = new HashMap<>();
     public Map<String, BookListAdapter> adapters = new HashMap<>();
 
 
     @Inject
-    public AddBookViewModel() {
+    public BookAddViewModel() {
     }
 
     /**

@@ -18,6 +18,12 @@ import java.util.List;
 public class BookListAdapter extends RecyclerView.Adapter<BookListAdapter.BookViewHolder> {
     public List<Book> data = new ArrayList<>();
 
+    public OnItemClickListener onItemClickListener;
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
+    }
+
     public void addAll(List data) {
         this.data.addAll(data);
         notifyDataSetChanged();
@@ -33,6 +39,11 @@ public class BookListAdapter extends RecyclerView.Adapter<BookListAdapter.BookVi
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_book, null);
         ItemBookBinding binding = DataBindingUtil.bind(view);
         BookViewHolder vh = new BookViewHolder(binding);
+        vh.itemView.setOnClickListener((v) -> {
+            if (onItemClickListener != null) {
+                onItemClickListener.onItemClick(v);
+            }
+        });
         return vh;
     }
 
@@ -47,8 +58,8 @@ public class BookListAdapter extends RecyclerView.Adapter<BookListAdapter.BookVi
     }
 
     public class BookViewHolder extends RecyclerView.ViewHolder {
-        ItemBookBinding binding;
-        BookItem item = new BookItem();
+        public ItemBookBinding binding;
+        public BookItem item = new BookItem();
 
         public BookViewHolder(ItemBookBinding binding) {
             super(binding.getRoot());
@@ -58,10 +69,15 @@ public class BookListAdapter extends RecyclerView.Adapter<BookListAdapter.BookVi
         public void onBind(BookViewHolder vh, int pos) {
             item.book = data.get(pos);
             binding.setVariable(BR.vm, item);
+            itemView.setTag(item.book);
         }
     }
 
-    public class BookItem {
+    public static class BookItem {
         public Book book;
+    }
+
+    public static interface OnItemClickListener {
+        void onItemClick(View view);
     }
 }

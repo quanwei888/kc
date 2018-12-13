@@ -10,7 +10,7 @@
 
         <variable
             name="vm"
-            type="com.kanci.ui.book.addbook.AddBookViewModel" />
+            type="com.kanci.ui.book.add.BookAddViewModel" />
     </data>
 
     <LinearLayout
