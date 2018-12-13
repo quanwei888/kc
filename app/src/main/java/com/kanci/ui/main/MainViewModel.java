@@ -54,7 +54,6 @@ public class MainViewModel extends BaseViewModel {
                         }
                 );
         compositeDisposable.add(disposable);
-        compositeDisposable.dispose();
     }
 
     public void runStudy() {

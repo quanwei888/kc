@@ -52,8 +52,19 @@ public class BookAddActivity extends BaseActivity implements BookAddViewModel.Vi
     public void showBookList(Map<String, BookListAdapter> adapters) {
         for (String key : adapters.keySet()) {
             RecyclerView lv = new RecyclerView(this);
-            AppGridLayoutManager layoutManager = new AppGridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false);
-            ((AppGridLayoutManager) layoutManager).setScrollEnabled(false);
+            AppGridLayoutManager layoutManager = new AppGridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false) {
+                @Override
+                public void onMeasure(RecyclerView.Recycler recycler, RecyclerView.State state, int widthSpec, int heightSpec) {
+                    if (getChildCount() > 0) {
+                        View firstChildView = recycler.getViewForPosition(0);
+                        measureChild(firstChildView, widthSpec, heightSpec);
+                        setMeasuredDimension(View.MeasureSpec.getSize(widthSpec), firstChildView.getMeasuredHeight() * 3);
+                    } else {
+                        super.onMeasure(recycler, state, widthSpec, heightSpec);
+                    }
+                }
+            };
+            //((AppGridLayoutManager) layoutManager).setScrollEnabled(false);
             lv.setLayoutManager(layoutManager);
             lv.setAdapter(adapters.get(key));
             adapters.get(key).setOnItemClickListener((v) -> {

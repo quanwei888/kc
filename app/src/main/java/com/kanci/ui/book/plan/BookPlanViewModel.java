@@ -63,7 +63,6 @@ public class BookPlanViewModel extends BaseViewModel {
                         }
                 );
         compositeDisposable.add(disposable);
-        compositeDisposable.dispose();
     }
 
 }

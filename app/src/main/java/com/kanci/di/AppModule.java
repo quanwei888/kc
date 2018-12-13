@@ -16,6 +16,9 @@ import dagger.Provides;
 public class AppModule {
     Context context;
 
+    public AppModule() {
+    }
+
     public AppModule(Context context) {
         this.context = context;
     }
@@ -54,6 +57,5 @@ public class AppModule {
     public WordMainViewModel.View wordMainViewModel() {
         return (WordMainViewModel.View) context;
     }
-
 
 }

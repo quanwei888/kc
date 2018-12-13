@@ -274,6 +274,10 @@ public class AppDataManager {
             }
         }
 
+        if(lackWords.size() == 0) {
+            return entityList;
+        }
+
         ApiResponse.EntityListResponse<BookWordDef> response = apiHelper.doGetBookWordDefListByWords(bookId, lackWords).blockingGet();
         if (!response.isSuccess()) {
             throw new ApiException(response.status, response.message);

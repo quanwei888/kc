@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.mindorks.framework.mvvm.com.kanci.ui.login.LoginActivity">
 
@@ -13,35 +12,11 @@
             type="com.kanci.ui.word.main.WordMainViewModel" />
     </data>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
         android:orientation="vertical">
-
-        <android.support.v7.widget.Toolbar
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="?attr/colorPrimary"
-            android:minHeight="?attr/actionBarSize"
-            android:theme="?attr/actionBarTheme">
-
-        </android.support.v7.widget.Toolbar>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <fragment
-                android:name="com.kanci.ui.word.main.MainWordFragment"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:layout="@layout/fragment_word_main_word" >
-
-            </fragment>
-
-        </LinearLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -50,32 +25,44 @@
             android:gravity="right|bottom">
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/fragmentView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginRight="20dp"
+                android:gravity="right|center_vertical"
                 android:orientation="horizontal"
                 android:weightSum="2">
 
                 <Button
                     android:layout_width="50dp"
-                    android:layout_height="20dp"
+                    android:layout_height="30dp"
                     android:background="@drawable/bg_btn"
-                    android:onClick="@{()->vm.selectBook()}"
+                    android:onClick="@{()->vm.nextWord()}"
                     android:text="砍"
                     android:textColor="@color/fontGray"
-                    android:textSize="12dp" />
+                    android:textSize="16dp" />
 
                 <Button
                     android:layout_width="70dp"
-                    android:layout_height="20dp"
+                    android:layout_height="30dp"
                     android:layout_marginLeft="10dp"
                     android:background="@drawable/bg_btn"
+                    android:onClick="@{()->vm.showTip()}"
                     android:text="提示"
                     android:textColor="@color/fontGray"
-                    android:textSize="12dp" />
+                    android:textSize="16dp" />
 
             </LinearLayout>
 
         </RelativeLayout>
 
-    </LinearLayout>
+    </RelativeLayout>
 </layout>

@@ -28,6 +28,8 @@ public class WordMainViewModel extends BaseViewModel {
 
         void onComplete();
 
+        void showTip();
+
     }
 
     @Inject
@@ -78,10 +80,16 @@ public class WordMainViewModel extends BaseViewModel {
                         }
                 );
         compositeDisposable.add(disposable);
-        compositeDisposable.dispose();
     }
 
     public void nextWord() {
+        if (wordStratege.hasNext()) {
+            String word = wordStratege.next();
+            view.showWord(wordStratege.taskWord(word), wordStratege.wordDef(word), 0);
+        }
+    }
 
+    public void showTip() {
+        view.showTip();
     }
 }

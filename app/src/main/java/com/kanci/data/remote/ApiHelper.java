@@ -2,8 +2,8 @@ package com.kanci.data.remote;
 
 
 import com.kanci.data.model.api.ApiResponse.CommonResponse;
-import com.kanci.data.model.api.ApiResponse.EntityResponse;
 import com.kanci.data.model.api.ApiResponse.EntityListResponse;
+import com.kanci.data.model.api.ApiResponse.EntityResponse;
 import com.kanci.data.model.bean.Book;
 import com.kanci.data.model.bean.User;
 import com.kanci.data.model.db.BookState;
@@ -23,25 +23,25 @@ public interface ApiHelper {
     Single<EntityResponse<BookState>> doGetBookState();
 
     @GET("/doGetBookWordList")
-    Single<EntityListResponse<BookWord>> doGetBookWordList(int bookId);
+    Single<EntityListResponse<BookWord>> doGetBookWordList(@Query("bookId") int bookId);
 
     @GET("/doGetTaskWordList")
-    Single<EntityListResponse<TaskWord>> doGetTaskWordList(int bookId);
+    Single<EntityListResponse<TaskWord>> doGetTaskWordList(@Query("bookId") int bookId);
 
     @GET("/bookWordDef.json")
-    Single<EntityResponse<BookWordDef>> doGetBookWordDef(int bookId, String word);
+    Single<EntityResponse<BookWordDef>> doGetBookWordDef(@Query("bookId") int bookId, @Query("word") String word);
 
     @GET("/bookWordDefList.json")
-    Single<EntityListResponse<BookWordDef>> doGetBookWordDefList(int bookId);
+    Single<EntityListResponse<BookWordDef>> doGetBookWordDefList(@Query("bookId") int bookId);
 
     @GET("/doGetBookWordDefListByWords")
-    Single<EntityListResponse<BookWordDef>> doGetBookWordDefListByWords(int bookId, @Query("word[]") List<String> ids);
+    Single<EntityListResponse<BookWordDef>> doGetBookWordDefListByWords(@Query("bookId") int bookId, @Query("word[]") List<String> ids);
 
     @GET("/doGetBookList")
     Single<EntityListResponse<Book>> doGetBookList();
 
     @POST("/login.php")
-    Single<EntityResponse<User>> doLogin(String userName, String password);
+    Single<EntityResponse<User>> doLogin(@Query("userName") String userName, @Query("password") String password);
 
     @GET("/getUserInfo.json")
     Single<EntityResponse<User>> doGetUserInfo();
@@ -50,18 +50,18 @@ public interface ApiHelper {
     Single<CommonResponse> doLogout();
 
     @GET("/setBookWordTag.json")
-    Single<CommonResponse> doUpdateBookWord(int tag, int studyCount);
+    Single<CommonResponse> doUpdateBookWord(@Query("tag") int tag, @Query("studyCount") int studyCount);
 
     @GET("/switchBook.json")
-    Single<CommonResponse> doSwitchBook(int bookId);
+    Single<CommonResponse> doSwitchBook(@Query("bookId") int bookId);
 
     @GET("/addBook.json")
-    Single<CommonResponse> doAddBook(int bookId, int plan);
+    Single<CommonResponse> doAddBook(@Query("bookId") int bookId, @Query("plan") int plan);
 
     @POST("/deleteBook.json")
-    Single<CommonResponse> doDeleteBook(int bookId);
+    Single<CommonResponse> doDeleteBook(@Query("bookId") int bookId);
 
     @GET("/doCreateTask.json")
-    Single<CommonResponse> doCreateTask(int bookId);
+    Single<CommonResponse> doCreateTask(@Query("bookId") int bookId);
 
 }
