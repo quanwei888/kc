@@ -22,20 +22,30 @@ import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.util.Log;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.franmontiel.persistentcookiejar.ClearableCookieJar;
+import com.franmontiel.persistentcookiejar.PersistentCookieJar;
+import com.franmontiel.persistentcookiejar.cache.SetCookieCache;
+import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor;
 import com.kanci.data.local.db.AppDatabase;
 import com.kanci.data.local.prefs.AppPreferencesHelper;
+import com.kanci.data.model.api.ApiException;
+import com.kanci.data.model.api.ApiResponse;
 import com.kanci.data.model.bean.Book;
 import com.kanci.data.model.db.BookState;
 import com.kanci.data.model.db.BookWord;
 import com.kanci.data.model.db.BookWordDef;
+import com.kanci.data.model.db.TaskWord;
 import com.kanci.data.remote.ApiHelper;
 import com.kanci.utils.AppConstants;
 
 import java.io.IOException;
+import java.net.CookieHandler;
+import java.net.CookieManager;
+import java.net.CookiePolicy;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Interceptor;
@@ -65,12 +75,15 @@ public class AppDataManager {
         this.db = Room.databaseBuilder(context, AppDatabase.class, AppConstants.DB_NAME).fallbackToDestructiveMigration().build();
         this.preferencesHelper = new AppPreferencesHelper(context, AppConstants.PREF_NAME);
 
+        ClearableCookieJar cookieJar =
+                new PersistentCookieJar(new SetCookieCache(), new SharedPrefsCookiePersistor(context));
         Builder okHttpClient = new OkHttpClient().newBuilder()
+                .cookieJar(cookieJar)
                 .connectTimeout(60 * 5, TimeUnit.SECONDS)
                 .readTimeout(60 * 5, TimeUnit.SECONDS)
                 .writeTimeout(60 * 5, TimeUnit.SECONDS);
-        okHttpClient.interceptors().add(new AddCookiesInterceptor());
-        okHttpClient.interceptors().add(new ReceivedCookiesInterceptor());
+        //okHttpClient.interceptors().add(new AddCookiesInterceptor());
+        //okHttpClient.interceptors().add(new ReceivedCookiesInterceptor());
 
         this.apiHelper = new Retrofit.Builder()
                 .baseUrl("http://lucky888.vicp.io:10000/index.php/")
@@ -116,7 +129,7 @@ public class AppDataManager {
      *
      * @return
      */
-    public BookState getBookState() {
+    public BookState getBookState() throws ApiException {
         //local
         BookState entity = null;
         try {
@@ -126,12 +139,33 @@ public class AppDataManager {
         }
         if (entity == null) {
             //remote
-            entity = apiHelper.doGetBookState().blockingGet().data;
+            ApiResponse.EntityResponse<BookState> response = apiHelper.doGetBookState().blockingGet();
+            if (!response.isSuccess()) {
+                throw new ApiException(response.status, response.message);
+            }
+            entity = response.data;
             if (entity != null) {
                 db.bookStateDao().insert(entity);
             }
         }
         return entity;
+    }
+
+    /**
+     * 当前单词书状态
+     *
+     * @return
+     */
+    public void cacheBookState() throws ApiException {
+        ApiResponse.EntityResponse<BookState> response = apiHelper.doGetBookState().blockingGet();
+        if (!response.isSuccess()) {
+            throw new ApiException(response.status, response.message);
+        }
+        BookState entity = response.data;
+        if (entity != null) {
+            db.bookStateDao().insert(entity);
+        }
+
     }
 
     /**
@@ -149,12 +183,47 @@ public class AppDataManager {
     }
 
     /**
+     * 获取单词书单词列表
+     *
+     * @param bookId
+     * @return
+     */
+    public List<TaskWord> getTaskWordList(int bookId) {
+        List<TaskWord> entityList = db.taskWordDao().findAll().blockingGet();
+        return entityList;
+    }
+
+    /**
+     * 缓存单词书任务
+     *
+     * @param bookId
+     * @return
+     */
+    public void cacheTaskWordList(int bookId) throws ApiException {
+        ApiResponse.EntityListResponse<TaskWord> response = apiHelper.doGetTaskWordList(bookId).blockingGet();
+        if (!response.isSuccess()) {
+            throw new ApiException(response.status, response.message);
+        }
+        List<TaskWord> entityList = response.data;
+        if (entityList.size() == 0) {
+            return;
+        }
+        for (TaskWord word : entityList) {
+            db.taskWordDao().insert(word);
+        }
+    }
+
+    /**
      * 加载BookWord到本地
      *
      * @param bookId
      */
-    public void cacheBookWordList(int bookId) {
-        List<BookWord> entityList = apiHelper.doGetBookWordList(bookId).blockingGet().data;
+    public void cacheBookWordList(int bookId) throws ApiException {
+        ApiResponse.EntityListResponse<BookWord> response = apiHelper.doGetBookWordList(bookId).blockingGet();
+        if (!response.isSuccess()) {
+            throw new ApiException(response.status, response.message);
+        }
+        List<BookWord> entityList = response.data;
         if (entityList.size() == 0) {
             return;
         }
@@ -170,7 +239,7 @@ public class AppDataManager {
      * @param word
      * @return
      */
-    public BookWordDef getBookWordDef(int bookId, String word) {
+    public BookWordDef getBookWordDef(int bookId, String word) throws ApiException {
         //local
         BookWordDef entity = null;
         try {
@@ -180,12 +249,42 @@ public class AppDataManager {
         }
         if (entity == null) {
             //remote
-            entity = apiHelper.doGetBookWordDef(bookId, word).blockingGet().data;
-            if (entity != null) {
-                db.bookWordDefDao().insert(entity);
+            ApiResponse.EntityResponse<BookWordDef> response = apiHelper.doGetBookWordDef(bookId, word).blockingGet();
+            if (!response.isSuccess()) {
+                throw new ApiException(response.status, response.message);
             }
+            entity = response.data;
+            db.bookWordDefDao().insert(entity);
         }
         return entity;
+    }
+
+    public List<BookWordDef> getBookWordDefByWords(int bookId, List<String> words) throws ApiException {
+        //local
+        List<BookWordDef> entityList = db.bookWordDefDao().findAllByWords(bookId, words).blockingGet();
+        Set<String> wordSet = new HashSet<>();
+        for (BookWordDef wordDef : entityList) {
+            wordSet.add(wordDef.word);
+        }
+
+        List<String> lackWords = new ArrayList<>();
+        for (String word : words) {
+            if (!wordSet.contains(word)) {
+                lackWords.add(word);
+            }
+        }
+
+        ApiResponse.EntityListResponse<BookWordDef> response = apiHelper.doGetBookWordDefListByWords(bookId, lackWords).blockingGet();
+        if (!response.isSuccess()) {
+            throw new ApiException(response.status, response.message);
+        }
+
+        List<BookWordDef> lackEntityList = response.data;
+        for (BookWordDef word : lackEntityList) {
+            db.bookWordDefDao().insert(word);
+            entityList.add(word);
+        }
+        return entityList;
     }
 
     /**
@@ -193,11 +292,12 @@ public class AppDataManager {
      *
      * @param bookId
      */
-    public void cacheBookWordDefList(int bookId) {
-        List<BookWordDef> entityList = apiHelper.doGetBookWordDefList(bookId).blockingGet().data;
-        if (entityList.size() == 0) {
-            return;
+    public void cacheBookWordDefList(int bookId) throws ApiException {
+        ApiResponse.EntityListResponse<BookWordDef> response = apiHelper.doGetBookWordDefList(bookId).blockingGet();
+        if (!response.isSuccess()) {
+            throw new ApiException(response.status, response.message);
         }
+        List<BookWordDef> entityList = response.data;
         for (BookWordDef word : entityList) {
             db.bookWordDefDao().insert(word);
         }
@@ -208,8 +308,39 @@ public class AppDataManager {
      *
      * @return
      */
-    public List<Book> getBookList() {
-        List<Book> entityList = apiHelper.doGetBookList().blockingGet().data;
+    public List<Book> getBookList() throws ApiException {
+        ApiResponse.EntityListResponse<Book> response = apiHelper.doGetBookList().blockingGet();
+        if (!response.isSuccess()) {
+            throw new ApiException(response.status, response.message);
+        }
+        List<Book> entityList = response.data;
         return entityList;
+    }
+
+    /**
+     * 添加Book
+     *
+     * @param bookId
+     * @param plan
+     * @throws ApiException
+     */
+    public void addBook(int bookId, int plan) throws ApiException {
+        ApiResponse.CommonResponse response = apiHelper.doAddBook(bookId, plan).blockingGet();
+        if (!response.isSuccess()) {
+            throw new ApiException(response.status, response.message);
+        }
+    }
+
+    /**
+     * 创建新任务
+     *
+     * @param bookId
+     * @throws ApiException
+     */
+    public void createTask(int bookId) throws ApiException {
+        ApiResponse.CommonResponse response = apiHelper.doCreateTask(bookId).blockingGet();
+        if (!response.isSuccess()) {
+            throw new ApiException(response.status, response.message);
+        }
     }
 }
