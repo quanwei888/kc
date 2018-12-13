@@ -7,6 +7,7 @@ import com.kanci.ui.book.add.BookAddViewModel;
 import com.kanci.ui.book.plan.BookPlanViewModel;
 import com.kanci.ui.card.CardViewModel;
 import com.kanci.ui.main.MainViewModel;
+import com.kanci.ui.word.main.WordMainViewModel;
 
 import dagger.Module;
 import dagger.Provides;
@@ -29,25 +30,29 @@ public class AppModule {
         return AppDataManager.instance(context);
     }
 
-
     @Provides
-    public MainViewModel.View mainView() {
+    public MainViewModel.View mainViewModel() {
         return (MainViewModel.View) context;
     }
 
     @Provides
-    public CardViewModel.View cardView() {
+    public CardViewModel.View cardViewModel() {
         return (CardViewModel.View) context;
     }
 
     @Provides
-    public BookAddViewModel.View addBookView() {
+    public BookAddViewModel.View wookAddViewModel() {
         return (BookAddViewModel.View) context;
     }
 
     @Provides
-    public BookPlanViewModel.View planBookView() {
+    public BookPlanViewModel.View wookPlanViewModel() {
         return (BookPlanViewModel.View) context;
+    }
+
+    @Provides
+    public WordMainViewModel.View wordMainViewModel() {
+        return (WordMainViewModel.View) context;
     }
 
 

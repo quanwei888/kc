@@ -8,10 +8,9 @@ import android.os.Bundle;
 import com.kanci.BR;
 import com.kanci.R;
 import com.kanci.databinding.ActivityCardBinding;
-import com.kanci.databinding.ActivityMainBinding;
 import com.kanci.di.AppModule;
 import com.kanci.di.DaggerAppComponent;
-import com.kanci.ui.BaseActivity;
+import com.kanci.ui.base.BaseActivity;
 
 import javax.inject.Inject;
 

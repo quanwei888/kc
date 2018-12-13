@@ -19,12 +19,14 @@ package com.kanci.data.model.db;
 import android.arch.persistence.room.Entity;
 import android.support.annotation.NonNull;
 
+import java.io.Serializable;
+
 
 /**
  * 当前任务单词列表，不含详细注释，一次性全量加载
  */
 @Entity(tableName = "TaskWord", primaryKeys = {"bookId", "word"})
-public class TaskWord {
+public class TaskWord implements Serializable {
     @NonNull
     public int bookId;
     @NonNull

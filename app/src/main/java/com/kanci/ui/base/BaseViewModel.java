@@ -1,40 +1,26 @@
-/*
- *  Copyright (C) 2017 MINDORKS NEXTGEN protected LIMITED
- *
- *  Licensed under the Apache License, Version 2.0 (the "License");
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
- *
- *      https://mindorks.com/license/apache-v2
- *
- *  Unless required by applicable law or agreed to in writing, software
- *  distributed under the License is distributed on an "AS IS" BASIS,
- *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  See the License for the specific language governing permissions and
- *  limitations under the License
- */
-
 package com.kanci.ui.base;
+
+import android.content.Context;
 
 import com.kanci.data.AppDataManager;
 
-public abstract class BaseViewModel {
-    protected AppDataManager dataManager;
+import javax.inject.Inject;
 
-    public BaseViewModel() {
+/**
+ * Created by qw on 18-12-12.
+ */
+
+public abstract class BaseViewModel {
+    public interface View {
+        void handleError(Throwable e);
+
+        Context getContext();
     }
 
-    public abstract BaseActivity getView();
-
-    public abstract void setView(BaseActivity view);
+    @Inject
+    public AppDataManager dataManager;
 
     public AppDataManager getDataManager() {
         return dataManager;
     }
-
-    public void setDataManager(AppDataManager dataManager) {
-        this.dataManager = dataManager;
-    }
-
-
 }

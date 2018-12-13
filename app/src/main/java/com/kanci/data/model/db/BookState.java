@@ -23,11 +23,13 @@ import javax.inject.Inject;
 
 import android.support.annotation.NonNull;
 
+import java.io.Serializable;
+
 /**
  * 当前单词书学习的状态
  */
 @Entity(tableName = "BookState", primaryKeys = {"bookId"})
-public class BookState {
+public class BookState implements Serializable {
     @NonNull
     public int bookId;
     public String bookName;
@@ -37,6 +39,7 @@ public class BookState {
     public int taskNewWord;
     public int taskReviewWord;
     public int taskDoneWord;
+    public boolean taskIsCached;//Ignore
 
     public int getRemainWord() {
         return wordCount - wordDone;

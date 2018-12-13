@@ -22,7 +22,8 @@ import java.util.List;
  * Created by amitshekhar on 07/07/17.
  */
 
-public class Response {
+public class ApiResponse {
+
     public class CommonResponse {
         public String message;
         public int status;

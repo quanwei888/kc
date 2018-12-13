@@ -7,9 +7,7 @@ import com.kanci.R;
 import com.kanci.databinding.ActivityTestBinding;
 import com.kanci.di.AppModule;
 import com.kanci.di.DaggerAppComponent;
-import com.kanci.ui.BaseActivity;
-
-import javax.inject.Inject;
+import com.kanci.ui.base.BaseActivity;
 
 public class TestActivity extends BaseActivity {
     public TestViewModel vm;

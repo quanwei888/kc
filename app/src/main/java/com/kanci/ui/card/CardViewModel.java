@@ -3,12 +3,9 @@ package com.kanci.ui.card;
 import android.databinding.ObservableField;
 
 import com.kanci.data.model.bean.Book;
-import com.kanci.ui.BaseViewModel;
-import com.kanci.utils.AppSession;
+import com.kanci.ui.base.BaseViewModel;
 
 import javax.inject.Inject;
-
-import io.reactivex.schedulers.Schedulers;
 
 
 public class CardViewModel extends BaseViewModel {

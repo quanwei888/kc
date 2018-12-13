@@ -84,6 +84,9 @@ public interface AppDao {
         @Query("select * from BookWordDef")
         Single<List<BookWordDef>> findAll();
 
+        @Query("select * from BookWordDef where bookId=:bookId and word in (:words)")
+        Single<List<BookWordDef>> findAllByWords(int bookId, List<String> words);
+
         @Insert(onConflict = OnConflictStrategy.REPLACE)
         void insert(BookWordDef entity);
 

@@ -11,7 +11,7 @@ import com.kanci.data.model.bean.Book;
 import com.kanci.databinding.ActivityBookPlanBinding;
 import com.kanci.di.AppModule;
 import com.kanci.di.DaggerAppComponent;
-import com.kanci.ui.BaseActivity;
+import com.kanci.ui.base.BaseActivity;
 
 import javax.inject.Inject;
 

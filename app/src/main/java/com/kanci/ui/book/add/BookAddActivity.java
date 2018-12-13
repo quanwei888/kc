@@ -17,8 +17,9 @@ import com.kanci.databinding.ActivityBookAddBinding;
 import com.kanci.di.AppModule;
 import com.kanci.di.DaggerAppComponent;
 import com.kanci.ui.ActivityMgr;
-import com.kanci.ui.BaseActivity;
+import com.kanci.ui.base.BaseActivity;
 import com.kanci.ui.book.BookListAdapter;
+import com.kanci.utils.AppGridLayoutManager;
 
 import java.util.Map;
 
@@ -51,7 +52,8 @@ public class BookAddActivity extends BaseActivity implements BookAddViewModel.Vi
     public void showBookList(Map<String, BookListAdapter> adapters) {
         for (String key : adapters.keySet()) {
             RecyclerView lv = new RecyclerView(this);
-            RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false);
+            AppGridLayoutManager layoutManager = new AppGridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false);
+            ((AppGridLayoutManager) layoutManager).setScrollEnabled(false);
             lv.setLayoutManager(layoutManager);
             lv.setAdapter(adapters.get(key));
             adapters.get(key).setOnItemClickListener((v) -> {

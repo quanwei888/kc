@@ -1,7 +1,7 @@
 package com.kanci.ui.book.add;
 
 import com.kanci.data.model.bean.Book;
-import com.kanci.ui.BaseViewModel;
+import com.kanci.ui.base.BaseViewModel;
 import com.kanci.ui.book.BookListAdapter;
 
 import java.util.ArrayList;
@@ -13,6 +13,8 @@ import javax.inject.Inject;
 
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 
@@ -36,12 +38,13 @@ public class BookAddViewModel extends BaseViewModel {
      * 加载单词书列表
      */
     public void loadData() {
-
         Single<List<Book>> single = Single.create(emitter -> {
             List<Book> bookList = getDataManager().getBookList();
             emitter.onSuccess(bookList);
         });
-        single.subscribeOn(Schedulers.io())
+
+        CompositeDisposable compositeDisposable = new CompositeDisposable();
+        Disposable disposable = single.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         result -> {
@@ -62,6 +65,8 @@ public class BookAddViewModel extends BaseViewModel {
                             view.handleError(error);
                         }
                 );
+        compositeDisposable.add(disposable);
+        compositeDisposable.dispose();
     }
 
 }

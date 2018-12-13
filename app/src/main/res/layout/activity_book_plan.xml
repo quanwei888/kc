@@ -43,7 +43,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="制定计划"
+                    android:text="Make Plan"
                     android:textSize="18dp" />
             </LinearLayout>
         </android.support.v7.widget.Toolbar>
@@ -75,7 +75,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text='@{String.valueOf(vm.book.wordCount) + "词"}'
+                    android:text="@{String.valueOf(vm.book.wordCount)}"
                     android:textColor="#8D97A1"
                     android:textSize="12sp"
                     tools:text="2345词" />

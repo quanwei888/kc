@@ -20,11 +20,13 @@ import android.arch.persistence.room.Entity;
 
 import android.support.annotation.NonNull;
 
+import java.io.Serializable;
+
 /**
  * 单词书单词列表，不含详细注释，一次性全量加载
  */
 @Entity(tableName = "BookWord", primaryKeys = {"bookId", "word"})
-public class BookWord {
+public class BookWord implements Serializable {
     @NonNull
     public int bookId;
     @NonNull
