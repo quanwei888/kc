@@ -62,7 +62,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="我的单词书"
-                    android:theme="@style/font_black_h2" />
+                    android:theme="@style/font_black_h0" />
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/mybookView"
