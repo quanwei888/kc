@@ -49,24 +49,31 @@ public class BookAddActivity extends BaseActivity implements BookAddViewModel.Vi
     }
 
     @Override
-    public void showBookList(Map<String, BookListAdapter> adapters) {
-        for (String key : adapters.keySet()) {
-            RecyclerView lv = new RecyclerView(this);
-            AppGridLayoutManager layoutManager = new AppGridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false) {
-                @Override
-                public void onMeasure(RecyclerView.Recycler recycler, RecyclerView.State state, int widthSpec, int heightSpec) {
-                    if (getChildCount() > 0) {
-                        View firstChildView = recycler.getViewForPosition(0);
-                        measureChild(firstChildView, widthSpec, heightSpec);
-                        setMeasuredDimension(View.MeasureSpec.getSize(widthSpec), firstChildView.getMeasuredHeight() * 3);
-                    } else {
-                        super.onMeasure(recycler, state, widthSpec, heightSpec);
-                    }
+    public void showBookList(BookListAdapter myAdapter, Map<String, BookListAdapter> adapters) {
+        //My Book
+        AppGridLayoutManager myLayoutManager;
+        RecyclerView lv;
+        AppGridLayoutManager layoutManager;
+
+        lv = binding.mybookView;
+        layoutManager = new AppGridLayoutManager(this, 1, GridLayoutManager.HORIZONTAL, false);
+        lv.setLayoutManager(layoutManager);
+        lv.setAdapter(myAdapter);
+        lv.setNestedScrollingEnabled(false);
+        myAdapter.setOnItemClickListener((v) -> {
+                    Book book = (Book) v.getTag();
+                    ActivityMgr.gotoBookPlan(this, book);
                 }
-            };
+        );
+
+        //Book List
+        for (String key : adapters.keySet()) {
+            lv = new RecyclerView(this);
+            layoutManager = new AppGridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false);
             //((AppGridLayoutManager) layoutManager).setScrollEnabled(false);
             lv.setLayoutManager(layoutManager);
             lv.setAdapter(adapters.get(key));
+            lv.setNestedScrollingEnabled(false);
             adapters.get(key).setOnItemClickListener((v) -> {
                         Book book = (Book) v.getTag();
                         ActivityMgr.gotoBookPlan(this, book);

@@ -8,30 +8,79 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="font">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:padding">5dp</item>
+    </style>
+
+    <style name="font_black" parent="font">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="font_black_h" parent="font_black">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+
+    <style name="font_black_h0" parent="font_black_h">
+        <item name="android:textSize">30sp</item>
+    </style>
+
+    <style name="font_black_h1" parent="font_black_h">
+        <item name="android:textSize">26sp</item>
+    </style>
+
+    <style name="font_black_h2" parent="font_black_h">
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="font_black_0" parent="font_black">
+        <item name="android:textSize">30sp</item>
+    </style>
+
+    <style name="font_black_1" parent="font_black">
+        <item name="android:textSize">26sp</item>
+    </style>
+
+    <style name="font_black_2" parent="font_black">
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="font_black_3" parent="font_black">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+
     <style name="H0">
         <item name="android:textSize">30dp</item>
         <item name="android:textColor">#868686</item>
     </style>
+
     <style name="H1">
         <item name="android:textSize">24dp</item>
         <item name="android:textColor">#868686</item>
     </style>
+
     <style name="H2">
         <item name="android:textSize">20dp</item>
         <item name="android:textColor">#868686</item>
     </style>
+
     <style name="H2_white">
         <item name="android:textSize">20dp</item>
         <item name="android:textColor">#FFFFFF</item>
     </style>
+
     <style name="H3">
         <item name="android:textSize">16dp</item>
         <item name="android:textColor">#868686</item>
     </style>
+
     <style name="H3_white">
         <item name="android:textSize">16dp</item>
         <item name="android:textColor">#FFFFFF</item>
     </style>
+
     <style name="H4">
         <item name="android:textSize">12dp</item>
         <item name="android:textColor">#868686</item>

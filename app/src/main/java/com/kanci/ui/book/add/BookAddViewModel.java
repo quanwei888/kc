@@ -20,14 +20,16 @@ import io.reactivex.schedulers.Schedulers;
 
 public class BookAddViewModel extends BaseViewModel {
     public static interface View extends BaseViewModel.View {
-        void showBookList(Map<String, BookListAdapter> adapters);
+        void showBookList(BookListAdapter myAdapter, Map<String, BookListAdapter> adapters);
     }
 
     @Inject
     public BookAddViewModel.View view;
 
     public Map<String, List<Book>> books = new HashMap<>();
+    public List<Book> myBooks = new ArrayList<>();
     public Map<String, BookListAdapter> adapters = new HashMap<>();
+    public BookListAdapter myAdapter = new BookListAdapter();;
 
 
     @Inject
@@ -48,6 +50,7 @@ public class BookAddViewModel extends BaseViewModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         result -> {
+                            //Book List
                             for (Book book : result) {
                                 if (!books.containsKey(book.tag)) {
                                     books.put(book.tag, new ArrayList<>());
@@ -59,7 +62,16 @@ public class BookAddViewModel extends BaseViewModel {
                                 adapter.addAll(books.get(key));
                                 adapters.put(key, adapter);
                             }
-                            view.showBookList(adapters);
+
+                            //My Book
+                            for (Book book : result) {
+                                if (book.isFavor) {
+                                    myBooks.add(book);
+                                }
+                            }
+                            myAdapter.addAll(myBooks);
+
+                            view.showBookList(myAdapter, adapters);
                         },
                         error -> {
                             view.handleError(error);
