@@ -37,10 +37,10 @@
 
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="330dp"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
             android:layout_marginTop="30dp"
+            android:layout_marginRight="20dp"
             app:cardBackgroundColor="@color/white">
 
             <LinearLayout
@@ -52,8 +52,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="40dp"
-                    android:layout_marginRight="40dp"
                     android:layout_marginTop="40dp"
+                    android:layout_marginRight="40dp"
                     android:weightSum="2">
 
                     <LinearLayout
@@ -135,8 +135,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="30dp"
-                    android:layout_marginRight="30dp"
                     android:layout_marginTop="20dp"
+                    android:layout_marginRight="30dp"
                     android:weightSum="2">
 
                     <TextView
@@ -155,7 +155,7 @@
                         <Button
                             android:layout_width="70dp"
                             android:layout_height="20dp"
-                            android:background="@drawable/bg_btn"
+                            android:background="@drawable/btn_small"
                             android:onClick="@{()->vm.addBook()}"
                             android:text="修改计划"
                             android:textColor="@color/fontGray"
@@ -169,16 +169,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginLeft="30dp"
-                    android:layout_marginRight="30dp"
                     android:layout_marginTop="30dp"
+                    android:layout_marginRight="30dp"
                     android:background="@color/fontGray" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="30dp"
-                    android:layout_marginRight="30dp"
                     android:layout_marginTop="30dp"
+                    android:layout_marginRight="30dp"
                     android:weightSum="2">
 
                     <TextView
@@ -197,7 +197,7 @@
                         <Button
                             android:layout_width="70dp"
                             android:layout_height="20dp"
-                            android:background="@drawable/bg_btn"
+                            android:background="@drawable/btn_small"
                             android:text="单词列表"
                             android:textColor="@color/fontGray"
                             android:textSize="12dp" />
@@ -210,8 +210,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="20dp"
                     android:layout_marginLeft="30dp"
-                    android:layout_marginRight="30dp"
                     android:layout_marginTop="10dp"
+                    android:layout_marginRight="30dp"
                     android:background="@drawable/progress_bar_shape"
                     android:max="@{vm.bookState.wordCount}"
                     android:progress="@{vm.bookState.wordDone}"
@@ -236,8 +236,8 @@
             android:layout_height="60dp"
             android:layout_gravity="center_vertical|center"
             android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
             android:layout_marginTop="20dp"
+            android:layout_marginRight="20dp"
             android:background="@drawable/btn_big"
             android:onClick="@{()->vm.runStudy()}"
             android:text="开始背单词吧"
