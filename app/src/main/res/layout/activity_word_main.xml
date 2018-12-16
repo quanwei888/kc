@@ -9,7 +9,7 @@
 
         <variable
             name="vm"
-            type="com.kanci.ui.word.main.MainViewModel" />
+            type="com.kanci.ui.word.WordMainActivity.ViewModel" />
     </data>
 
     <RelativeLayout
@@ -25,13 +25,55 @@
             android:background="@color/bgBottom"
             android:orientation="vertical">
 
-            <LinearLayout
-                android:id="@+id/fragmentView"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:background="@color/bgBottom">
 
-            </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginTop="100dp"
+                    android:orientation="vertical"
+                    android:weightSum="2">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@{vm.wordDef.word}"
+                        android:textColor="@color/black"
+                        android:textSize="45sp"
+                        android:textStyle="bold"
+                        tools:text="welcome" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="[ˈwɛlkəm]"
+                        android:textColor="@color/gray"
+                        android:textSize="18sp" />
+
+                    <LinearLayout
+                        android:id="@+id/tipView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:gravity="center"
+                            android:text="adj. 受欢迎的 n. 欢迎 vt. 欢迎"
+                            android:textColor="@color/gray"
+                            android:textSize="18sp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+            </RelativeLayout>
         </LinearLayout>
 
         <LinearLayout
@@ -47,7 +89,6 @@
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:onClick="@{()->vm.showTip()}"
                 android:scaleType="fitXY"
                 android:src="@drawable/tip" />
 
@@ -55,7 +96,6 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginTop="20dp"
-                android:onClick="@{()->vm.nextWord()}"
                 android:scaleType="fitXY"
                 android:src="@drawable/done" />
         </LinearLayout>

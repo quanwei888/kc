@@ -115,6 +115,5 @@ public class BookListActivity extends BaseActivity {
                     );
             compositeDisposable.add(disposable);
         }
-
     }
 }

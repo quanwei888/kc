@@ -25,7 +25,7 @@
         <activity android:name=".ui.book.plan.PlanActivity" />
         <activity android:name=".ui.book.BookListActivity" />
         <activity android:name=".ui.book.BookAddActivity" />
-        <activity android:name=".ui.word.main.MainActivity" />
+        <activity android:name=".ui.word.WordMainActivity" />
     </application>
 
 </manifest>

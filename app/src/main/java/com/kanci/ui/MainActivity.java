@@ -13,6 +13,7 @@ import com.kanci.data.model.db.BookState;
 import com.kanci.databinding.ActivityMainBinding;
 import com.kanci.ui.base.BaseActivity;
 import com.kanci.ui.book.BookListActivity;
+import com.kanci.ui.word.WordMainActivity;
 
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -72,6 +73,7 @@ public class MainActivity extends BaseActivity {
         }
 
         public void runStudy() {
+            startActivity(WordMainActivity.newIntent(MainActivity.this));
         }
 
         public void addBook() {

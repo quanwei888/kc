@@ -7,7 +7,7 @@ import android.widget.Toast;
 
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 
-public abstract class BaseActivity extends AppCompatActivity implements BaseViewModel.View {
+public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,12 +19,10 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
         */
     }
 
-    @Override
     public void handleError(Throwable e) {
         Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
     }
 
-    @Override
     public Context getContext() {
         return this;
     }
