@@ -38,25 +38,18 @@ import com.kanci.data.model.db.TaskWord;
 import com.kanci.data.remote.ApiHelper;
 import com.kanci.utils.AppConstants;
 
-import java.io.IOException;
-import java.net.CookieHandler;
-import java.net.CookieManager;
-import java.net.CookiePolicy;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
-import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import static okhttp3.OkHttpClient.*;
+import static okhttp3.OkHttpClient.Builder;
 
 public class AppDataManager {
 
@@ -82,8 +75,6 @@ public class AppDataManager {
                 .connectTimeout(60 * 5, TimeUnit.SECONDS)
                 .readTimeout(60 * 5, TimeUnit.SECONDS)
                 .writeTimeout(60 * 5, TimeUnit.SECONDS);
-        //okHttpClient.interceptors().add(new AddCookiesInterceptor());
-        //okHttpClient.interceptors().add(new ReceivedCookiesInterceptor());
 
         this.apiHelper = new Retrofit.Builder()
                 .baseUrl("http://lucky888.vicp.io:10000/index.php/")
@@ -91,37 +82,6 @@ public class AppDataManager {
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build().create(ApiHelper.class);
-    }
-
-    class AddCookiesInterceptor implements Interceptor {
-        @Override
-        public Response intercept(Chain chain) throws IOException {
-            Request.Builder builder = chain.request().newBuilder();
-            HashSet<String> preferences = preferencesHelper.getCookie();
-            for (String cookie : preferences) {
-                builder.addHeader("Cookie", cookie);
-                Log.v("OkHttp", "Adding Header: " + cookie); // This is done so I know which headers are being added; this interceptor is used after the normal logging of OkHttp
-            }
-            return chain.proceed(builder.build());
-        }
-    }
-
-    class ReceivedCookiesInterceptor implements Interceptor {
-        @Override
-        public Response intercept(Chain chain) throws IOException {
-            Response originalResponse = chain.proceed(chain.request());
-
-            if (!originalResponse.headers("Set-Cookie").isEmpty()) {
-                HashSet<String> cookies = new HashSet<>();
-
-                for (String header : originalResponse.headers("Set-Cookie")) {
-                    cookies.add(header);
-                }
-
-                preferencesHelper.setCookie(cookies);
-            }
-            return originalResponse;
-        }
     }
 
     /**
@@ -133,12 +93,14 @@ public class AppDataManager {
         //local
         BookState entity = null;
         try {
+            Log.i(getClass().getName(), "getBookState() from local");
             entity = db.bookStateDao().findOne().blockingGet();
         } catch (EmptyResultSetException e) {
-
+            Log.i(getClass().getName(), "local is empty");
         }
         if (entity == null) {
             //remote
+            Log.i(getClass().getName(), "getBookState() from remote");
             ApiResponse.EntityResponse<BookState> response = apiHelper.doGetBookState().blockingGet();
             if (!response.isSuccess()) {
                 throw new ApiException(response.status, response.message);
@@ -274,7 +236,7 @@ public class AppDataManager {
             }
         }
 
-        if(lackWords.size() == 0) {
+        if (lackWords.size() == 0) {
             return entityList;
         }
 

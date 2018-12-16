@@ -30,7 +30,7 @@ import com.kanci.data.model.db.TaskWord;
         BookWord.class,
         BookWordDef.class,
         TaskWord.class
-}, version = 3, exportSchema = false)
+}, version = 1, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
     public abstract AppDao.BookStateDao bookStateDao();
 

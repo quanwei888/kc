@@ -2,7 +2,6 @@ package com.kanci.ui.book.add;
 
 import com.kanci.data.model.bean.Book;
 import com.kanci.ui.base.BaseViewModel;
-import com.kanci.ui.book.BookListAdapter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,13 +17,13 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 
-public class BookAddViewModel extends BaseViewModel {
+public class AddViewModel {
+    /*
     public static interface View extends BaseViewModel.View {
         void showBookList(BookListAdapter myAdapter, Map<String, BookListAdapter> adapters);
     }
 
-    @Inject
-    public BookAddViewModel.View view;
+    public AddViewModel.View view;
 
     public Map<String, List<Book>> books = new HashMap<>();
     public List<Book> myBooks = new ArrayList<>();
@@ -33,12 +32,9 @@ public class BookAddViewModel extends BaseViewModel {
 
 
     @Inject
-    public BookAddViewModel() {
+    public AddViewModel() {
     }
 
-    /**
-     * 加载单词书列表
-     */
     public void loadData() {
         Single<List<Book>> single = Single.create(emitter -> {
             List<Book> bookList = getDataManager().getBookList();
@@ -79,5 +75,6 @@ public class BookAddViewModel extends BaseViewModel {
                 );
         compositeDisposable.add(disposable);
     }
+    */
 
 }

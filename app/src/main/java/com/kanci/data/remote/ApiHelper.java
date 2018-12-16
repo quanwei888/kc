@@ -28,10 +28,10 @@ public interface ApiHelper {
     @GET("/doGetTaskWordList")
     Single<EntityListResponse<TaskWord>> doGetTaskWordList(@Query("bookId") int bookId);
 
-    @GET("/bookWordDef.json")
+    @GET("/doGetBookWordDef")
     Single<EntityResponse<BookWordDef>> doGetBookWordDef(@Query("bookId") int bookId, @Query("word") String word);
 
-    @GET("/bookWordDefList.json")
+    @GET("/doGetBookWordDefList")
     Single<EntityListResponse<BookWordDef>> doGetBookWordDefList(@Query("bookId") int bookId);
 
     @GET("/doGetBookWordDefListByWords")
@@ -40,28 +40,28 @@ public interface ApiHelper {
     @GET("/doGetBookList")
     Single<EntityListResponse<Book>> doGetBookList();
 
-    @POST("/login.php")
+    @POST("/doLogin")
     Single<EntityResponse<User>> doLogin(@Query("userName") String userName, @Query("password") String password);
 
-    @GET("/getUserInfo.json")
+    @GET("/doGetUserInfo")
     Single<EntityResponse<User>> doGetUserInfo();
 
     @GET("/logout.json")
     Single<CommonResponse> doLogout();
 
-    @GET("/setBookWordTag.json")
+    @GET("/doUpdateBookWord")
     Single<CommonResponse> doUpdateBookWord(@Query("tag") int tag, @Query("studyCount") int studyCount);
 
-    @GET("/switchBook.json")
+    @GET("/doSwitchBook")
     Single<CommonResponse> doSwitchBook(@Query("bookId") int bookId);
 
-    @GET("/addBook.json")
+    @GET("/doAddBook")
     Single<CommonResponse> doAddBook(@Query("bookId") int bookId, @Query("plan") int plan);
 
-    @POST("/deleteBook.json")
+    @POST("/doDeleteBook")
     Single<CommonResponse> doDeleteBook(@Query("bookId") int bookId);
 
-    @GET("/doCreateTask.json")
+    @GET("/doCreateTask")
     Single<CommonResponse> doCreateTask(@Query("bookId") int bookId);
 
 }

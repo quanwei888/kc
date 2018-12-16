@@ -22,7 +22,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 
-public class WordMainViewModel extends BaseViewModel {
+public class MainViewModel extends BaseViewModel {
     public interface View extends BaseViewModel.View {
         void showWord(TaskWord taskWord, BookWordDef wordDef, int fragmentType);
 
@@ -41,7 +41,7 @@ public class WordMainViewModel extends BaseViewModel {
     public WordStratege wordStratege;
 
     @Inject
-    public WordMainViewModel() {
+    public MainViewModel() {
     }
 
     public void loadData() {

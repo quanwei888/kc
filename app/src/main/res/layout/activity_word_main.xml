@@ -9,105 +9,55 @@
 
         <variable
             name="vm"
-            type="com.kanci.ui.word.main.WordMainViewModel" />
+            type="com.kanci.ui.word.main.MainViewModel" />
     </data>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white">
+        android:background="@color/bgBottom">
 
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:background="@color/bgBottom">
-
-            <LinearLayout
-                android:id="@+id/homeView"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:background="@color/bgTop"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_marginLeft="5dp"
-                    android:src="@drawable/home" />
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:gravity="center_vertical"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/_newView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="新词：200"
-                        android:textSize="10sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_toRightOf="@+id/backView"
-                        android:text="复习：23"
-                        android:textSize="10sp" />
-                </LinearLayout>
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="10dp"
-                android:layout_toRightOf="@+id/homeView"
-                android:gravity="center_vertical"
-                android:text="welcome:xxxxxxx"
-                android:textColor="@color/fontGray"
-                android:textSize="16sp" />
-        </RelativeLayout>
 
         <LinearLayout
-            android:id="@+id/fragmentView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_below="@id/toolbarView"
+            android:background="@color/bgBottom"
             android:orientation="vertical">
 
+            <LinearLayout
+                android:id="@+id/fragmentView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+            </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_alignParentBottom="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
             android:layout_marginRight="20dp"
-            android:gravity="right|center_vertical"
-            android:orientation="horizontal"
+            android:orientation="vertical"
+            android:paddingTop="100dp"
             android:weightSum="2">
 
-            <Button
-                android:layout_width="50dp"
+            <ImageView
+                android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:background="@drawable/btn_small"
-                android:onClick="@{()->vm.nextWord()}"
-                android:text="砍"
-                android:textColor="@color/fontGray"
-                android:textSize="16dp" />
-
-            <Button
-                android:layout_width="70dp"
-                android:layout_height="30dp"
-                android:layout_marginLeft="10dp"
-                android:background="@drawable/bg_btn"
                 android:onClick="@{()->vm.showTip()}"
-                android:text="提示"
-                android:textColor="@color/fontGray"
-                android:textSize="16dp" />
+                android:scaleType="fitXY"
+                android:src="@drawable/tip" />
 
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="20dp"
+                android:onClick="@{()->vm.nextWord()}"
+                android:scaleType="fitXY"
+                android:src="@drawable/done" />
         </LinearLayout>
 
 

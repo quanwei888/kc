@@ -36,6 +36,7 @@ public class BookState implements Serializable {
     public int wordCount;
     public int wordDone;
     public int plan;
+    public int taskId;
     public int taskNewWord;
     public int taskReviewWord;
     public int taskDoneWord;

@@ -15,7 +15,6 @@ import com.kanci.R;
 import com.kanci.data.model.db.BookWordDef;
 import com.kanci.data.model.db.TaskWord;
 import com.kanci.databinding.FragmentWordHeadBinding;
-import com.kanci.di.DaggerAppComponent;
 import com.kanci.utils.AppGestureListener;
 import com.kanci.utils.AppTouchListener;
 
@@ -27,10 +26,6 @@ public class WordHeadFragment extends Fragment {
     public FragmentWordHeadBinding binding;
     private GestureDetectorCompat detector;
 
-
-    public WordHeadFragment() {
-        DaggerAppComponent.builder().build().inject(this);
-    }
 
     public void setTaskWord(TaskWord taskWord) {
         vm.taskWord.set(taskWord);

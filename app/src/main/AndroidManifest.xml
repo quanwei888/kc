@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.main.MainActivity">
+        <activity android:name=".ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -21,9 +21,11 @@
         </activity>
         <activity android:name=".ui.login.LoginActivity" />
         <activity android:name=".ui.test.TestActivity" />
-        <activity android:name=".ui.book.add.BookAddActivity" />
-        <activity android:name=".ui.book.plan.BookPlanActivity" />
-        <activity android:name=".ui.word.main.WordMainActivity" />
+        <activity android:name=".ui.book.add.AddActivity" />
+        <activity android:name=".ui.book.plan.PlanActivity" />
+        <activity android:name=".ui.book.BookListActivity" />
+        <activity android:name=".ui.book.BookAddActivity" />
+        <activity android:name=".ui.word.main.MainActivity" />
     </application>
 
 </manifest>

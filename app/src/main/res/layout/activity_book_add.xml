@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.mindorks.framework.mvvm.com.kanci.ui.login.LoginActivity">
 
@@ -9,68 +10,73 @@
 
         <variable
             name="vm"
-            type="com.kanci.ui.book.add.BookAddViewModel" />
+            type="com.kanci.ui.book.BookAddActivity.ViewModel" />
     </data>
 
-    <RelativeLayout
+    <com.qmuiteam.qmui.widget.QMUIWindowInsetLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/qmui_config_color_white">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbarView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="?attr/colorPrimary"
-            android:minHeight="?attr/actionBarSize"
-            android:theme="?attr/actionBarTheme">
+        <com.qmuiteam.qmui.layout.QMUILinearLayout
+            android:layout_width="250dp"
+            android:layout_height="300dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="140dp"
+            android:background="@color/qmui_config_color_white"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:qmui_showBorderOnlyBeforeL="true">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="back"
-                android:textSize="18dp" />
+                android:text="@{vm.book.bookName}"
+                tools:text="AAAAA" />
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="vertical">
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="Add Book"
-                    android:textSize="18dp" />
-            </LinearLayout>
-        </android.support.v7.widget.Toolbar>
+                    android:text="每天学习" />
 
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/toolbarView"
-            android:background="@color/white">
-
-            <LinearLayout
-                android:id="@+id/bookGroup"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                <EditText
+                    android:id="@+id/planView"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="numberSigned"
+                    android:text='@{vm.book.plan+""}' />
 
                 <TextView
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="我的单词书"
-                    android:theme="@style/font_black_h0" />
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/mybookView"
-                    android:layout_marginBottom="20dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:text="个新词" />
             </LinearLayout>
 
-        </ScrollView>
-    </RelativeLayout>
+            <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:clickable="true"
+                android:gravity="center"
+                android:onClick="@{()->vm.addBook()}"
+                android:padding="10dp"
+                android:text="开始学习该计划"
+                app:qmui_radius="4dp" />
+
+
+        </com.qmuiteam.qmui.layout.QMUILinearLayout>
+
+
+        <com.qmuiteam.qmui.widget.QMUITopBarLayout
+            android:id="@+id/topbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true" />
+    </com.qmuiteam.qmui.widget.QMUIWindowInsetLayout>
 </layout>

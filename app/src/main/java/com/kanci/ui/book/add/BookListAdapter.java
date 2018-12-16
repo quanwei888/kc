@@ -1,4 +1,4 @@
-package com.kanci.ui.book;
+package com.kanci.ui.book.add;
 
 
 import android.databinding.DataBindingUtil;
@@ -15,7 +15,8 @@ import com.kanci.databinding.ItemBookBinding;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BookListAdapter extends RecyclerView.Adapter<BookListAdapter.BookViewHolder> {
+public class BookListAdapter {
+    /*
     public List<Book> data = new ArrayList<>();
 
     public OnItemClickListener onItemClickListener;
@@ -80,4 +81,5 @@ public class BookListAdapter extends RecyclerView.Adapter<BookListAdapter.BookVi
     public static interface OnItemClickListener {
         void onItemClick(View view);
     }
+    */
 }
