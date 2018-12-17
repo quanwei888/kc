@@ -54,6 +54,7 @@ public class BookAddActivity extends BaseActivity {
             Maybe<Void> single = Maybe.create(emitter -> {
                 int plan = Integer.parseInt(binding.planView.getText().toString());
                 dataManager.addBook(book.bookId, plan);
+                dataManager.createTask(book.bookId);
                 dataManager.cacheBookState();
                 emitter.onComplete();
             });

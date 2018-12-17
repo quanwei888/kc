@@ -32,11 +32,11 @@ import java.io.Serializable;
 public class BookState implements Serializable {
     @NonNull
     public int bookId;
+    public int taskId;
     public String bookName;
     public int wordCount;
     public int wordDone;
     public int plan;
-    public int taskId;
     public int taskNewWord;
     public int taskReviewWord;
     public int taskDoneWord;

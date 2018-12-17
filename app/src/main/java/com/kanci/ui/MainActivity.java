@@ -9,6 +9,7 @@ import android.os.Bundle;
 import com.kanci.BR;
 import com.kanci.R;
 import com.kanci.data.AppDataManager;
+import com.kanci.data.model.api.ApiException;
 import com.kanci.data.model.db.BookState;
 import com.kanci.databinding.ActivityMainBinding;
 import com.kanci.ui.base.BaseActivity;
@@ -51,8 +52,26 @@ public class MainActivity extends BaseActivity {
 
         public void loadData() {
             Single<BookState> single = Single.create(emitter -> {
-                BookState bookState = dataManager.getBookState();
-                emitter.onSuccess(bookState);
+                BookState localBookState = dataManager.getBookStateLocal();
+                BookState remoteBookState = null;
+
+                try {
+                    remoteBookState = dataManager.getBookStateRemote();
+                } catch (ApiException e) {
+                    //云端没有Bookstate,remoteBookState = null
+                } catch (Exception e) {
+                    //网络异常，直接用本地数据
+                    emitter.onSuccess(localBookState);
+                    return;
+                }
+
+                if (localBookState == null ||
+                        (remoteBookState != null && remoteBookState.taskId == localBookState.taskId)) {
+                    //本地与云端数据不一致，用云端更新
+                    dataManager.saveBookState(remoteBookState);
+                }
+                emitter.onSuccess(remoteBookState);
+
             });
 
             CompositeDisposable compositeDisposable = new CompositeDisposable();
@@ -61,6 +80,8 @@ public class MainActivity extends BaseActivity {
                     .subscribe(
                             result -> {
                                 if (result == null) {
+                                    //null表示当前没有任务
+                                    addBook();
                                 } else {
                                     bookState.set(result);
                                 }

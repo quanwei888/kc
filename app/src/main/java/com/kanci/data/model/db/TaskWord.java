@@ -33,5 +33,6 @@ public class TaskWord implements Serializable {
     public String word;
     public int rightCount;
     public int errorCount;
+    public boolean isNew;
     public int tag;//0学习中,1已砍
 }

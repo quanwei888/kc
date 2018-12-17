@@ -64,7 +64,7 @@ public class WordMainActivity extends BaseActivity {
                 //缓存TaskWord，@TODO 优化，判断是否已经缓存了
                 dataManager.cacheTaskWordList(bookState.bookId);
                 //获取TaskWord
-                List<TaskWord> taskWordList = dataManager.getTaskWordList(bookState.bookId);
+                List<TaskWord> taskWordList = dataManager.getTaskWordListLocal(bookState.bookId);
 
                 List<String> words = new ArrayList<>();
                 for (TaskWord taskWord : taskWordList) {
