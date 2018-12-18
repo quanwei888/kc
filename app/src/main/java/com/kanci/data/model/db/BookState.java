@@ -17,10 +17,6 @@
 package com.kanci.data.model.db;
 
 import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.Ignore;
-
-import javax.inject.Inject;
-
 import android.support.annotation.NonNull;
 
 import java.io.Serializable;
@@ -41,6 +37,7 @@ public class BookState implements Serializable {
     public int taskReviewWord;
     public int taskDoneWord;
     public boolean taskIsCached;//Ignore
+    public boolean bookIsCached;//Ignore
 
     public int getRemainWord() {
         return wordCount - wordDone;

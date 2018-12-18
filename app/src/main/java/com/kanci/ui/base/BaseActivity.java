@@ -20,7 +20,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     public void handleError(Throwable e) {
-        Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
     }
 
     public Context getContext() {

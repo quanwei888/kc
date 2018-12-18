@@ -12,11 +12,11 @@ import com.kanci.data.AppDataManager;
 import com.kanci.data.model.db.BookState;
 import com.kanci.data.model.db.BookWordDef;
 import com.kanci.data.model.db.TaskWord;
-import com.kanci.databinding.ActivityWordMainBinding;
+import com.kanci.databinding.ActivityTaskMainBinding;
 import com.kanci.ui.MainActivity;
 import com.kanci.ui.base.BaseActivity;
-import com.kanci.ui.book.BookAddActivity;
-import com.kanci.ui.word.WordStratege;
+import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
+import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,7 +32,7 @@ import io.reactivex.schedulers.Schedulers;
 
 public class TaskMainActivity extends BaseActivity {
     public ViewModel vm;
-    public ActivityWordMainBinding binding;
+    public ActivityTaskMainBinding binding;
 
     public static Intent newIntent(Context context) {
         return new Intent(context, TaskMainActivity.class);
@@ -42,7 +42,7 @@ public class TaskMainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         vm = new ViewModel();
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_word_main);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_task_main);
         binding.setVariable(BR.vm, vm);
         binding.executePendingBindings();
         setup();
@@ -53,7 +53,20 @@ public class TaskMainActivity extends BaseActivity {
     }
 
     public void complateTask() {
+        showMessagePositiveDialog();
+    }
 
+    private void showMessagePositiveDialog() {
+        new QMUIDialog.MessageDialogBuilder(this)
+                .setMessage("完成计划")
+                .addAction("回到首页", new QMUIDialogAction.ActionListener() {
+                    @Override
+                    public void onClick(QMUIDialog dialog, int index) {
+                        dialog.dismiss();
+                        startActivity(MainActivity.newIntent(TaskMainActivity.this));
+                    }
+                })
+                .create(com.qmuiteam.qmui.R.style.QMUI_Dialog).show();
     }
 
     public class ViewModel {
@@ -75,6 +88,13 @@ public class TaskMainActivity extends BaseActivity {
                 //检查TaskWord是否缓存
                 if (!bookState.taskIsCached) {
                     dataManager.cacheTaskWordList(bookState.bookId);
+                    //bookState.taskIsCached = true;
+                    dataManager.saveBookState(bookState);
+                }
+                if (!bookState.bookIsCached) {
+                    dataManager.cacheBookWordList(bookState.bookId);
+                    //bookState.bookIsCached = true;
+                    dataManager.saveBookState(bookState);
                 }
 
                 //获取TaskWordList
@@ -118,7 +138,11 @@ public class TaskMainActivity extends BaseActivity {
 
         public void saveTaskWord(TaskWord taskWord) {
             Maybe<Void> single = Maybe.create(emitter -> {
-                dataManager.saveTaskWord(taskWord);
+                dataManager.setWordTag(taskWord.bookId, taskWord.word, taskWord.tag);
+                bookState.taskDoneWord = task.getCount() - task.getNewCount() - task.getReviewCount();
+                bookState.taskNewWord = task.getNewCount();
+                bookState.taskReviewWord = task.getReviewCount();
+                dataManager.saveBookState(bookState);
                 emitter.onComplete();
             });
 
@@ -148,11 +172,13 @@ public class TaskMainActivity extends BaseActivity {
         public void doneWord() {
             taskWord.get().tag = 1;
             saveTaskWord(taskWord.get());
+            next();
         }
 
         public void answerWord() {
             taskWord.get().rightCount += 1;
             saveTaskWord(taskWord.get());
+            next();
         }
     }
 }

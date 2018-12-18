@@ -18,6 +18,7 @@ package com.kanci.data.local.db;
 
 import android.arch.persistence.db.SupportSQLiteQuery;
 import android.arch.persistence.room.Dao;
+import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
@@ -101,6 +102,9 @@ public interface AppDao {
 
         @Query("select * from TaskWord where bookId=:bookId and word=:word")
         Single<TaskWord> findByPk(int bookId, String word);
+
+        @Delete
+        void delete(TaskWord entity);
 
         @Query("select * from TaskWord")
         Single<List<TaskWord>> findAll();

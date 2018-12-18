@@ -14,6 +14,7 @@ import com.kanci.data.model.db.BookState;
 import com.kanci.databinding.ActivityMainBinding;
 import com.kanci.ui.base.BaseActivity;
 import com.kanci.ui.book.BookListActivity;
+import com.kanci.ui.task.TaskMainActivity;
 import com.kanci.ui.word.WordMainActivity;
 
 import io.reactivex.Single;
@@ -66,10 +67,11 @@ public class MainActivity extends BaseActivity {
                 }
 
                 if (localBookState == null ||
-                        (remoteBookState != null && remoteBookState.taskId == localBookState.taskId)) {
+                        (remoteBookState != null && remoteBookState.taskId != localBookState.taskId)) {
                     //本地与云端数据不一致，用云端更新
                     dataManager.saveBookState(remoteBookState);
                 }
+                dataManager.saveBookState(remoteBookState);
                 emitter.onSuccess(remoteBookState);
 
             });
@@ -94,7 +96,7 @@ public class MainActivity extends BaseActivity {
         }
 
         public void runStudy() {
-            startActivity(WordMainActivity.newIntent(MainActivity.this));
+            startActivity(TaskMainActivity.newIntent(MainActivity.this));
         }
 
         public void addBook() {

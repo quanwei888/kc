@@ -39,8 +39,6 @@ import com.kanci.data.remote.ApiHelper;
 import com.kanci.utils.AppConstants;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
@@ -79,6 +77,7 @@ public class AppDataManager {
                 .writeTimeout(60 * 5, TimeUnit.SECONDS);
 
         this.apiHelper = new Retrofit.Builder()
+                //.baseUrl("http://lucky888.vicp.io:10000/index.php/")
                 .baseUrl("http://lucky888.vicp.io:10000/index.php/")
                 .client(okHttpClient.build())
                 .addConverterFactory(GsonConverterFactory.create())
@@ -293,5 +292,37 @@ public class AppDataManager {
         if (!response.isSuccess()) {
             throw new ApiException(response.status, response.message);
         }
+    }
+
+    public TaskWord getTaskWordLocal(int bookId, String word) throws ApiException {
+        //local
+        TaskWord entity = null;
+        try {
+            entity = db.taskWordDao().findByPk(bookId, word).blockingGet();
+        } catch (EmptyResultSetException e) {
+            Log.i(getClass().getName(), "local is empty");
+        }
+        return entity;
+    }
+
+    public BookWord getBookWordLocal(int bookId, String word) throws ApiException {
+        //local
+        BookWord entity = null;
+        try {
+            entity = db.bookWordDao().findByPk(bookId, word).blockingGet();
+        } catch (EmptyResultSetException e) {
+            Log.i(getClass().getName(), "local is empty");
+        }
+        return entity;
+    }
+
+    public void setWordTag(int bookId, String word, int tag) throws ApiException {
+        TaskWord taskWord = getTaskWordLocal(bookId, word);
+        taskWord.tag = tag;
+        db.taskWordDao().insert(taskWord);
+
+        BookWord bookWord = getBookWordLocal(bookId, word);
+        bookWord.tag = tag;
+        db.bookWordDao().insert(bookWord);
     }
 }

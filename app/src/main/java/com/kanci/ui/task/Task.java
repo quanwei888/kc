@@ -1,13 +1,11 @@
 package com.kanci.ui.task;
 
-import com.kanci.data.AppDataManager;
-import com.kanci.data.model.db.BookState;
 import com.kanci.data.model.db.BookWordDef;
 import com.kanci.data.model.db.TaskWord;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -30,6 +28,18 @@ public class Task {
         data.put(item.word, item);
     }
 
+    public int getCount() {
+        return data.size();
+    }
+
+    public int getNewCount() {
+        return newData.size();
+    }
+
+    public int getReviewCount() {
+        return reviewData.size();
+    }
+
     public void createPlan() {
         reviewData.clear();
         newData.clear();
@@ -38,27 +48,32 @@ public class Task {
         //去除已砍单词，并分组
         List<Item> reviewArr = new ArrayList<>();
         List<Item> newArr = new ArrayList<>();
-        data.forEach((k, v) -> {
+        Iterator<Map.Entry<String, Item>> iter = data.entrySet().iterator();
+        while (iter.hasNext()) {
+            Map.Entry<String, Item> entry = iter.next();
+            Item v = entry.getValue();
             if (v.taskWord.tag == 1) {
                 //已砍
-                data.remove(k);
-                return;
+                iter.remove();
+                continue;
             }
             if (v.taskWord.rightCount > 3) {
                 //学习次数大于N次，学习完成
-                data.remove(k);
-                return;
+                iter.remove();
+                continue;
             }
             if (v.taskWord.isNew) {
                 newArr.add(v);
             } else {
                 reviewArr.add(v);
             }
-        });
+        }
 
         //打乱各组顺序
         Collections.shuffle(reviewArr);
         Collections.shuffle(newArr);
+        reviewData.addAll(reviewArr);
+        newData.addAll(newArr);
         learnNew = !(reviewArr.size() > 0);
     }
 
