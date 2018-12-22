@@ -1,7 +1,7 @@
 package com.kanci.ui.task;
 
-import com.kanci.data.model.db.BookWordDef;
-import com.kanci.data.model.db.TaskWord;
+import com.kanci.data.model.db.Def;
+import com.kanci.data.model.db.Word;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -11,21 +11,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 import java.util.TreeMap;
+import java.util.stream.Collectors;
 
-public class Task {
-    Map<String, Item> data = new TreeMap<>();
-    Queue<Item> reviewData = new LinkedList<>();
-    Queue<Item> newData = new LinkedList<>();
+public class TaskPlan {
+    Map<String, Word> data = new TreeMap<>();
+    Queue<Word> reviewData = new LinkedList<>();
+    Queue<Word> newData = new LinkedList<>();
     boolean learnNew = false;
 
-    public static class Item {
-        public String word;
-        public TaskWord taskWord;
-        public BookWordDef wordDef;
-    }
-
-    public void addItem(Item item) {
-        data.put(item.word, item);
+    public TaskPlan(List<Word> wordList) {
+        data = wordList.stream().collect(Collectors.toMap(x -> x.word, x -> x));
     }
 
     public int getCount() {
@@ -40,29 +35,29 @@ public class Task {
         return reviewData.size();
     }
 
-    public void createPlan() {
+    protected void createPlan() {
         reviewData.clear();
         newData.clear();
 
 
         //去除已砍单词，并分组
-        List<Item> reviewArr = new ArrayList<>();
-        List<Item> newArr = new ArrayList<>();
-        Iterator<Map.Entry<String, Item>> iter = data.entrySet().iterator();
+        List<Word> reviewArr = new ArrayList<>();
+        List<Word> newArr = new ArrayList<>();
+        Iterator<Map.Entry<String, Word>> iter = data.entrySet().iterator();
         while (iter.hasNext()) {
-            Map.Entry<String, Item> entry = iter.next();
-            Item v = entry.getValue();
-            if (v.taskWord.tag == 1) {
+            Map.Entry<String, Word> entry = iter.next();
+            Word v = entry.getValue();
+            if (v.tag == 1) {
                 //已砍
                 iter.remove();
                 continue;
             }
-            if (v.taskWord.rightCount > 3) {
+            if (v.rightCount > 3) {
                 //学习次数大于N次，学习完成
                 iter.remove();
                 continue;
             }
-            if (v.taskWord.isNew) {
+            if (v.isNew()) {
                 newArr.add(v);
             } else {
                 reviewArr.add(v);
@@ -77,7 +72,7 @@ public class Task {
         learnNew = !(reviewArr.size() > 0);
     }
 
-    public Item next() {
+    public Word next() {
         if (reviewData.size() > 0) {
             return reviewData.poll();
         }
@@ -93,7 +88,7 @@ public class Task {
         }
     }
 
-    boolean hasNext() {
+    public boolean hasNext() {
         if (reviewData.size() == 0 && newData.size() == 0) {
             return false;
         }

@@ -25,94 +25,64 @@ import android.arch.persistence.room.Query;
 import android.arch.persistence.room.RawQuery;
 import android.arch.persistence.room.Update;
 
-import com.kanci.data.model.db.BookState;
-import com.kanci.data.model.db.BookWord;
-import com.kanci.data.model.db.BookWordDef;
-import com.kanci.data.model.db.TaskWord;
+import com.kanci.data.model.bean.Task;
+import com.kanci.data.model.db.Word;
+import com.kanci.data.model.db.Def;
 
 import java.util.List;
 
 import io.reactivex.Single;
 
 public interface AppDao {
+
     @Dao
-    public interface BookStateDao {
+    public interface WordDao {
         @RawQuery
-        Single<BookState> query(SupportSQLiteQuery query);
+        Single<Word> query(SupportSQLiteQuery query);
 
-        @Query("select * from BookState limit 1")
-        Single<BookState> findOne();
+        @RawQuery
+        Single<List<Word>> queryAll(SupportSQLiteQuery query);
 
-        @Query("select * from BookState")
-        Single<List<BookState>> findAll();
+        @Query("select * from Word where bookId=:bookId and word=:word")
+        Single<Word> findByPk(int bookId, String word);
+
+        @Query("select * from Word")
+        Single<List<Word>> findAll();
+
+        @Query("select count(1) from Word where bookId=:bookId and tag=1")
+        Single<Integer> doneCount(int bookId);
+
+        @Query("select count(1) from Word where bookId=:bookId and word in (:words)")
+        Single<Integer> taskDoneCount(int bookId, List<String> words);
+
+        @Query("select count(1) from Word where bookId=:bookId and (rightCount>0 or errorCount>0) and  word in (:words)")
+        Single<Integer> taskNewCount(int bookId, List<String> words);
 
         @Insert(onConflict = OnConflictStrategy.REPLACE)
-        void insert(BookState entity);
+        void insert(Word entity);
 
         @Update
-        void update(BookState entity);
+        void update(Word entity);
     }
 
     @Dao
-    public interface BookWordDao {
+    public interface DefDao {
         @RawQuery
-        Single<BookWord> query(SupportSQLiteQuery query);
+        Single<Def> query(SupportSQLiteQuery query);
 
-        @RawQuery
-        Single<List<BookWord>> queryAll(SupportSQLiteQuery query);
+        @Query("select * from Def where bookId=:bookId and word=:word")
+        Single<Def> findByPk(int bookId, String word);
 
-        @Query("select * from BookWord where bookId=:bookId and word=:word")
-        Single<BookWord> findByPk(int bookId, String word);
+        @Query("select * from Def")
+        Single<List<Def>> findAll();
 
-        @Query("select * from BookWord")
-        Single<List<BookWord>> findAll();
+        @Query("select * from Def where bookId=:bookId and word in (:words)")
+        Single<List<Def>> findAllByWords(int bookId, List<String> words);
 
         @Insert(onConflict = OnConflictStrategy.REPLACE)
-        void insert(BookWord entity);
+        void insert(Def entity);
 
         @Update
-        void update(BookWord entity);
-    }
-
-    @Dao
-    public interface BookWordDefDao {
-        @RawQuery
-        Single<BookWordDef> query(SupportSQLiteQuery query);
-
-        @Query("select * from BookWordDef where bookId=:bookId and word=:word")
-        Single<BookWordDef> findByPk(int bookId, String word);
-
-        @Query("select * from BookWordDef")
-        Single<List<BookWordDef>> findAll();
-
-        @Query("select * from BookWordDef where bookId=:bookId and word in (:words)")
-        Single<List<BookWordDef>> findAllByWords(int bookId, List<String> words);
-
-        @Insert(onConflict = OnConflictStrategy.REPLACE)
-        void insert(BookWordDef entity);
-
-        @Update
-        void update(BookWordDef entity);
-    }
-
-    @Dao
-    public interface TaskWordDao {
-        @RawQuery
-        Single<TaskWord> query(SupportSQLiteQuery query);
-
-        @Query("select * from TaskWord where bookId=:bookId and word=:word")
-        Single<TaskWord> findByPk(int bookId, String word);
-
-        @Delete
-        void delete(TaskWord entity);
-
-        @Query("select * from TaskWord")
-        Single<List<TaskWord>> findAll();
-
-        @Insert(onConflict = OnConflictStrategy.REPLACE)
-        void insert(TaskWord entity);
-
-        @Update
-        void update(TaskWord entity);
+        void update(Def entity);
     }
 }

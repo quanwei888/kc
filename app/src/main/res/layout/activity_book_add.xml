@@ -2,7 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.mindorks.framework.mvvm.com.kanci.ui.login.LoginActivity">
+    tools:baseActivity="com.mindorks.framework.mvvm.com.kanci.ui.login.LoginActivity">
 
     <data>
 
@@ -10,64 +10,114 @@
 
         <variable
             name="vm"
-            type="com.kanci.ui.book.BookAddActivity.ViewModel" />
+            type="com.kanci.ui.book.add.AddViewModel" />
     </data>
 
     <com.qmuiteam.qmui.widget.QMUIWindowInsetLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/qmui_config_color_white">
+        android:background="@color/bgBottom">
 
         <com.qmuiteam.qmui.layout.QMUILinearLayout
-            android:layout_width="250dp"
-            android:layout_height="300dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="140dp"
-            android:background="@color/qmui_config_color_white"
-            android:gravity="center"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="?attr/qmui_topbar_height"
+            android:background="@color/bgBottom"
             android:orientation="vertical"
             app:qmui_showBorderOnlyBeforeL="true">
 
             <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text='@{vm.book.name}'
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                tools:text="大学四级" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text='@{@string/book_add_word_count+vm.book.count}'
+                android:textColor="@color/gray"
+                android:textSize="12sp"
+                tools:text="单词数：3433" />
+
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{vm.book.bookName}"
-                tools:text="AAAAA" />
+                android:text="每日学习计划："
+                android:textColor="@color/black"
+                android:textSize="12sp" />
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_width="100dp"
+                android:layout_height="120dp"
+                android:layout_gravity="center">
 
-                <TextView
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="每天学习" />
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
 
-                <EditText
-                    android:id="@+id/planView"
-                    android:layout_width="50dp"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:inputType="numberSigned"
-                    android:text='@{vm.book.plan+""}' />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="新词数"
+                        android:textColor="@color/black"
+                        android:textSize="12sp" />
 
-                <TextView
+                    <NumberPicker
+                        android:id="@+id/planView"
+                        android:layout_width="40dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:onValueChange='@{vm.V().onChangePlanClick}'
+                        android:value='@{vm.plan}' />
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="个新词" />
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="学习天数"
+                        android:textColor="@color/black"
+                        android:textSize="12sp" />
+
+                    <NumberPicker
+                        android:id="@+id/remainDaysView"
+                        android:layout_width="40dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:value='@{vm.remainDays}' />
+                </LinearLayout>
+
             </LinearLayout>
 
-            <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+            <Button
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:clickable="true"
-                android:gravity="center"
-                android:onClick="@{()->vm.addBook()}"
-                android:padding="10dp"
-                android:text="开始学习该计划"
-                app:qmui_radius="4dp" />
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/btn_big"
+                android:onClick='@{vm.V().onAddBookClick}'
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:text="学习该计划"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
 
 
         </com.qmuiteam.qmui.layout.QMUILinearLayout>

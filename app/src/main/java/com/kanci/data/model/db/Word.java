@@ -17,33 +17,39 @@
 package com.kanci.data.model.db;
 
 import android.arch.persistence.room.Entity;
+
+import android.arch.persistence.room.Ignore;
 import android.support.annotation.NonNull;
 
 import java.io.Serializable;
 
 /**
- * 当前单词书学习的状态
+ * 单词书单词列表，不含详细注释，一次性全量加载
  */
-@Entity(tableName = "BookState", primaryKeys = {"bookId"})
-public class BookState implements Serializable {
+@Entity(tableName = "Word", primaryKeys = {"bookId", "word"})
+public class Word implements Serializable {
     @NonNull
     public int bookId;
-    public int taskId;
-    public String bookName;
-    public int wordCount;
-    public int wordDone;
-    public int plan;
-    public int taskNewWord;
-    public int taskReviewWord;
-    public int taskDoneWord;
-    public boolean taskIsCached;//Ignore
-    public boolean bookIsCached;//Ignore
+    @NonNull
+    public String word;
+    public String mean;
+    public int tag;//0学习中,1已砍
+    public int rightCount;
+    public int errorCount;
 
-    public int getRemainWord() {
-        return wordCount - wordDone;
-    }
+    @Ignore
+    public Def def;
 
-    public int getRemainDays() {
-        return getRemainWord() / plan + Math.min(getRemainWord() % plan, 1);
+    public boolean isNew() {
+        if (tag == 1) {
+            return false;
+        }
+        if (rightCount > 0) {
+            return false;
+        }
+        if (errorCount > 0) {
+            return false;
+        }
+        return true;
     }
 }

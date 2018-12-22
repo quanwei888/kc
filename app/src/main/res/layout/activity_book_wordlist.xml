@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.mindorks.framework.mvvm.com.kanci.ui.login.LoginActivity">
+    tools:baseActivity="com.mindorks.framework.mvvm.com.kanci.ui.login.LoginActivity">
 
     <data>
 
@@ -9,26 +9,27 @@
 
         <variable
             name="vm"
-            type="com.kanci.ui.word.WordListActivity.ViewModel" />
+            type="com.kanci.ui.book.wordlist.WordListViewModel" />
     </data>
 
     <com.qmuiteam.qmui.widget.QMUIWindowInsetLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/qmui_config_color_white">
+        android:background="@color/bgBottom">
 
 
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="?attr/qmui_topbar_height"
-            android:background="@color/qmui_config_color_background"
+            android:background="@color/bgBottom"
             android:fitsSystemWindows="true">
 
-            <com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView
-                android:id="@+id/bookListView"
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/listView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="match_parent"
+                tools:listitem="@layout/item_word" />
         </ScrollView>
 
         <com.qmuiteam.qmui.widget.QMUITopBarLayout

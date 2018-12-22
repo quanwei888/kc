@@ -7,17 +7,17 @@ import java.io.Serializable;
  */
 
 public class Book implements Serializable {
-    public int bookId;
-    public String bookName;
-    public int wordCount;
-    public int wordDone;
+    public int id;
+    public String name;
+    public int count;
+    public int doneCount;
     public boolean isFavor;
     public boolean isStudying;
     public int plan;
     public String tag;
 
     public int getRemainWord() {
-        return wordCount - wordDone;
+        return count - doneCount;
     }
 
     public int getRemainDays() {

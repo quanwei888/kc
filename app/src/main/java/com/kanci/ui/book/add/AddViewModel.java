@@ -1,64 +1,89 @@
 package com.kanci.ui.book.add;
 
+import android.databinding.ObservableField;
+import android.databinding.ObservableInt;
 
-public class AddViewModel {
-    /*
-    public static interface View extends BaseViewModel.View {
-        void showBookList(BookListAdapter myAdapter, Map<String, BookListAdapter> adapters);
+import com.kanci.data.model.api.ApiException;
+import com.kanci.data.model.bean.Book;
+import com.kanci.ui.base.BaseActivity;
+import com.kanci.ui.base.BaseViewModel;
+
+public class AddViewModel extends BaseViewModel {
+    public ObservableField<Book> book = new ObservableField<>();
+    public ObservableInt plan = new ObservableInt(100);
+    public ObservableInt remainDays = new ObservableInt(0);
+
+    public AddViewModel(BaseActivity activity) {
+        super(activity);
     }
 
-    public AddViewModel.View view;
-
-    public Map<String, List<Book>> books = new HashMap<>();
-    public List<Book> myBooks = new ArrayList<>();
-    public Map<String, BookListAdapter> adapters = new HashMap<>();
-    public BookListAdapter myAdapter = new BookListAdapter();;
-
-
-    @Inject
-    public AddViewModel() {
+    @Override
+    public AddActivity V() {
+        return (AddActivity) super.V();
     }
 
-    public void loadData() {
-        Single<List<Book>> single = Single.create(emitter -> {
-            List<Book> bookList = getDataManager().getBookList();
-            emitter.onSuccess(bookList);
-        });
+    public void doLoadBook(int bookId) {
+        new Query<Book>() {
 
-        CompositeDisposable compositeDisposable = new CompositeDisposable();
-        Disposable disposable = single.subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        result -> {
-                            //Book List
-                            for (Book book : result) {
-                                if (!books.containsKey(book.tag)) {
-                                    books.put(book.tag, new ArrayList<>());
-                                }
-                                books.get(book.tag).add(book);
-                            }
-                            for (String key : books.keySet()) {
-                                BookListAdapter adapter = new BookListAdapter();
-                                adapter.addAll(books.get(key));
-                                adapters.put(key, adapter);
-                            }
+            @Override
+            public Book doQuery() throws ApiException {
+                return DH().getBookLocal(bookId);
+            }
 
-                            //My Book
-                            for (Book book : result) {
-                                if (book.isFavor) {
-                                    myBooks.add(book);
-                                }
-                            }
-                            myAdapter.addAll(myBooks);
-
-                            view.showBookList(myAdapter, adapters);
-                        },
-                        error -> {
-                            view.handleError(error);
-                        }
-                );
-        compositeDisposable.add(disposable);
+            @Override
+            public void onSuccess(Book data) {
+                book.set(data);
+                initPlan(data, 100);
+            }
+        }.run();
     }
-    */
 
+    public void doChangePlan(int count) {
+        plan.set(count);
+        remainDays.set(getRemainDaysByPlan(book.get(), plan.get()));
+    }
+
+    private void initPlan(Book book, int count) {
+        if (book.isFavor) {
+            plan.set(book.plan);
+            remainDays.set(getRemainDaysByPlan(book, plan.get()));
+        } else {
+            plan.set(count);
+            remainDays.set(getRemainDaysByPlan(book, plan.get()));
+        }
+    }
+
+    private int getRemainDaysByPlan(Book book, int plan) {
+        return book.getRemainWord() / plan + Math.min(book.getRemainWord() % plan, 1);
+    }
+
+    public void doAddBook() {
+        new Post() {
+
+            @Override
+            public void doPost() throws ApiException {
+                DH().addBook(book.get().id, plan.get());
+            }
+
+            @Override
+            public void onSuccess() {
+                V().onAddBook();
+            }
+        }.run();
+    }
+
+    public void doCreateTask() {
+        new Post() {
+
+            @Override
+            public void doPost() throws ApiException {
+                DH().createTask(book.get().id);
+            }
+
+            @Override
+            public void onSuccess() {
+                V().onCreateTask();
+            }
+        }.run();
+    }
 }

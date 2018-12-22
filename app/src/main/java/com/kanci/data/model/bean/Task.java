@@ -14,22 +14,24 @@
  *  limitations under the License
  */
 
-package com.kanci.data.model.db;
-
-import android.arch.persistence.room.Entity;
-
-import android.support.annotation.NonNull;
+package com.kanci.data.model.bean;
 
 import java.io.Serializable;
 
-/**
- * 单词书单词的详细注释，延迟加载
- */
-@Entity(tableName = "BookWordDef", primaryKeys = {"bookId", "word"})
-public class BookWordDef implements Serializable {
-    @NonNull
+public class Task implements Serializable {
     public int bookId;
-    @NonNull
-    public String word;
-    public String def;
+    public int taskId;
+    public int count;
+    public int done;
+    public int plan;
+    public int version;
+    public int newCount;
+
+    public int getRemainCount() {
+        return count - done;
+    }
+
+    public int getReviewCount() {
+        return count - newCount;
+    }
 }

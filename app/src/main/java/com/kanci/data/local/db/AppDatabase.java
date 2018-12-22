@@ -17,27 +17,28 @@
 package com.kanci.data.local.db;
 
 import android.arch.persistence.room.Database;
+import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
+import android.content.Context;
 
-import com.kanci.data.model.db.BookState;
-import com.kanci.data.model.db.BookWord;
-import com.kanci.data.model.db.BookWordDef;
-import com.kanci.data.model.db.TaskWord;
+import com.kanci.data.model.db.Def;
+import com.kanci.data.model.bean.Task;
+import com.kanci.data.model.db.Word;
+import com.kanci.utils.AppConstants;
 
 
 @Database(entities = {
-        BookState.class,
-        BookWord.class,
-        BookWordDef.class,
-        TaskWord.class
+        Word.class,
+        Def.class,
 }, version = 7, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
-    public abstract AppDao.BookStateDao bookStateDao();
 
-    public abstract AppDao.BookWordDao bookWordDao();
+    public abstract AppDao.WordDao wordDao();
 
-    public abstract AppDao.BookWordDefDao bookWordDefDao();
+    public abstract AppDao.DefDao defDao();
 
-    public abstract AppDao.TaskWordDao taskWordDao();
+    public static AppDatabase instance(Context context) {
+        return Room.databaseBuilder(context, AppDatabase.class, AppConstants.DB_NAME).fallbackToDestructiveMigration().build();
+    }
 
 }

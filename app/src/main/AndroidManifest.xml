@@ -12,20 +12,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.MainActivity">
+        <baseActivity android:name=".ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity android:name=".ui.login.LoginActivity" />
-        <activity android:name=".ui.test.TestActivity" />
-        <activity android:name=".ui.book.add.AddActivity" />
-        <activity android:name=".ui.book.plan.PlanActivity" />
-        <activity android:name=".ui.book.BookListActivity" />
-        <activity android:name=".ui.book.BookAddActivity" />
-        <activity android:name=".ui.task.TaskMainActivity" />
+        </baseActivity>
+        <baseActivity android:name=".ui.login.LoginActivity" />
+        <baseActivity android:name=".ui.test.TestActivity" />
+        <baseActivity android:name=".ui.book.add.AddActivity" />
+        <baseActivity android:name=".ui.book.plan.PlanActivity" />
+        <baseActivity android:name=".ui.book.BookListActivity" />
+        <baseActivity android:name=".ui.book.BookAddActivity" />
+        <baseActivity android:name=".ui.task.TaskMainActivity" />
     </application>
 
 </manifest>

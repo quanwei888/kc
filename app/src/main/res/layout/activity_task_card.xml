@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.mindorks.framework.mvvm.com.kanci.ui.login.LoginActivity">
+    tools:baseActivity="com.mindorks.framework.mvvm.com.kanci.ui.login.LoginActivity">
 
     <data>
 
@@ -9,7 +9,7 @@
 
         <variable
             name="vm"
-            type="com.kanci.ui.word.WordMainActivity.ViewModel" />
+            type="com.kanci.ui.task.card.CardViewModel" />
     </data>
 
     <RelativeLayout
@@ -34,8 +34,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="30dp"
-                    android:layout_marginRight="30dp"
                     android:layout_marginTop="100dp"
+                    android:layout_marginRight="30dp"
                     android:orientation="vertical"
                     android:weightSum="2">
 
@@ -43,7 +43,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="@{vm.wordDef.word}"
                         android:textColor="@color/black"
                         android:textSize="45sp"
                         android:textStyle="bold"
@@ -62,6 +61,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
+
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"

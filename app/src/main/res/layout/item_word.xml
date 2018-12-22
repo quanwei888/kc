@@ -4,26 +4,39 @@
 
     <data>
 
-        <variable
-            name="vm"
-            type="com.kanci.ui.book.add.BookListAdapter" />
     </data>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView
+        <RelativeLayout
             android:id="@+id/wordView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/bgBottom"
-            android:gravity="center_vertical"
-            android:padding="10dp"
-            android:text="welcome"
-            android:textColor="@color/green"
-            android:textSize="20dp"
-            android:textStyle="bold" />
+            android:background="@color/bgBottom">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:padding="10dp"
+                android:text="welcome"
+                android:textColor="@color/green"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:gravity="center_vertical"
+                android:padding="10dp"
+                android:text="砍"
+                android:textColor="@color/gray"
+                android:textSize="16dp"
+                android:textStyle="bold" />
+        </RelativeLayout>
 
         <LinearLayout
             android:layout_width="match_parent"

@@ -5,48 +5,49 @@
 
     <data>
 
-        <variable
-            name="vm"
-            type="com.kanci.ui.book.add.BookListAdapter" />
     </data>
 
-    <FrameLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
-        <RelativeLayout
-            android:layout_width="100dp"
-            android:layout_height="100dp">
+        <TextView
+            android:id="@+id/headView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="24dp"
+            android:paddingTop="40dp"
+            android:layout_marginBottom="10dp"
+            tools:text="大学" />
 
-            <ImageView
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/headView"
+            android:orientation="vertical">
+
+            <TextView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="fitXY"
-                android:src="@drawable/book_new" />
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                tools:text="大学四级" />
 
-            <LinearLayout
+            <TextView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_centerInParent="true"
-                android:padding="20dp"
-                android:orientation="vertical">
+                android:layout_height="wrap_content"
+                android:textColor="@color/fontGray"
+                android:textSize="12sp"
+                tools:text="2345词" />
+        </LinearLayout>
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textColor="#FFFFFF"
-                    android:textSize="14sp"
-                    tools:text="大学四级" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:text="&gt;"
+            android:textSize="16sp" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textColor="@color/fontGray"
-                    android:textSize="12sp"
-                    tools:text="2345词" />
-            </LinearLayout>
-        </RelativeLayout>
-    </FrameLayout>
+    </RelativeLayout>
 </layout>

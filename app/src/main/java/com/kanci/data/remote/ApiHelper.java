@@ -6,13 +6,13 @@ import com.kanci.data.model.api.ApiResponse.EntityListResponse;
 import com.kanci.data.model.api.ApiResponse.EntityResponse;
 import com.kanci.data.model.bean.Book;
 import com.kanci.data.model.bean.User;
-import com.kanci.data.model.db.BookState;
-import com.kanci.data.model.db.BookWord;
-import com.kanci.data.model.db.BookWordDef;
-import com.kanci.data.model.db.TaskWord;
+import com.kanci.data.model.db.Def;
+import com.kanci.data.model.bean.Task;
+import com.kanci.data.model.db.Word;
 
 import java.util.List;
 
+import io.reactivex.Completable;
 import io.reactivex.Single;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
@@ -20,48 +20,30 @@ import retrofit2.http.Query;
 
 public interface ApiHelper {
     @GET("/doGetBookState")
-    Single<EntityResponse<BookState>> doGetBookState();
+    Single<EntityResponse<Task>> doGetTask();
+
+    @GET("/doGetBook")
+    Single<EntityResponse<Book>> doGetBook(int bookId);
 
     @GET("/doGetBookWordList")
-    Single<EntityListResponse<BookWord>> doGetBookWordList(@Query("bookId") int bookId);
-
-    @GET("/doGetTaskWordList")
-    Single<EntityListResponse<TaskWord>> doGetTaskWordList(@Query("bookId") int bookId);
-
-    @GET("/doGetBookWordDef")
-    Single<EntityResponse<BookWordDef>> doGetBookWordDef(@Query("bookId") int bookId, @Query("word") String word);
-
-    @GET("/doGetBookWordDefList")
-    Single<EntityListResponse<BookWordDef>> doGetBookWordDefList(@Query("bookId") int bookId);
-
-    @GET("/doGetBookWordDefListByWords")
-    Single<EntityListResponse<BookWordDef>> doGetBookWordDefListByWords(@Query("bookId") int bookId, @Query("word[]") List<String> ids);
+    Single<EntityListResponse<Word>> doGetBookWordList(@Query("id") int bookId);
 
     @GET("/doGetBookList")
     Single<EntityListResponse<Book>> doGetBookList();
 
-    @POST("/doLogin")
-    Single<EntityResponse<User>> doLogin(@Query("userName") String userName, @Query("password") String password);
+    @POST("/doCreateTask")
+    Single<CommonResponse> doCreateTask(@Query("id") int bookId);
 
-    @GET("/doGetUserInfo")
-    Single<EntityResponse<User>> doGetUserInfo();
+    @POST("/doAddBook")
+    Single<CommonResponse> doAddBook(@Query("id") int bookId, @Query("plan") int plan);
 
-    @GET("/logout.json")
-    Single<CommonResponse> doLogout();
+    @GET("/doGetTaskWordList")
+    Single<EntityListResponse<String>> doGetTaskWordList(@Query("id") int bookId);
 
-    @GET("/doUpdateBookWord")
-    Single<CommonResponse> doUpdateBookWord(@Query("tag") int tag, @Query("studyCount") int studyCount);
+    @GET("/doGetDefListByWords")
+    Single<EntityListResponse<Def>> doGetDefListByWords(@Query("id") int bookId, @Query("word[]") List<String> words);
 
-    @GET("/doSwitchBook")
-    Single<CommonResponse> doSwitchBook(@Query("bookId") int bookId);
-
-    @GET("/doAddBook")
-    Single<CommonResponse> doAddBook(@Query("bookId") int bookId, @Query("plan") int plan);
-
-    @POST("/doDeleteBook")
-    Single<CommonResponse> doDeleteBook(@Query("bookId") int bookId);
-
-    @GET("/doCreateTask")
-    Single<CommonResponse> doCreateTask(@Query("bookId") int bookId);
+    @POST("/doSetWordTag")
+    Single<CommonResponse> doSetWordTag(@Query("id") int bookId, @Query("word") String word, @Query("tag") int tag);
 
 }

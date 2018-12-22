@@ -23,13 +23,13 @@ import android.support.annotation.NonNull;
 import java.io.Serializable;
 
 /**
- * 单词书单词列表，不含详细注释，一次性全量加载
+ * 单词书单词的详细注释，延迟加载
  */
-@Entity(tableName = "BookWord", primaryKeys = {"bookId", "word"})
-public class BookWord implements Serializable {
+@Entity(tableName = "Def", primaryKeys = {"bookId", "word"})
+public class Def implements Serializable {
     @NonNull
     public int bookId;
     @NonNull
     public String word;
-    public int tag;//0学习中,1已砍
+    public String def;
 }

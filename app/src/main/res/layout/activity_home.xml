@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.mindorks.framework.mvvm.com.kanci.ui.login.LoginActivity">
+    tools:baseActivity="com.mindorks.framework.mvvm.com.kanci.ui.login.LoginActivity">
 
     <data>
 
@@ -9,7 +9,7 @@
 
         <variable
             name="vm"
-            type="com.kanci.ui.MainActivity.ViewModel" />
+            type="com.kanci.ui.home.HomeViewModel" />
     </data>
 
     <RelativeLayout
@@ -44,7 +44,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{String.valueOf(vm.bookState.remainDays)}"
+                android:text='@{vm.book.remainDays+""}'
                 android:textColor="@color/green"
                 android:textSize="60dp"
                 android:textStyle="bold"
@@ -73,16 +73,18 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="大学四级"
+                        android:text='@{vm.book.name}'
                         android:textColor="@color/gray"
-                        android:textSize="16sp" />
+                        android:textSize="16sp"
+                        tools:text="大学四级" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="已学：343/3023"
+                        android:text='@{"已学:"+vm.book.doneCount+"/"+vm.book.count}'
                         android:textColor="@color/gray"
-                        android:textSize="12sp" />
+                        android:textSize="12sp"
+                        tools:text="已学：343/3023" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -98,14 +100,13 @@
                     <ImageView
                         android:layout_width="20dp"
                         android:layout_height="20dp"
-                        android:onClick="@{()->vm.addBook()}"
+                        android:onClick="@{vm.V().onModPlanClick}"
                         android:scaleType="fitXY"
                         android:src="@drawable/edit" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="20dp"
-                        android:onClick="@{()->vm.addBook()}"
                         android:text="修改计划"
                         android:textColor="@color/gray"
                         android:textSize="12sp" />
@@ -118,8 +119,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
 
-                android:layout_marginBottom="40dp"
                 android:layout_marginTop="10dp"
+                android:layout_marginBottom="40dp"
                 android:background="#CDCDCD" />
 
 
@@ -139,7 +140,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text='@{""+vm.bookState.taskNewWord}'
+                        android:text='@{vm.task.reviewCount+""}'
                         android:textColor="@color/black"
                         android:textSize="30dp"
                         android:textStyle="bold"
@@ -164,7 +165,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text='@{""+vm.bookState.plan}'
+                        android:text='@{vm.task.newCount+""}'
                         android:textColor="@color/black"
                         android:textSize="30dp"
                         android:textStyle="bold"
@@ -189,7 +190,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text='@{""+vm.bookState.remainWord}'
+                        android:text='@{vm.task.remainCount+""}'
                         android:textColor="@color/black"
                         android:textSize="30dp"
                         android:textStyle="bold"
@@ -214,7 +215,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text='@{""+vm.bookState.taskDoneWord}'
+                        android:text='@{vm.task.done+""}'
                         android:textColor="@color/black"
                         android:textSize="30dp"
                         android:textStyle="bold"
@@ -234,7 +235,7 @@
                 android:layout_height="40dp"
                 android:layout_marginTop="50dp"
                 android:background="@drawable/btn_big"
-                android:onClick="@{()->vm.runStudy()}"
+                android:onClick="@{vm.V().onStartClick}"
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
                 android:text="学习该计划"
