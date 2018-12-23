@@ -33,6 +33,7 @@ public class Word implements Serializable {
     @NonNull
     public String word;
     public String mean;
+    public String pa;
     public int tag;//0学习中,1已砍
     public int rightCount;
     public int errorCount;

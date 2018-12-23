@@ -18,12 +18,12 @@ public abstract class BaseViewModel {
         return DH;
     }
 
-    public BaseViewModel(BaseActivity view) {
+    public BaseViewModel(BaseView view) {
         this.view = view;
         DH = view.createDH();
     }
 
-    public Object V() {
+    public BaseView V() {
         return view;
     }
 

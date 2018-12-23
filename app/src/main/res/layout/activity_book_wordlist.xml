@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:baseActivity="com.mindorks.framework.mvvm.com.kanci.ui.login.LoginActivity">
 
@@ -18,19 +19,27 @@
         android:background="@color/bgBottom">
 
 
-        <ScrollView
+        <com.qmuiteam.qmui.layout.QMUILinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
             android:layout_marginTop="?attr/qmui_topbar_height"
             android:background="@color/bgBottom"
-            android:fitsSystemWindows="true">
+            android:gravity="center|top"
+            android:orientation="vertical"
+            android:fitsSystemWindows="true"
+            app:qmui_showBorderOnlyBeforeL="true">
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/listView"
+            <android.support.design.widget.TabLayout
+                android:id="@+id/tabView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:listitem="@layout/item_word" />
-        </ScrollView>
+                android:layout_height="wrap_content" />
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/pagerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </com.qmuiteam.qmui.layout.QMUILinearLayout>
 
         <com.qmuiteam.qmui.widget.QMUITopBarLayout
             android:id="@+id/topbar"

@@ -22,40 +22,64 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center_horizontal"
-            android:layout_marginLeft="20dp"
             android:layout_marginTop="?attr/qmui_topbar_height"
             android:background="@color/bgBottom"
+            android:gravity="center|top"
             android:orientation="vertical"
+            android:paddingTop="40dp"
+            android:fitsSystemWindows="true"
             app:qmui_showBorderOnlyBeforeL="true">
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text='@{vm.book.name}'
                 android:textColor="@color/black"
-                android:textSize="16sp"
+                android:textSize="18sp"
                 android:textStyle="bold"
+                android:layout_marginBottom="5dp"
                 tools:text="大学四级" />
 
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:onClick="@{vm.V().onBookListClick}"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/edit" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:text="添加其他单词书"
+                    android:textColor="@color/gray"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text='@{@string/book_add_word_count+vm.book.count}'
-                android:textColor="@color/gray"
-                android:textSize="12sp"
+                android:textColor="@color/black"
+                android:textSize="16sp"
                 tools:text="单词数：3433" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="每日学习计划："
+                android:text="每日学习计划"
                 android:textColor="@color/black"
-                android:textSize="12sp" />
+                android:textSize="16sp" />
 
             <LinearLayout
-                android:layout_width="100dp"
-                android:layout_height="120dp"
-                android:layout_gravity="center">
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -69,16 +93,15 @@
                         android:layout_height="wrap_content"
                         android:text="新词数"
                         android:textColor="@color/black"
-                        android:textSize="12sp" />
+                        android:textSize="16sp" />
 
                     <NumberPicker
                         android:id="@+id/planView"
-                        android:layout_width="40dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginTop="5dp"
                         android:layout_weight="1"
-                        android:onValueChange='@{vm.V().onChangePlanClick}'
-                        android:value='@{vm.plan}' />
+                        android:onValueChange='@{vm.V().onChangePlanClick}' />
                 </LinearLayout>
 
                 <LinearLayout
@@ -93,15 +116,15 @@
                         android:layout_height="wrap_content"
                         android:text="学习天数"
                         android:textColor="@color/black"
-                        android:textSize="12sp" />
+                        android:textSize="16sp" />
 
                     <NumberPicker
                         android:id="@+id/remainDaysView"
-                        android:layout_width="40dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginTop="5dp"
                         android:layout_weight="1"
-                        android:value='@{vm.remainDays}' />
+                        android:onValueChange='@{vm.V().onChangePlanClick}' />
                 </LinearLayout>
 
             </LinearLayout>

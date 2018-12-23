@@ -21,6 +21,7 @@ public class TaskPlan {
 
     public TaskPlan(List<Word> wordList) {
         data = wordList.stream().collect(Collectors.toMap(x -> x.word, x -> x));
+        createPlan();
     }
 
     public int getCount() {
@@ -69,13 +70,13 @@ public class TaskPlan {
         Collections.shuffle(newArr);
         reviewData.addAll(reviewArr);
         newData.addAll(newArr);
-        learnNew = !(reviewArr.size() > 0);
     }
 
     public Word next() {
         if (reviewData.size() > 0) {
             return reviewData.poll();
         }
+        learnNew = !(reviewData.size() > 0);
         if (learnNew && newData.size() > 0) {
             return newData.poll();
         }

@@ -8,8 +8,14 @@ import com.kanci.ui.base.BaseViewModel;
 import java.util.List;
 
 public class ListViewModel extends BaseViewModel {
-    public ListViewModel(BaseActivity activity) {
-        super(activity);
+
+    public ListViewModel(BaseView view) {
+        super(view);
+    }
+
+    @Override
+    public ListActivity V() {
+        return (ListActivity) super.V();
     }
 
     public void doLoadBookList() {
@@ -21,7 +27,7 @@ public class ListViewModel extends BaseViewModel {
 
             @Override
             public void onSuccess(List<Book> data) {
-                ((ListActivity) V()).onLoadBookList(data);
+                V().onLoadBookList(data);
             }
         }.run();
     }

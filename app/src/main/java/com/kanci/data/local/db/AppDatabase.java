@@ -30,7 +30,7 @@ import com.kanci.utils.AppConstants;
 @Database(entities = {
         Word.class,
         Def.class,
-}, version = 7, exportSchema = false)
+}, version = 16, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
 
     public abstract AppDao.WordDao wordDao();

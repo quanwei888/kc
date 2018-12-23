@@ -12,20 +12,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <baseActivity android:name=".ui.MainActivity">
+        <activity android:name=".ui.home.HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </baseActivity>
-        <baseActivity android:name=".ui.login.LoginActivity" />
-        <baseActivity android:name=".ui.test.TestActivity" />
-        <baseActivity android:name=".ui.book.add.AddActivity" />
-        <baseActivity android:name=".ui.book.plan.PlanActivity" />
-        <baseActivity android:name=".ui.book.BookListActivity" />
-        <baseActivity android:name=".ui.book.BookAddActivity" />
-        <baseActivity android:name=".ui.task.TaskMainActivity" />
+        </activity>
+        <activity android:name=".ui.book.add.AddActivity"></activity>
+        <activity android:name=".ui.book.list.ListActivity"></activity>
+        <activity android:name=".ui.book.wordlist.WordListActivity"></activity>
+        <activity android:name=".ui.task.card.CardActivity"></activity>
     </application>
 
 </manifest>

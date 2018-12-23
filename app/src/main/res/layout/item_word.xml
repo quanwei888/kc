@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
+        <import type="android.view.View" />
+
+        <variable
+            name="vm"
+            type="com.kanci.ui.book.wordlist.fragment.ItemViewModel" />
     </data>
 
     <RelativeLayout
@@ -17,20 +23,23 @@
             android:background="@color/bgBottom">
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:padding="10dp"
-                android:text="welcome"
+                android:text="@{vm.word.word}"
                 android:textColor="@color/green"
                 android:textSize="20dp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                tools:text="welcome" />
 
             <TextView
+                android:id="@+id/doneView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:gravity="center_vertical"
+                android:onClick="@{vm.V()::onDoneWordEvent}"
                 android:padding="10dp"
                 android:text="砍"
                 android:textColor="@color/gray"
@@ -42,22 +51,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/wordView"
-            android:orientation="vertical"
-            android:paddingLeft="10dp">
+            android:background="@color/bgTop"
+            android:orientation="vertical">
 
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="例句"
-                android:textSize="14sp" />
+                android:padding="10dp"
+                android:text="@{vm.word.mean}"
+                android:textSize="14sp"
+                tools:text="释义" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="classmate"
-                android:textColor="@color/fontBlack"
-                android:textSize="20sp" />
 
         </LinearLayout>
     </RelativeLayout>

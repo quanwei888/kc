@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.kanci.BR;
 import com.kanci.data.AppDataHelper;
 
 public abstract class BaseFragment extends Fragment implements BaseViewModel.BaseView {
@@ -25,7 +26,9 @@ public abstract class BaseFragment extends Fragment implements BaseViewModel.Bas
 
     public abstract int getLayoutId();
 
-    public abstract int getBindingId();
+    public int getBindingId() {
+        return BR.vm;
+    }
 
     public abstract BaseViewModel createViewModel();
 

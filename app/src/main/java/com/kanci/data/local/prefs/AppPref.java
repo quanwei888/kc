@@ -18,14 +18,14 @@ package com.kanci.data.local.prefs;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
 
 import com.google.gson.Gson;
 import com.kanci.data.model.bean.Book;
 import com.kanci.data.model.bean.Task;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 
 /**
@@ -46,6 +46,9 @@ public class AppPref {
 
     public AppPref(Context context, String prefFileName) {
         prefs = context.getSharedPreferences(prefFileName, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.clear();
+        editor.apply();
     }
 
     public Task getTask() {
@@ -58,8 +61,9 @@ public class AppPref {
     }
 
     public void saveTask(Task task) {
-        prefs.edit().putString(PREF_KEY_TASK, new Gson().toJson(task));
-        prefs.edit().apply();
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString(PREF_KEY_TASK, new Gson().toJson(task));
+        editor.apply();
     }
 
     public Book getBook() {
@@ -72,15 +76,24 @@ public class AppPref {
     }
 
     public void saveBook(Book book) {
-        prefs.edit().putString(PREF_KEY_BOOK, new Gson().toJson(book));
-        prefs.edit().apply();
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString(PREF_KEY_BOOK, new Gson().toJson(book));
+        editor.apply();
     }
 
-    public void saveTaskWordList(Set<String> wordList) {
-        prefs.edit().putStringSet(PREF_KEY_TASK_LIST, wordList);
+    public void saveTaskWordList(List<String> ws) {
+        String wsStr = String.join(",", ws);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString(PREF_KEY_TASK_LIST, wsStr);
+        editor.apply();
     }
 
-    public Set<String> getTaskWordList() {
-        return prefs.getStringSet(PREF_KEY_TASK_LIST, new HashSet<String>());
+    public List<String> getTaskWordList() {
+        String wsStr = prefs.getString(PREF_KEY_TASK_LIST, "");
+        if (wsStr.length() == 0) {
+            return new ArrayList<String>();
+
+        }
+        return Arrays.asList(wsStr.split(","));
     }
 }

@@ -22,13 +22,12 @@ public class Task implements Serializable {
     public int bookId;
     public int taskId;
     public int count;
-    public int done;
-    public int plan;
+    public int doneCount;
     public int version;
     public int newCount;
 
     public int getRemainCount() {
-        return count - done;
+        return count - doneCount;
     }
 
     public int getReviewCount() {

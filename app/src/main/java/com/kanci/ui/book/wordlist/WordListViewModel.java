@@ -8,15 +8,16 @@ import com.kanci.ui.base.BaseViewModel;
 import java.util.List;
 
 public class WordListViewModel extends BaseViewModel {
-    public WordListViewModel(BaseActivity activity) {
-        super(activity);
+
+    public WordListViewModel(BaseView view) {
+        super(view);
     }
 
     public void doLoadBookWordList(int bookId) {
         new Query<List<Word>>() {
             @Override
             public List<Word> doQuery() throws ApiException {
-                return DH().getBookWordListLocal(bookId);
+                return DH().getBookWordList(bookId);
             }
 
             @Override

@@ -18,16 +18,14 @@ package com.kanci.data.local.db;
 
 import android.arch.persistence.db.SupportSQLiteQuery;
 import android.arch.persistence.room.Dao;
-import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
 import android.arch.persistence.room.RawQuery;
 import android.arch.persistence.room.Update;
 
-import com.kanci.data.model.bean.Task;
-import com.kanci.data.model.db.Word;
 import com.kanci.data.model.db.Def;
+import com.kanci.data.model.db.Word;
 
 import java.util.List;
 
@@ -49,10 +47,16 @@ public interface AppDao {
         @Query("select * from Word")
         Single<List<Word>> findAll();
 
+        @Query("select * from Word where bookId=:bookId and word in (:words)")
+        Single<List<Word>> findTaskAll(int bookId, List<String> words);
+
+        @Query("select * from Word where bookId=:bookId")
+        Single<List<Word>> findAll(int bookId);
+
         @Query("select count(1) from Word where bookId=:bookId and tag=1")
         Single<Integer> doneCount(int bookId);
 
-        @Query("select count(1) from Word where bookId=:bookId and word in (:words)")
+        @Query("select count(1) from Word where bookId=:bookId and tag=1 and word in (:words)")
         Single<Integer> taskDoneCount(int bookId, List<String> words);
 
         @Query("select count(1) from Word where bookId=:bookId and (rightCount>0 or errorCount>0) and  word in (:words)")
@@ -63,6 +67,9 @@ public interface AppDao {
 
         @Update
         void update(Word entity);
+
+        @Query("delete from Word where bookId=:bookId")
+        void delete(int bookId);
     }
 
     @Dao

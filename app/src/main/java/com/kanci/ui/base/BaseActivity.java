@@ -6,7 +6,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
+import com.kanci.BR;
 import com.kanci.data.AppDataHelper;
+import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 
 public abstract class BaseActivity extends AppCompatActivity implements BaseViewModel.BaseView {
     private BaseViewModel viewModel;
@@ -15,6 +17,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        QMUIStatusBarHelper.translucent(this);
         viewModel = createViewModel();
         binding = DataBindingUtil.setContentView(this, getLayoutId());
         binding.setVariable(getBindingId(), viewModel);
@@ -28,7 +31,9 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
 
     public abstract int getLayoutId();
 
-    public abstract int getBindingId();
+    public int getBindingId() {
+        return BR.vm;
+    }
 
     public abstract BaseViewModel createViewModel();
 
@@ -39,7 +44,6 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
     public BaseViewModel VM() {
         return viewModel;
     }
-
 
     @Override
     public void handleError(Throwable e) {

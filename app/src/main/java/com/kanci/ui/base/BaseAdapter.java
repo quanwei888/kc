@@ -7,72 +7,59 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
+import com.kanci.BR;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class BaseAdapter<Item, VM extends BaseItemViewModel> extends RecyclerView.Adapter<BaseAdapter<Item,VM>.ViewHolder> {
-    BaseActivity activity;
-    List<Item> data = new ArrayList<>();
+public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseViewHolder<T>> {
+    protected BaseViewModel.BaseView view;
+    protected List<T> data = new ArrayList<>();
 
-    public BaseAdapter(BaseActivity activity) {
-        this.activity = activity;
+    public BaseAdapter(BaseViewModel.BaseView view) {
+        this.view = view;
     }
 
-    public void addAll(List<Item> items) {
+    public void addAll(List<T> items) {
         data.addAll(items);
         notifyDataSetChanged();
     }
 
-    public void add(Item item) {
+    public void add(T item) {
         data.add(item);
         notifyDataSetChanged();
     }
 
-    public void remove(Item item) {
-        data.remove(item);
-        notifyDataSetChanged();
+    public void remove(T item) {
+        int pos = data.indexOf(item);
+        remove(pos);
     }
 
-
-    @NonNull
-    @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        ViewDataBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), getLayoutId(), parent, false);
-        return new ViewHolder(binding);
+    public void remove(int pos) {
+        data.remove(pos);
+        notifyItemRangeChanged(pos, data.size() - pos);
     }
 
-    @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int pos) {
-        Item item = data.get(pos);
-        BaseItemViewModel<Item> vm = createVM(activity);
-        vm.item.set(item);
-        if (pos == 0) {
-            vm.isFirst.set(true);
-        }
-        if (pos == data.size() - 1) {
-            vm.isLast.set(true);
-        }
-        holder.binding.setVariable(getBindingId(), vm);
-    }
-
-    public abstract BaseItemViewModel createVM(BaseActivity activity);
-
-    public abstract int getBindingId();
-
-    public abstract int getLayoutId();
 
     @Override
     public int getItemCount() {
         return data.size();
     }
 
-
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        ViewDataBinding binding;
-
-        public ViewHolder(ViewDataBinding binding) {
-            super(binding.getRoot());
-            this.binding = binding;
-        }
+    @NonNull
+    @Override
+    public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        ViewDataBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), getLayoutId(), parent, false);
+        return createViewHolder(binding, view);
     }
+
+
+    @Override
+    public void onBindViewHolder(@NonNull BaseViewHolder holder, int pos) {
+        holder.onBind(data, pos);
+    }
+
+    public abstract BaseViewHolder createViewHolder(ViewDataBinding binding, BaseViewModel.BaseView view);
+
+    public abstract int getLayoutId();
 }

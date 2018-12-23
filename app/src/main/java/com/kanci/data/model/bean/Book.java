@@ -7,7 +7,7 @@ import java.io.Serializable;
  */
 
 public class Book implements Serializable {
-    public int id;
+    public int bookId;
     public String name;
     public int count;
     public int doneCount;

@@ -19,31 +19,31 @@ import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 public interface ApiHelper {
-    @GET("/doGetBookState")
+    @GET("/doGetTask")
     Single<EntityResponse<Task>> doGetTask();
 
     @GET("/doGetBook")
-    Single<EntityResponse<Book>> doGetBook(int bookId);
+    Single<EntityResponse<Book>> doGetBook(@Query("bookId") int bookId);
 
     @GET("/doGetBookWordList")
-    Single<EntityListResponse<Word>> doGetBookWordList(@Query("id") int bookId);
+    Single<EntityListResponse<Word>> doGetBookWordList(@Query("bookId") int bookId);
 
     @GET("/doGetBookList")
     Single<EntityListResponse<Book>> doGetBookList();
 
     @POST("/doCreateTask")
-    Single<CommonResponse> doCreateTask(@Query("id") int bookId);
+    Single<CommonResponse> doCreateTask(@Query("bookId") int bookId);
 
     @POST("/doAddBook")
-    Single<CommonResponse> doAddBook(@Query("id") int bookId, @Query("plan") int plan);
+    Single<CommonResponse> doAddBook(@Query("bookId") int bookId, @Query("plan") int plan);
 
     @GET("/doGetTaskWordList")
-    Single<EntityListResponse<String>> doGetTaskWordList(@Query("id") int bookId);
+    Single<EntityListResponse<String>> doGetTaskWordList(@Query("bookId") int bookId);
 
     @GET("/doGetDefListByWords")
-    Single<EntityListResponse<Def>> doGetDefListByWords(@Query("id") int bookId, @Query("word[]") List<String> words);
+    Single<EntityListResponse<Def>> doGetDefListByWords(@Query("bookId") int bookId, @Query("word[]") List<String> words);
 
     @POST("/doSetWordTag")
-    Single<CommonResponse> doSetWordTag(@Query("id") int bookId, @Query("word") String word, @Query("tag") int tag);
+    Single<CommonResponse> doSetWordTag(@Query("bookId") int bookId, @Query("word") String word, @Query("tag") int tag);
 
 }

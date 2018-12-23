@@ -13,20 +13,20 @@ public class HomeViewModel extends BaseViewModel {
     public ObservableField<Task> task = new ObservableField<>();
     public ObservableField<Book> book = new ObservableField<>();
 
+    public HomeViewModel(BaseView view) {
+        super(view);
+    }
+
     @Override
     public HomeActivity V() {
         return (HomeActivity) super.V();
-    }
-
-    public HomeViewModel(BaseActivity activity) {
-        super(activity);
     }
 
     public void doLoadTask() {
         new Query<Task>() {
             @Override
             public Task doQuery() throws ApiException {
-                return DH().getTaskLocal();
+                return DH().getTask();
             }
 
             @Override
@@ -37,38 +37,7 @@ public class HomeViewModel extends BaseViewModel {
         }.run();
     }
 
-    public void doRefreshTask() {
-        new Query<Task>() {
-
-            @Override
-            public Task doQuery() throws ApiException {
-                return DH().getTask();
-            }
-
-            @Override
-            public void onSuccess(Task data) {
-                task.set(data);
-            }
-        }.run();
-    }
-
     public void doLoadBook(int bookId) {
-        new Query<Book>() {
-
-            @Override
-            public Book doQuery() throws ApiException {
-                return DH().getBookLocal(bookId);
-            }
-
-            @Override
-            public void onSuccess(Book data) {
-                book.set(data);
-                V().onLoadBook(data);
-            }
-        }.run();
-    }
-
-    public void doRefreshBook(int bookId) {
         new Query<Book>() {
 
             @Override
@@ -79,6 +48,7 @@ public class HomeViewModel extends BaseViewModel {
             @Override
             public void onSuccess(Book data) {
                 book.set(data);
+                V().onLoadBook(data);
             }
         }.run();
     }

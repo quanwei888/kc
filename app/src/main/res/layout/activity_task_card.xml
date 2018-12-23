@@ -34,8 +34,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="30dp"
-                    android:layout_marginTop="100dp"
                     android:layout_marginRight="30dp"
+                    android:layout_marginTop="100dp"
                     android:orientation="vertical"
                     android:weightSum="2">
 
@@ -43,6 +43,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
+                        android:text="@{vm.word.word}"
                         android:textColor="@color/black"
                         android:textSize="45sp"
                         android:textStyle="bold"
@@ -52,9 +53,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="[ˈwɛlkəm]"
+                        android:text="@{vm.word.pa}"
                         android:textColor="@color/gray"
-                        android:textSize="18sp" />
+                        android:textSize="18sp"
+                        tools:text="[ˈwɛlkəm]" />
 
                     <LinearLayout
                         android:id="@+id/tipView"
@@ -67,9 +69,10 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:gravity="center"
-                            android:text="adj. 受欢迎的 n. 欢迎 vt. 欢迎"
+                            android:text="@{vm.word.mean}"
                             android:textColor="@color/gray"
-                            android:textSize="18sp" />
+                            android:textSize="18sp"
+                            tools:text="adj. 受欢迎的 n. 欢迎 vt. 欢迎" />
                     </LinearLayout>
                 </LinearLayout>
 
@@ -96,6 +99,7 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginTop="20dp"
+                android:onClick="@{vm.V().onDoneWord}"
                 android:scaleType="fitXY"
                 android:src="@drawable/done" />
         </LinearLayout>

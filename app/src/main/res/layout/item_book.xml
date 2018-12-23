@@ -5,49 +5,67 @@
 
     <data>
 
+        <import type="android.view.View" />
+
+        <variable
+            name="vm"
+            type="com.kanci.ui.book.list.ItemViewModel" />
     </data>
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/headView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:textSize="24dp"
-            android:paddingTop="40dp"
             android:layout_marginBottom="10dp"
+            android:paddingTop="40dp"
+            android:text="@{vm.book.tag}"
+            android:textSize="22dp"
+            android:textStyle="bold"
+            android:visibility='@{vm.isSecFirst?View.VISIBLE:View.GONE}'
             tools:text="大学" />
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/headView"
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/bookNameView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="@{vm.book.name}"
                 android:textSize="16sp"
                 tools:text="大学四级" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/bookNameView"
+                android:text='@{vm.book.count+"词"}'
                 android:textColor="@color/fontGray"
                 android:textSize="12sp"
                 tools:text="2345词" />
-        </LinearLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="10dp"
-            android:text="&gt;"
-            android:textSize="16sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp"
+                android:text="&gt;"
+                android:textSize="16sp" />
+        </RelativeLayout>
 
-    </RelativeLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="5dp"
+            android:background="#CDCDCD" />
+
+    </LinearLayout>
 </layout>
