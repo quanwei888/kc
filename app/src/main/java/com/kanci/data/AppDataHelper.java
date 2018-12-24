@@ -239,6 +239,11 @@ public class AppDataHelper {
         return book;
     }
 
+    public Book getBookView(int bookId) throws ApiException {
+        Book book = (Book) Query(apiHelper.doGetBook(bookId).blockingGet());
+        return book;
+    }
+
     public Book getBookLocal(int bookId) throws ApiException {
         return pref.getBook();
     }
@@ -287,11 +292,11 @@ public class AppDataHelper {
     }
 
     public List<Word> getBookWordList(int bookId, int tag) throws ApiException {
-        List<Word> wordList = getBookWordListLocal(bookId, tag);
+        List<Word> wordList = getBookWordListLocal(bookId);
         if (wordList.size() == 0) {
             getBookWordListRemote(bookId);//全部缓存
-            wordList = getBookWordListLocal(bookId, tag);
         }
+        wordList = getBookWordListLocal(bookId, tag);
         return wordList;
     }
 
@@ -321,7 +326,10 @@ public class AppDataHelper {
         if (defList.size() < words.size()) {
             defList = (List<Def>) QueryList(apiHelper.doGetDefListByWords(bookId, words).blockingGet());
         }
-        defList.forEach(w -> db.defDao().insert(w));
+        defList.forEach(w -> {
+            db.defDao().delete(w);
+            db.defDao().insert(w);
+        });
         return defList;
     }
 

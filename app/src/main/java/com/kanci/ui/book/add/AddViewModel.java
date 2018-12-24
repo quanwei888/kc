@@ -24,7 +24,7 @@ public class AddViewModel extends BaseViewModel {
 
             @Override
             public Book doQuery() throws ApiException {
-                return DH().getBook(bookId);
+                return DH().getBookView(bookId);
             }
 
             @Override
