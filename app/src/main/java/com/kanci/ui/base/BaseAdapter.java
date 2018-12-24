@@ -7,8 +7,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import com.kanci.BR;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,7 +34,11 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseViewHolder
     }
 
     public void remove(int pos) {
+        if (pos == -1) {
+            return;
+        }
         data.remove(pos);
+        notifyItemRemoved(pos);
         notifyItemRangeChanged(pos, data.size() - pos);
     }
 
