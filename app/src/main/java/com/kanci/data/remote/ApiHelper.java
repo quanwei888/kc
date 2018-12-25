@@ -31,19 +31,19 @@ public interface ApiHelper {
     @GET("/book-words/list")
     Single<EntityListResponse<Word>> doGetBookWordList(@Query("bookId") int bookId);
 
-    @GET("/doGetBookList")
+    @POST("/user-words/set-word-tag")
+    Single<CommonResponse> doSetWordTag(@Query("bookId") int bookId, @Query("word") String word, @Query("tag") int tag);
+
+    @GET("/book/list")
     Single<EntityListResponse<Book>> doGetBookList();
 
-    @POST("/doCreateTask")
-    Single<CommonResponse> doCreateTask(@Query("bookId") int bookId);
-
-    @POST("/doAddBook")
+    @POST("/user-book/add")
     Single<CommonResponse> doAddBook(@Query("bookId") int bookId, @Query("plan") int plan);
 
-    @GET("/doGetDefListByWords")
-    Single<EntityListResponse<Def>> doGetDefListByWords(@Query("bookId") int bookId, @Query("word[]") List<String> words);
+    @POST("/task/create")
+    Single<CommonResponse> doCreateTask(@Query("bookId") int bookId);
 
-    @POST("/doSetWordTag")
-    Single<CommonResponse> doSetWordTag(@Query("bookId") int bookId, @Query("word") String word, @Query("tag") int tag);
+    @GET("/book-words/batch-view")
+    Single<EntityListResponse<Def>> doGetDefListByWords(@Query("bookId") int bookId, @Query("word[]") List<String> words);
 
 }
