@@ -13,10 +13,6 @@ public class CardViewModel extends BaseViewModel {
     public TaskPlan taskPlan;
     public ObservableField<Word> word = new ObservableField<>();
 
-    public CardViewModel(BaseView view) {
-        super(view);
-    }
-
     @Override
     public CardActivity V() {
         return (CardActivity) super.V();

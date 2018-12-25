@@ -10,10 +10,6 @@ import com.kanci.ui.base.BaseViewModel;
 public class AddViewModel extends BaseViewModel {
     public ObservableField<Book> book = new ObservableField<>();
 
-    public AddViewModel(BaseView view) {
-        super(view);
-    }
-
     @Override
     public AddActivity V() {
         return (AddActivity) super.V();

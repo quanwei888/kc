@@ -21,21 +21,11 @@ import java.util.List;
  * Created by qw on 18-12-23.
  */
 
-public class ListFragment extends BaseFragment {
+public class ListFragment extends BaseFragment<FragmentBookWordlistBinding, ListViewModel> {
 
     @Override
     public int getLayoutId() {
         return R.layout.fragment_book_wordlist;
-    }
-
-    @Override
-    public BaseViewModel createViewModel() {
-        return new ListViewModel(this);
-    }
-
-    @Override
-    public ListViewModel VM() {
-        return (ListViewModel) super.VM();
     }
 
     @Override
@@ -49,7 +39,7 @@ public class ListFragment extends BaseFragment {
     }
 
     public void onLoadBookList(List<Word> data) {
-        RecyclerView rv = ((FragmentBookWordlistBinding) getBinding()).listView;
+        RecyclerView rv = getBinding().listView;
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         rv.setLayoutManager(linearLayoutManager);

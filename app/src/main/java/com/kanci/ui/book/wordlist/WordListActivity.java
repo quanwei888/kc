@@ -16,10 +16,15 @@ import com.kanci.ui.book.wordlist.fragment.ListFragment;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WordListActivity extends BaseActivity {
+public class WordListActivity extends BaseActivity<ActivityBookWordlistBinding, WordListViewModel> {
     Adapter adapter;
     TabLayout tabLayout;
     ViewPager viewPager;
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_book_wordlist;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,21 +75,6 @@ public class WordListActivity extends BaseActivity {
 
         });
         tabLayout.setupWithViewPager(viewPager);
-    }
-
-    @Override
-    public WordListViewModel VM() {
-        return (WordListViewModel) super.VM();
-    }
-
-    @Override
-    public int getLayoutId() {
-        return R.layout.activity_book_wordlist;
-    }
-
-    @Override
-    public BaseViewModel createViewModel() {
-        return new WordListViewModel(this);
     }
 
     public void onLoadBookList(List<Word> data) {

@@ -14,30 +14,20 @@ import com.kanci.ui.book.add.AddActivity;
 
 import java.util.List;
 
-public class ListActivity extends BaseActivity {
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        VM().doLoadBookList();
-    }
-
-    @Override
-    public ListViewModel VM() {
-        return (ListViewModel) super.VM();
-    }
-
+public class ListActivity extends BaseActivity<ActivityBookListBinding, ListViewModel> {
     @Override
     public int getLayoutId() {
         return R.layout.activity_book_list;
     }
 
     @Override
-    public BaseViewModel createViewModel() {
-        return new ListViewModel(this);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        VM().doLoadBookList();
     }
 
     public void onLoadBookList(List<Book> bookList) {
-        RecyclerView rv = ((ActivityBookListBinding) getBinding()).listView;
+        RecyclerView rv = getBinding().listView;
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         rv.setLayoutManager(linearLayoutManager);

@@ -38,7 +38,9 @@ public class ItemViewHolder extends BaseViewHolder<Word> {
 
     @Override
     public BaseViewModel createViewModel() {
-        return new ItemViewModel(this);
+        ItemViewModel vm = new ItemViewModel();
+        vm.init(this);
+        return vm;
     }
 
     @Override

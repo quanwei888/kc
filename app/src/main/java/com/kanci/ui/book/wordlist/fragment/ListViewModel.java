@@ -1,5 +1,8 @@
 package com.kanci.ui.book.wordlist.fragment;
 
+import android.app.Application;
+import android.support.annotation.NonNull;
+
 import com.kanci.data.model.api.ApiException;
 import com.kanci.data.model.db.Word;
 import com.kanci.ui.base.BaseViewModel;
@@ -7,11 +10,6 @@ import com.kanci.ui.base.BaseViewModel;
 import java.util.List;
 
 public class ListViewModel extends BaseViewModel {
-
-    public ListViewModel(BaseView view) {
-        super(view);
-    }
-
     @Override
     public ListFragment V() {
         return (ListFragment) super.V();

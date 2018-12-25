@@ -19,13 +19,16 @@ import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 public interface ApiHelper {
-    @GET("/doGetTask")
+    @GET("/task/view")
     Single<EntityResponse<Task>> doGetTask();
 
-    @GET("/doGetBook")
+    @GET("/task/list")
+    Single<EntityListResponse<String>> doGetTaskWordList(@Query("bookId") int bookId);
+
+    @GET("/book/view")
     Single<EntityResponse<Book>> doGetBook(@Query("bookId") int bookId);
 
-    @GET("/doGetBookWordList")
+    @GET("/book-words/list")
     Single<EntityListResponse<Word>> doGetBookWordList(@Query("bookId") int bookId);
 
     @GET("/doGetBookList")
@@ -36,9 +39,6 @@ public interface ApiHelper {
 
     @POST("/doAddBook")
     Single<CommonResponse> doAddBook(@Query("bookId") int bookId, @Query("plan") int plan);
-
-    @GET("/doGetTaskWordList")
-    Single<EntityListResponse<String>> doGetTaskWordList(@Query("bookId") int bookId);
 
     @GET("/doGetDefListByWords")
     Single<EntityListResponse<Def>> doGetDefListByWords(@Query("bookId") int bookId, @Query("word[]") List<String> words);

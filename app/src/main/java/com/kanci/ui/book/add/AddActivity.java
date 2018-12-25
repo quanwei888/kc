@@ -15,28 +15,17 @@ import com.kanci.ui.book.list.ListActivity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AddActivity extends BaseActivity {
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        int bookId = getIntent().getIntExtra("bookId", 0);
-        VM().doLoadBook(bookId);
-    }
-
-
+public class AddActivity extends BaseActivity<ActivityBookAddBinding, AddViewModel> {
     @Override
     public int getLayoutId() {
         return R.layout.activity_book_add;
     }
 
     @Override
-    public AddViewModel VM() {
-        return (AddViewModel) super.VM();
-    }
-
-    @Override
-    public BaseViewModel createViewModel() {
-        return new AddViewModel(this);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        int bookId = getIntent().getIntExtra("bookId", 0);
+        VM().doLoadBook(bookId);
     }
 
     public void onAddBook() {
@@ -48,12 +37,12 @@ public class AddActivity extends BaseActivity {
     }
 
     public void onChangePlanClick(NumberPicker picker, int oldVal, int newVal) {
-        ((ActivityBookAddBinding) getBinding()).planView.setValue(newVal);
-        ((ActivityBookAddBinding) getBinding()).remainDaysView.setValue(newVal);
+        getBinding().planView.setValue(newVal);
+        getBinding().remainDaysView.setValue(newVal);
     }
 
     public void onAddBookClick(View view) {
-        int value = ((ActivityBookAddBinding) getBinding()).planView.getValue();
+        int value = getBinding().planView.getValue();
         int plan = Integer.parseInt(planOptions[value]);
         VM().doAddBook(plan);
     }
@@ -61,17 +50,17 @@ public class AddActivity extends BaseActivity {
     String[] planOptions = planOptions(5, 50, 10);
 
     public void onLoadBook(Book book) {
-        ((ActivityBookAddBinding) getBinding()).planView.setMinValue(0);
-        ((ActivityBookAddBinding) getBinding()).planView.setMaxValue(planOptions.length - 1);
-        ((ActivityBookAddBinding) getBinding()).planView.setDisplayedValues(planOptions);
+        getBinding().planView.setMinValue(0);
+        getBinding().planView.setMaxValue(planOptions.length - 1);
+        getBinding().planView.setDisplayedValues(planOptions);
         int curValue = optionValue(planOptions, book.plan);
-        ((ActivityBookAddBinding) getBinding()).planView.setValue(curValue);
+        getBinding().planView.setValue(curValue);
 
         String[] remainDaysOptions = remainDaysOptions(planOptions);
-        ((ActivityBookAddBinding) getBinding()).remainDaysView.setMinValue(0);
-        ((ActivityBookAddBinding) getBinding()).remainDaysView.setMaxValue(remainDaysOptions.length - 1);
-        ((ActivityBookAddBinding) getBinding()).remainDaysView.setDisplayedValues(remainDaysOptions);
-        ((ActivityBookAddBinding) getBinding()).remainDaysView.setValue(curValue);
+        getBinding().remainDaysView.setMinValue(0);
+        getBinding().remainDaysView.setMaxValue(remainDaysOptions.length - 1);
+        getBinding().remainDaysView.setDisplayedValues(remainDaysOptions);
+        getBinding().remainDaysView.setValue(curValue);
     }
 
     String[] planOptions(int min, int max, int inc) {

@@ -9,10 +9,6 @@ import java.util.List;
 
 public class ListViewModel extends BaseViewModel {
 
-    public ListViewModel(BaseView view) {
-        super(view);
-    }
-
     @Override
     public ListActivity V() {
         return (ListActivity) super.V();

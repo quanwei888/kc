@@ -54,6 +54,7 @@ public class AppDataHelper {
     final static String KEY_TASK__DONE = "KEY_TASK__DONE";
     final static String KEY_BOOK_DONE = "KEY_BOOK_DONE";
     final static String KEY_TASK_NEW_COUNT = "KEY_TASK_NEW_COUNT";
+    final static String KEY_TASK_COUNT = "KEY_TASK_COUNT";
 
     private final ApiHelper apiHelper;
 
@@ -80,7 +81,7 @@ public class AppDataHelper {
 
         this.apiHelper = new Retrofit.Builder()
                 //.baseUrl("http://lucky888.vicp.io:10000/index.php/")
-                .baseUrl("http://115.171.203.91:10000/index.php/")
+                .baseUrl("http://47.105.160.166:8000/")
                 .client(okHttpClient.build())
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
@@ -125,6 +126,15 @@ public class AppDataHelper {
         return data.get(KEY_TASK__DONE);
     }
 
+    int getTaskCountCache(int bookId) throws ApiException {
+        if (data.containsKey(KEY_TASK_COUNT) || true) {
+            List<String> ws = getTaskWordSetLocal(bookId);
+            int count = db.wordDao().taskCount(bookId, ws).blockingGet();
+            data.put(KEY_TASK_COUNT, count);
+        }
+        return data.get(KEY_TASK__DONE);
+    }
+
     int getTaskNewCountCache(int bookId) throws ApiException {
         if (data.containsKey(KEY_TASK_NEW_COUNT) || true) {
             List<String> ws = getTaskWordSetLocal(bookId);
@@ -159,6 +169,7 @@ public class AppDataHelper {
 
         task.doneCount = getTaskDoneCache(task.bookId);
         task.newCount = getTaskNewCountCache(task.bookId);
+        task.count = getTaskNewCountCache(task.bookId);
         pref.saveTask(task);
 
         return task;

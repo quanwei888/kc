@@ -60,7 +60,10 @@ public interface AppDao {
         @Query("select count(1) from Word where bookId=:bookId and tag=1 and word in (:words)")
         Single<Integer> taskDoneCount(int bookId, List<String> words);
 
-        @Query("select count(1) from Word where bookId=:bookId and (rightCount>0 or errorCount>0) and  word in (:words)")
+        @Query("select count(1) from Word where bookId=:bookId and word in (:words)")
+        Single<Integer> taskCount(int bookId, List<String> words);
+
+        @Query("select count(1) from Word where bookId=:bookId and (rightCount=0 and errorCount=0) and  word in (:words)")
         Single<Integer> taskNewCount(int bookId, List<String> words);
 
         @Insert(onConflict = OnConflictStrategy.REPLACE)

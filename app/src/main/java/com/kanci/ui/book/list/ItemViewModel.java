@@ -16,7 +16,4 @@ public class ItemViewModel extends BaseViewModel {
     public ObservableBoolean isLast = new ObservableBoolean(false);
     public ObservableBoolean isSecFirst = new ObservableBoolean(false);
 
-    public ItemViewModel(BaseView view) {
-        super(view);
-    }
 }

@@ -5,14 +5,18 @@ import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
+import android.arch.lifecycle.ViewModelProviders;
 
 import com.kanci.BR;
 import com.kanci.data.AppDataHelper;
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 
-public abstract class BaseActivity extends AppCompatActivity implements BaseViewModel.BaseView {
-    private BaseViewModel viewModel;
-    private ViewDataBinding binding;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+
+public abstract class BaseActivity<V extends ViewDataBinding, VM extends BaseViewModel> extends AppCompatActivity implements BaseViewModel.BaseView {
+    private VM viewModel;
+    private V binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,13 +39,27 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
         return BR.vm;
     }
 
-    public abstract BaseViewModel createViewModel();
+    public VM createViewModel() {
+        if (viewModel == null) {
+            Class modelClass;
+            Type type = getClass().getGenericSuperclass();
+            if (type instanceof ParameterizedType) {
+                modelClass = (Class) ((ParameterizedType) type).getActualTypeArguments()[1];
+            } else {
+                //如果没有指定泛型参数，则默认使用BaseViewModel
+                modelClass = BaseViewModel.class;
+            }
+            viewModel = (VM) ViewModelProviders.of(this).get(modelClass);
+            viewModel.init(this);
+        }
+        return viewModel;
+    }
 
-    public ViewDataBinding getBinding() {
+    public V getBinding() {
         return binding;
     }
 
-    public BaseViewModel VM() {
+    public VM VM() {
         return viewModel;
     }
 

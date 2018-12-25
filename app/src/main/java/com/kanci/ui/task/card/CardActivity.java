@@ -5,32 +5,22 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.kanci.R;
+import com.kanci.databinding.ActivityTaskCardBinding;
 import com.kanci.ui.base.BaseActivity;
 import com.kanci.ui.base.BaseViewModel;
 import com.kanci.ui.home.HomeActivity;
 
-public class CardActivity extends BaseActivity {
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        int bookId = getIntent().getIntExtra("bookId", 0);
-        VM().doLoadTaskWordList(bookId);
-    }
-
+public class CardActivity extends BaseActivity<ActivityTaskCardBinding, CardViewModel> {
     @Override
     public int getLayoutId() {
         return R.layout.activity_task_card;
     }
 
-
     @Override
-    public BaseViewModel createViewModel() {
-        return new CardViewModel(this);
-    }
-
-    @Override
-    public CardViewModel VM() {
-        return (CardViewModel) super.VM();
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        int bookId = getIntent().getIntExtra("bookId", 0);
+        VM().doLoadTaskWordList(bookId);
     }
 
     public void onLoadTaskWordList() {

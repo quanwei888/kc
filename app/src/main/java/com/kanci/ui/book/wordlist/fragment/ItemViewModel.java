@@ -16,10 +16,6 @@ public class ItemViewModel extends BaseViewModel {
     public ObservableBoolean isFirst = new ObservableBoolean(false);
     public ObservableBoolean isLast = new ObservableBoolean(false);
 
-    public ItemViewModel(BaseView view) {
-        super(view);
-    }
-
     @Override
     public ItemViewHolder V() {
         return (ItemViewHolder) super.V();

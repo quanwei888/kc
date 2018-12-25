@@ -56,7 +56,9 @@ public class ItemViewHolder extends BaseViewHolder<Book> {
 
     @Override
     public BaseViewModel createViewModel() {
-        return new ItemViewModel(this);
+        ItemViewModel vm = new ItemViewModel();
+        vm.init(this);
+        return vm;
     }
 
     public void onBookItemClick(int bookId) {

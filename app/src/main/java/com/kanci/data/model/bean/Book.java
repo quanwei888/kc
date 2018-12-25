@@ -10,11 +10,11 @@ public class Book implements Serializable {
     public int bookId;
     public String name;
     public int count;
-    public int doneCount;
     public boolean isFavor;
     public boolean isStudying;
     public int plan;
     public String tag;
+    public int doneCount;//计算
 
     public int getRemainWord() {
         return count - doneCount;

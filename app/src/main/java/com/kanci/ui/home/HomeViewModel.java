@@ -13,9 +13,6 @@ public class HomeViewModel extends BaseViewModel {
     public ObservableField<Task> task = new ObservableField<>();
     public ObservableField<Book> book = new ObservableField<>();
 
-    public HomeViewModel(BaseView view) {
-        super(view);
-    }
 
     @Override
     public HomeActivity V() {

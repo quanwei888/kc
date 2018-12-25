@@ -21,10 +21,10 @@ import java.io.Serializable;
 public class Task implements Serializable {
     public int bookId;
     public int taskId;
-    public int count;
-    public int doneCount;
     public int version;
-    public int newCount;
+    public int count;//计算
+    public int doneCount;//计算
+    public int newCount;//计算
 
     public int getRemainCount() {
         return count - doneCount;

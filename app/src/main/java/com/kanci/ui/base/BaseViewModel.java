@@ -1,5 +1,10 @@
 package com.kanci.ui.base;
 
+import android.app.Application;
+import android.arch.lifecycle.AndroidViewModel;
+import android.arch.lifecycle.ViewModel;
+import android.support.annotation.NonNull;
+
 import com.kanci.data.AppDataHelper;
 import com.kanci.data.model.api.ApiException;
 
@@ -10,18 +15,19 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-public abstract class BaseViewModel {
+public class BaseViewModel extends ViewModel {
     private AppDataHelper DH;
     private BaseView view;
+
+    public void init(BaseView view) {
+        this.view = view;
+        DH = view.createDH();
+    }
 
     public AppDataHelper DH() {
         return DH;
     }
 
-    public BaseViewModel(BaseView view) {
-        this.view = view;
-        DH = view.createDH();
-    }
 
     public BaseView V() {
         return view;

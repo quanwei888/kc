@@ -46,7 +46,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/bookNameView"
-                android:text='@{vm.book.count+"词"}'
+                android:text='@{vm.book.count}'
                 android:textColor="@color/fontGray"
                 android:textSize="12sp"
                 tools:text="2345词" />

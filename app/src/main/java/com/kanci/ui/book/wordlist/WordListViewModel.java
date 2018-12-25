@@ -8,11 +8,6 @@ import com.kanci.ui.base.BaseViewModel;
 import java.util.List;
 
 public class WordListViewModel extends BaseViewModel {
-
-    public WordListViewModel(BaseView view) {
-        super(view);
-    }
-
     public void doLoadBookWordList(int bookId) {
         new Query<List<Word>>() {
             @Override
