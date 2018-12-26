@@ -9,7 +9,7 @@
 
         <variable
             name="vm"
-            type="com.kanci.ui.book.wordlist.fragment.ItemViewModel" />
+            type="com.kanci.ui.book.wordlist.fragment.Adapter.VM" />
     </data>
 
     <RelativeLayout
@@ -39,7 +39,6 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:gravity="center_vertical"
-                android:onClick="@{vm.V()::onDoneWordEvent}"
                 android:padding="10dp"
                 android:text="砍"
                 android:textColor="@color/gray"

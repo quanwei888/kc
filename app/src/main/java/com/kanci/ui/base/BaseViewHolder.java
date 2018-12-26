@@ -4,60 +4,55 @@ import android.databinding.ViewDataBinding;
 import android.support.v7.widget.RecyclerView;
 
 import com.kanci.BR;
-import com.kanci.data.AppDataHelper;
 
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.List;
 
 /**
  * Created by qw on 18-12-23.
  */
 
-public abstract class BaseViewHolder<T> extends RecyclerView.ViewHolder implements BaseViewModel.BaseView {
-    private ViewDataBinding binding;
-    private BaseViewModel.BaseView rootView;
-    private BaseAdapter<T> adapter;
-    private BaseViewModel viewModel;
+public abstract class BaseViewHolder<I, V extends ViewDataBinding, VM extends ItemViewModel> extends RecyclerView.ViewHolder {
+    private V binding;
+    private VM viewModel;
 
-    public BaseViewHolder(ViewDataBinding binding, BaseViewModel.BaseView rootView, BaseAdapter<T> adapter) {
+    public BaseViewHolder(V binding) {
         super(binding.getRoot());
         this.binding = binding;
-        this.rootView = rootView;
-        this.adapter = adapter;
         viewModel = createViewModel();
         binding.setVariable(getBindingId(), viewModel);
     }
 
-    @Override
-    public AppDataHelper createDH() {
-        return rootView.createDH();
-    }
-
-    @Override
-    public void handleError(Throwable e) {
-        rootView.handleError(e);
-    }
-
-    public BaseAdapter<T> getAdapter() {
-        return adapter;
-    }
-
-    public ViewDataBinding getBinding() {
-        return binding;
+    public VM createViewModel() {
+        if (viewModel == null) {
+            Class modelClass;
+            Type type = getClass().getGenericSuperclass();
+            if (type instanceof ParameterizedType) {
+                modelClass = (Class) ((ParameterizedType) type).getActualTypeArguments()[2];
+            } else {
+                modelClass = ItemViewModel.class;
+            }
+            try {
+                viewModel = (VM) modelClass.newInstance();
+            } catch (Exception e) {
+                viewModel = null;
+            }
+        }
+        return viewModel;
     }
 
     public int getBindingId() {
         return BR.vm;
     }
 
-    public BaseViewModel VM() {
+    public V V() {
+        return binding;
+    }
+
+    public VM VM() {
         return viewModel;
     }
 
-    public abstract void onBind(List<T> data, int pos);
-
-    public abstract BaseViewModel createViewModel();
-
-    public BaseViewModel.BaseView RV() {
-        return rootView;
-    }
+    public abstract void onBind(List<I> data, int pos);
 }

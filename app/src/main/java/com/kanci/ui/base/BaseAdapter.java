@@ -7,28 +7,26 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseViewHolder<T>> {
-    protected BaseViewModel.BaseView view;
-    protected List<T> data = new ArrayList<>();
+public abstract class BaseAdapter<I, VH extends BaseViewHolder> extends RecyclerView.Adapter<BaseViewHolder> {
+    protected List<I> data = new ArrayList<>();
 
-    public BaseAdapter(BaseViewModel.BaseView view) {
-        this.view = view;
-    }
-
-    public void addAll(List<T> items) {
+    public void addAll(List<I> items) {
         data.addAll(items);
         notifyDataSetChanged();
     }
 
-    public void add(T item) {
+    public void add(I item) {
         data.add(item);
         notifyDataSetChanged();
     }
 
-    public void remove(T item) {
+    public void remove(I item) {
         int pos = data.indexOf(item);
         remove(pos);
     }
@@ -52,7 +50,7 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseViewHolder
     @Override
     public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         ViewDataBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), getLayoutId(), parent, false);
-        return createViewHolder(binding, view);
+        return createViewHolder(binding);
     }
 
 
@@ -61,7 +59,7 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseViewHolder
         holder.onBind(data, pos);
     }
 
-    public abstract BaseViewHolder createViewHolder(ViewDataBinding binding, BaseViewModel.BaseView view);
+    public abstract VH createViewHolder(ViewDataBinding binding);
 
     public abstract int getLayoutId();
 }

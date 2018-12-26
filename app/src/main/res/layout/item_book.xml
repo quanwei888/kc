@@ -9,7 +9,7 @@
 
         <variable
             name="vm"
-            type="com.kanci.ui.book.list.ItemViewModel" />
+            type="com.kanci.ui.book.list.Adapter.VM" />
     </data>
 
     <LinearLayout

@@ -44,7 +44,7 @@ public class ListFragment extends BaseFragment<FragmentBookWordlistBinding, List
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         rv.setLayoutManager(linearLayoutManager);
 
-        Adapter adapter = new Adapter(this);
+        Adapter adapter = new Adapter();
         adapter.addAll(data);
         rv.setAdapter(adapter);
     }

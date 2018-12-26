@@ -9,7 +9,6 @@ import com.kanci.R;
 import com.kanci.data.model.bean.Book;
 import com.kanci.databinding.ActivityBookListBinding;
 import com.kanci.ui.base.BaseActivity;
-import com.kanci.ui.base.BaseViewModel;
 import com.kanci.ui.book.add.AddActivity;
 
 import java.util.List;
@@ -32,7 +31,7 @@ public class ListActivity extends BaseActivity<ActivityBookListBinding, ListView
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         rv.setLayoutManager(linearLayoutManager);
 
-        Adapter adapter = new Adapter(this);
+        Adapter adapter = new Adapter();
         adapter.addAll(bookList);
         rv.setAdapter(adapter);
     }

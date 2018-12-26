@@ -79,7 +79,7 @@ public class WordListActivity extends BaseActivity<ActivityBookWordlistBinding, 
 
     public void onLoadBookList(List<Word> data) {
         /*
-        RecyclerView rv = ((ActivityBookWordlistBinding) getBinding()).listView;
+        RecyclerView rv = ((ActivityBookWordlistBinding) V()).listView;
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         rv.setLayoutManager(linearLayoutManager);

@@ -1,9 +1,6 @@
 package com.kanci.ui.base;
 
-import android.app.Application;
-import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.ViewModel;
-import android.support.annotation.NonNull;
 
 import com.kanci.data.AppDataHelper;
 import com.kanci.data.model.api.ApiException;
@@ -34,6 +31,15 @@ public class BaseViewModel extends ViewModel {
     }
 
     public abstract class Query<T> {
+        public ICallback<T> callback;
+
+        public Query() {
+        }
+
+        public Query(ICallback<T> callback) {
+            this.callback = callback;
+        }
+
         public void run() {
             Single<T> single = Single.create(emitter -> {
                 emitter.onSuccess(doQuery());
@@ -44,6 +50,9 @@ public class BaseViewModel extends ViewModel {
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(
                             data -> {
+                                if (callback != null) {
+                                    callback.call(data);
+                                }
                                 onSuccess(data);
                             },
                             error -> {
@@ -55,7 +64,9 @@ public class BaseViewModel extends ViewModel {
 
         public abstract T doQuery() throws ApiException;
 
-        public abstract void onSuccess(T data);
+        public void onSuccess(T data) {
+
+        }
 
         public void onError(Throwable e) {
             view.handleError(e);

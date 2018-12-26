@@ -12,10 +12,5 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class ItemViewModel<VM extends BaseViewModel> {
-    public VM viewModel;
-
-    public ItemViewModel(VM viewModel) {
-        this.viewModel = viewModel;
-    }
+public class ItemViewModel {
 }

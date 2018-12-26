@@ -5,8 +5,8 @@ import android.databinding.ObservableField;
 import com.kanci.data.model.api.ApiException;
 import com.kanci.data.model.bean.Book;
 import com.kanci.data.model.bean.Task;
-import com.kanci.ui.base.BaseActivity;
 import com.kanci.ui.base.BaseViewModel;
+import com.kanci.ui.base.ICallback;
 
 
 public class HomeViewModel extends BaseViewModel {
@@ -19,33 +19,21 @@ public class HomeViewModel extends BaseViewModel {
         return (HomeActivity) super.V();
     }
 
-    public void doLoadTask() {
-        new Query<Task>() {
+    public void doLoadTask(ICallback<Task> callback) {
+        new Query<Task>(callback) {
             @Override
             public Task doQuery() throws ApiException {
                 return DH().getTask();
             }
-
-            @Override
-            public void onSuccess(Task data) {
-                task.set(data);
-                V().onLoadTask(data);
-            }
         }.run();
     }
 
-    public void doLoadBook(int bookId) {
-        new Query<Book>() {
+    public void doLoadBook(int bookId, ICallback<Book> callback) {
+        new Query<Book>(callback) {
 
             @Override
             public Book doQuery() throws ApiException {
                 return DH().getBook(bookId);
-            }
-
-            @Override
-            public void onSuccess(Book data) {
-                book.set(data);
-                V().onLoadBook(data);
             }
         }.run();
     }

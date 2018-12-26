@@ -9,7 +9,6 @@ import com.kanci.data.model.bean.Book;
 import com.kanci.data.model.bean.Task;
 import com.kanci.databinding.ActivityHomeBinding;
 import com.kanci.ui.base.BaseActivity;
-import com.kanci.ui.base.BaseViewModel;
 import com.kanci.ui.book.add.AddActivity;
 import com.kanci.ui.book.wordlist.WordListActivity;
 import com.kanci.ui.task.card.CardActivity;
@@ -24,7 +23,24 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        VM().doLoadTask();
+        init();
+    }
+
+    void init() {
+        loadTask();
+    }
+
+    void loadTask() {
+        VM().doLoadTask(
+                (task) -> {
+                    VM().task.set(task);
+                    loadBook(task.bookId);
+                }
+        );
+    }
+
+    void loadBook(int bookId) {
+        VM().doLoadBook(bookId, book -> VM().book.set(book));
     }
 
     public void onStartClick(View view) {
@@ -43,13 +59,5 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
         Intent intent = new Intent(this, WordListActivity.class);
         intent.putExtra("bookId", VM().book.get().bookId);
         startActivityForResult(intent, 0);
-    }
-
-    public void onLoadTask(Task task) {
-        VM().doLoadBook(task.bookId);
-    }
-
-    public void onLoadBook(Book book) {
-
     }
 }
