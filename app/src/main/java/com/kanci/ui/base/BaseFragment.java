@@ -26,6 +26,7 @@ public abstract class BaseFragment<V extends ViewDataBinding, VM extends BaseVie
     public AppDataHelper createDH() {
         return AppDataHelper.instance(getActivity());
     }
+
     public VM createViewModel() {
         if (viewModel == null) {
             Class modelClass;
@@ -47,6 +48,7 @@ public abstract class BaseFragment<V extends ViewDataBinding, VM extends BaseVie
     public int getBindingId() {
         return BR.vm;
     }
+
     public V getBinding() {
         return binding;
     }
@@ -69,5 +71,13 @@ public abstract class BaseFragment<V extends ViewDataBinding, VM extends BaseVie
         binding.setVariable(getBindingId(), viewModel);
         binding.executePendingBindings();
         return binding.getRoot();
+    }
+
+    @Override
+    public void onDestroy() {
+        if (VM().disposable != null && !VM().disposable.isDisposed()) {
+            VM().disposable.dispose();
+        }
+        super.onDestroy();
     }
 }

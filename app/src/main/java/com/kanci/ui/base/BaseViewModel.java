@@ -15,6 +15,7 @@ import io.reactivex.schedulers.Schedulers;
 public class BaseViewModel extends ViewModel {
     private AppDataHelper DH;
     private BaseView view;
+    CompositeDisposable disposable = new CompositeDisposable();
 
     public void init(BaseView view) {
         this.view = view;
@@ -45,8 +46,7 @@ public class BaseViewModel extends ViewModel {
                 emitter.onSuccess(doQuery());
             });
 
-            CompositeDisposable compositeDisposable = new CompositeDisposable();
-            Disposable disposable = single.subscribeOn(Schedulers.io())
+            disposable.add(single.subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(
                             data -> {
@@ -58,8 +58,7 @@ public class BaseViewModel extends ViewModel {
                             error -> {
                                 onError(error);
                             }
-                    );
-            compositeDisposable.add(disposable);
+                    ));
         }
 
         public abstract T doQuery() throws ApiException;
@@ -81,8 +80,7 @@ public class BaseViewModel extends ViewModel {
                 emitter.onComplete();
             });
 
-            CompositeDisposable compositeDisposable = new CompositeDisposable();
-            Disposable disposable = single.subscribeOn(Schedulers.io())
+            disposable.add(single.subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(
                             result -> {
@@ -93,8 +91,7 @@ public class BaseViewModel extends ViewModel {
                             () -> {
                                 onSuccess();
                             }
-                    );
-            compositeDisposable.add(disposable);
+                    ));
         }
 
         public abstract void doPost() throws ApiException;

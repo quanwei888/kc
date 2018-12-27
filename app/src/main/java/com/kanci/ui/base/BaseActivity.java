@@ -64,6 +64,14 @@ public abstract class BaseActivity<V extends ViewDataBinding, VM extends BaseVie
     }
 
     @Override
+    protected void onDestroy() {
+        if (VM().disposable != null && !VM().disposable.isDisposed()) {
+            VM().disposable.dispose();
+        }
+        super.onDestroy();
+    }
+
+    @Override
     public void handleError(Throwable e) {
         Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
     }
