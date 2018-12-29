@@ -46,6 +46,7 @@ public class BaseViewModel extends ViewModel {
                 emitter.onSuccess(doQuery());
             });
 
+            CompositeDisposable disposable = new CompositeDisposable();
             disposable.add(single.subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(
@@ -80,6 +81,7 @@ public class BaseViewModel extends ViewModel {
                 emitter.onComplete();
             });
 
+            CompositeDisposable disposable = new CompositeDisposable();
             disposable.add(single.subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(

@@ -9,7 +9,7 @@
 
         <variable
             name="vm"
-            type="com.kanci.ui.book.list.Adapter.VM" />
+            type="com.kanci.view.home.BookItemViewModel" />
     </data>
 
     <LinearLayout
@@ -26,7 +26,6 @@
             android:text="@{vm.book.tag}"
             android:textSize="22dp"
             android:textStyle="bold"
-            android:visibility='@{vm.isSecFirst?View.VISIBLE:View.GONE}'
             tools:text="大学" />
 
         <RelativeLayout
@@ -46,7 +45,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/bookNameView"
-                android:text='@{vm.book.count}'
+                android:text='@{vm.book.count+""}'
                 android:textColor="@color/fontGray"
                 android:textSize="12sp"
                 tools:text="2345词" />
