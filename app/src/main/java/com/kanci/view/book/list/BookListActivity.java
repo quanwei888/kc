@@ -1,10 +1,11 @@
-package com.kanci.view.home;
+package com.kanci.view.book.list;
 
 import android.os.Bundle;
 
 import com.kanci.BR;
 import com.kanci.R;
 import com.kanci.databinding.ActivityBookListBinding;
+import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 
 import me.goldze.mvvmhabit.base.BaseActivity;
 
@@ -20,7 +21,8 @@ public class BookListActivity extends BaseActivity<ActivityBookListBinding, Book
     }
     @Override
     public void initData() {
+        QMUIStatusBarHelper.translucent(this);
+        binding.topbar.setTitle("单词书");
         viewModel.doLoadBookList();
     }
-
 }

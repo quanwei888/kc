@@ -11,7 +11,7 @@
         <import type="me.goldze.mvvmhabit.binding.viewadapter.recyclerview.LineManagers" />
         <variable
             name="vm"
-            type="com.kanci.view.home.BookListViewModel" />
+            type="com.kanci.view.book.list.BookListViewModel" />
     </data>
 
     <com.qmuiteam.qmui.widget.QMUIWindowInsetLayout

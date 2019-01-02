@@ -1,29 +1,27 @@
-package com.kanci.view.home;
+package com.kanci.view.book.list;
 
 
 import android.databinding.ObservableField;
 import android.support.annotation.NonNull;
 
 import com.kanci.data.model.bean.Book;
-import com.kanci.data.model.db.Word;
 
 import me.goldze.mvvmhabit.base.ItemViewModel;
 import me.goldze.mvvmhabit.binding.command.BindingAction;
 import me.goldze.mvvmhabit.binding.command.BindingCommand;
 
-public class WordItemViewModel extends ItemViewModel<BookWordViewModel> {
-    public ObservableField<Word> word = new ObservableField();
-    public boolean isSecFirst = true;
+public class ItemBookViewModel extends ItemViewModel<BookListViewModel> {
+    public ObservableField<Book> book = new ObservableField();
+    public boolean isHeader = false;
 
-    public WordItemViewModel(@NonNull BookWordViewModel viewModel) {
+    public ItemBookViewModel(@NonNull BookListViewModel viewModel) {
         super(viewModel);
     }
 
-    public WordItemViewModel(@NonNull BookWordViewModel viewModel, Word word) {
+    public ItemBookViewModel(@NonNull BookListViewModel viewModel, Book book) {
         super(viewModel);
-        this.word.set(word);
+        this.book.set(book);
     }
-
     public BindingCommand onItemClickCommand = new BindingCommand(new BindingAction() {
         @Override
         public void call() {

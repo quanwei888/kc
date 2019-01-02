@@ -24,6 +24,7 @@ import com.franmontiel.persistentcookiejar.ClearableCookieJar;
 import com.franmontiel.persistentcookiejar.PersistentCookieJar;
 import com.franmontiel.persistentcookiejar.cache.SetCookieCache;
 import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor;
+import com.kanci.BuildConfig;
 import com.kanci.data.local.db.AppDatabase;
 import com.kanci.data.local.prefs.AppPref;
 import com.kanci.data.model.api.ApiException;
@@ -42,7 +43,10 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
+import me.goldze.mvvmhabit.http.interceptor.logging.Level;
+import me.goldze.mvvmhabit.http.interceptor.logging.LoggingInterceptor;
 import okhttp3.OkHttpClient;
+import okhttp3.internal.platform.Platform;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -71,10 +75,22 @@ public class AppDataHelper {
         this.db = AppDatabase.instance(context);
         this.pref = new AppPref(context, AppConstants.PREF_NAME);
 
+
+        LoggingInterceptor mLoggingInterceptor = new LoggingInterceptor
+                .Builder()//构建者模式
+                .loggable(true) //是否开启日志打印
+                .setLevel(Level.BODY) //打印的等级
+                .log(Platform.INFO) // 打印类型
+                .request("Request") // request的Tag
+                .response("Response")// Response的Tag
+                .addHeader("version", BuildConfig.VERSION_NAME)//打印版本
+                .build();
+
         ClearableCookieJar cookieJar =
                 new PersistentCookieJar(new SetCookieCache(), new SharedPrefsCookiePersistor(context));
         Builder okHttpClient = new OkHttpClient().newBuilder()
                 .cookieJar(cookieJar)
+                .addInterceptor(mLoggingInterceptor)
                 .connectTimeout(60 * 5, TimeUnit.SECONDS)
                 .readTimeout(60 * 5, TimeUnit.SECONDS)
                 .writeTimeout(60 * 5, TimeUnit.SECONDS);
@@ -338,10 +354,10 @@ public class AppDataHelper {
             defList = (List<Def>) QueryList(apiHelper.doGetDefListByWords(bookId, words).blockingGet());
         }
         defList.forEach(w -> {
+            w.bookId = bookId;
             db.defDao().delete(w);
             db.defDao().insert(w);
         });
         return defList;
     }
-
 }

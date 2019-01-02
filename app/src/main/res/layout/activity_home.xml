@@ -104,7 +104,7 @@
                         android:layout_height="20dp"
                         android:scaleType="fitXY"
                         android:src="@drawable/edit"
-                        app:onClickCommand="@{vm.onStartCommand}" />
+                        app:onClickCommand="@{vm.onModPlanCommand}" />
 
                     <TextView
                         android:layout_width="wrap_content"

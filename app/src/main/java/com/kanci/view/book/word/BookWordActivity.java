@@ -1,4 +1,4 @@
-package com.kanci.view.home;
+package com.kanci.view.book.word;
 
 import android.os.Bundle;
 

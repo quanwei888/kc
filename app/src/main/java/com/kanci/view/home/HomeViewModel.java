@@ -3,12 +3,15 @@ package com.kanci.view.home;
 import android.app.Application;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 
 import com.kanci.data.model.api.ApiException;
 import com.kanci.data.model.bean.Book;
 import com.kanci.data.model.bean.Task;
-import com.kanci.ui.book.list.ListActivity;
+import com.kanci.view.base.BaseViewModel;
+import com.kanci.view.book.list.BookListActivity;
+import com.kanci.view.task.TaskActivity;
 
 import me.goldze.mvvmhabit.binding.command.BindingAction;
 import me.goldze.mvvmhabit.binding.command.BindingCommand;
@@ -33,7 +36,9 @@ public class HomeViewModel extends BaseViewModel {
     public BindingCommand onStartCommand = new BindingCommand(new BindingAction() {
         @Override
         public void call() {
-            startActivity(BookListActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putInt("bookId", book.get().bookId);
+            startActivity(TaskActivity.class, bundle);
         }
     });
 

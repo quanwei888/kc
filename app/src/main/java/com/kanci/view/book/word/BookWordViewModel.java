@@ -1,4 +1,4 @@
-package com.kanci.view.home;
+package com.kanci.view.book.word;
 
 import android.app.Application;
 import android.databinding.ObservableArrayList;
@@ -9,6 +9,7 @@ import com.kanci.R;
 import com.kanci.BR;
 import com.kanci.data.model.api.ApiException;
 import com.kanci.data.model.db.Word;
+import com.kanci.view.base.BaseViewModel;
 
 import java.util.List;
 

@@ -21,9 +21,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.book.add.AddActivity"></activity>
-        <activity android:name=".view.home.BookListActivity"></activity>
+        <activity android:name=".view.book.list.BookListActivity"></activity>
         <activity android:name=".ui.book.wordlist.WordListActivity"></activity>
-        <activity android:name=".ui.task.card.CardActivity"></activity>
+        <activity android:name=".view.task.TaskActivity"></activity>
     </application>
 
 </manifest>

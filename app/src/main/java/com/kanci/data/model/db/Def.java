@@ -17,10 +17,17 @@
 package com.kanci.data.model.db;
 
 import android.arch.persistence.room.Entity;
-
+import android.arch.persistence.room.TypeConverter;
+import android.arch.persistence.room.TypeConverters;
 import android.support.annotation.NonNull;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 import java.io.Serializable;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 单词书单词的详细注释，延迟加载
@@ -31,5 +38,48 @@ public class Def implements Serializable {
     public int bookId;
     @NonNull
     public String word;
-    public String def;
+    public String pa;
+    public String pic;
+    public String paSrc;
+    public String mean;
+
+    @TypeConverters(Def.class)
+    public List<Map<String, String>> means;
+    @TypeConverters(Def.class)
+    public List<Map<String, String>> sentences;
+    @TypeConverters(Def.class)
+    public Map<String, Object> qaEn;
+
+    //@TypeConverters(Def.class)
+    //public Object qaEn;
+
+    private static Gson gson = new Gson();
+
+    @TypeConverter
+    public static List<Map<String, String>> jsonToList(String data) {
+        if (data == null) {
+            return Collections.emptyList();
+        }
+        return gson.fromJson(data, new TypeToken<List<Map<String, String>>>() {
+        }.getType());
+    }
+
+    @TypeConverter
+    public static String listToJson(List<Map<String, String>> obj) {
+        return gson.toJson(obj);
+    }
+
+    @TypeConverter
+    public static Map<String, Object> jsonToQa(String data) {
+        if (data == null) {
+            return Collections.emptyMap();
+        }
+        return gson.fromJson(data, new TypeToken<Map<String, Object>>() {
+        }.getType());
+    }
+
+    @TypeConverter
+    public static String qaToJson(Map<String, Object> obj) {
+        return gson.toJson(obj);
+    }
 }

@@ -9,13 +9,20 @@ import com.kanci.BR;
 import com.kanci.R;
 import com.kanci.data.model.bean.Book;
 import com.kanci.databinding.ActivityHomeBinding;
+import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 
 import me.goldze.mvvmhabit.base.BaseActivity;
 
 public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewModel> {
 
     @Override
+    public void onResume() {
+        super.onResume();
+        viewModel.doLoadTask();
+    }
+    @Override
     public int initContentView(Bundle bundle) {
+        QMUIStatusBarHelper.translucent(this);
         return R.layout.activity_home;
     }
 

@@ -80,7 +80,6 @@ public class TaskPlan {
         if (learnNew && newData.size() > 0) {
             return newData.poll();
         }
-        createPlan();
         if (!hasNext()) {
             //计划学习完成
             return null;
@@ -90,6 +89,9 @@ public class TaskPlan {
     }
 
     public boolean hasNext() {
+        if (reviewData.size() == 0 && newData.size() == 0) {
+            createPlan();
+        }
         if (reviewData.size() == 0 && newData.size() == 0) {
             return false;
         }

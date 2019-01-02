@@ -10,7 +10,7 @@
 
         <variable
             name="vm"
-            type="com.kanci.view.home.BookWordViewModel" />
+            type="com.kanci.view.book.word.BookWordViewModel" />
     </data>
 
     <com.qmuiteam.qmui.widget.QMUIWindowInsetLayout
