@@ -5,13 +5,13 @@
                 android:endColor="@color/white"
                 android:startColor="@color/white" />
         </shape>
-    </item> <!--  设置进度条颜色（红色）  -->
+    </item>
     <item android:id="@android:id/progress">
         <clip>
             <shape>
                 <gradient
-                    android:endColor="#2EA3FD"
-                    android:startColor="#2EA3FD" />
+                    android:endColor="@color/green"
+                    android:startColor="@color/green" />
             </shape>
         </clip>
     </item>
