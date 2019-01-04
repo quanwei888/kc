@@ -3,6 +3,7 @@ package com.kanci.view.home;
 import android.app.Application;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
+import android.databinding.ObservableInt;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 
@@ -24,6 +25,8 @@ public class HomeViewModel extends BaseViewModel {
 
     public ObservableField<Task> task = new ObservableField<>();
     public ObservableField<Book> book = new ObservableField<>();
+    public ObservableInt taskCount = new ObservableInt(0);
+    public ObservableInt taskDone = new ObservableInt(0);
 
     //封装一个界面发生改变的观察者
     public UIChangeObservable uc = new UIChangeObservable();
@@ -36,8 +39,11 @@ public class HomeViewModel extends BaseViewModel {
     public BindingCommand onStartCommand = new BindingCommand(new BindingAction() {
         @Override
         public void call() {
+            if (task.get() == null) {
+                return;
+            }
             Bundle bundle = new Bundle();
-            bundle.putInt("bookId", book.get().bookId);
+            bundle.putInt("bookId", task.get().bookId);
             startActivity(TaskActivity.class, bundle);
         }
     });
@@ -56,31 +62,13 @@ public class HomeViewModel extends BaseViewModel {
         }
     });
 
-    public void doLoadTask() {
-        new Query<Task>() {
+    public void doLoadData() {
+        new Post() {
             @Override
-            public Task doQuery() throws ApiException {
-                return DH().getTask();
-            }
-
-            @Override
-            public void onSuccess(Task data) {
-                task.set(data);
-                uc.finishLoadTask.set(!uc.finishLoadTask.get());
-            }
-        }.run();
-    }
-
-    public void doLoadBook(int bookId) {
-        new Query<Book>() {
-            @Override
-            public Book doQuery() throws ApiException {
-                return DH().getBook(bookId);
-            }
-
-            @Override
-            public void onSuccess(Book data) {
-                book.set(data);
+            public void doPost() throws ApiException {
+                Task curTask = DH().getTask();
+                task.set(curTask);
+                book.set(DH().getBook(curTask.bookId));
             }
         }.run();
     }

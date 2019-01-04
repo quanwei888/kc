@@ -61,7 +61,8 @@ public abstract class BaseViewModel extends me.goldze.mvvmhabit.base.BaseViewMod
 
         public abstract T doQuery() throws ApiException;
 
-        public abstract void onSuccess(T data);
+        public void onSuccess(T data) {
+        }
 
         public void onError(Throwable e) {
             ToastUtils.showLong(e.getMessage());
@@ -94,7 +95,8 @@ public abstract class BaseViewModel extends me.goldze.mvvmhabit.base.BaseViewMod
 
         public abstract void doPost() throws ApiException;
 
-        public abstract void onSuccess();
+        public void onSuccess() {
+        }
 
         public void onError(Throwable e) {
             ToastUtils.showLong(e.getMessage());

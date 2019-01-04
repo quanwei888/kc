@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <import type="me.tatarka.bindingcollectionadapter2.LayoutManagers" />
+
+        <import type="me.goldze.mvvmhabit.binding.viewadapter.recyclerview.LineManagers" />
+
+        <variable
+            name="vm"
+            type="com.kanci.view.book.list.ItemTagViewModel" />
+    </data>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/bookNameView"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/bgBottom"
+            android:gravity="center_vertical"
+            android:onClick="@{vm.onItemClickCommand}"
+            android:paddingLeft="5dp"
+            android:text="@{vm.tag}"
+            android:textSize="20sp"
+            tools:text="大学" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/listView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/bookNameView"
+            android:visibility="@{vm.isFolder?View.GONE:View.VISIBLE}"
+            app:adapter="@{vm.adapter}"
+            app:itemBinding="@{vm.itemBinding}"
+            app:items="@{vm.itemList}"
+            app:layoutManager="@{LayoutManagers.linear()}"
+            app:lineManager="@{LineManagers.horizontal()}"
+            tools:listitem="@layout/item_book" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:background="#CDCDCD" />
+    </RelativeLayout>
+</layout>

@@ -8,6 +8,8 @@
 
         <import type="android.view.View" />
 
+        <import type="com.kanci.R" />
+
         <variable
             name="vm"
             type="com.kanci.view.task.TaskViewModel" />
@@ -16,32 +18,34 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/bgBottom">
+        android:background="@color/bgBottom"
+        android:fitsSystemWindows="true">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:orientation="horizontal"
-            android:gravity="center_vertical">
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:src="@drawable/back"/>
+                android:src="@drawable/back" />
 
             <ProgressBar
-                android:progressDrawable="@drawable/progress_bar"
                 style="@android:style/Widget.ProgressBar.Horizontal"
                 android:layout_width="200dp"
                 android:layout_height="20dp"
-                android:background="@drawable/progress_bar_shape"
-                android:max="100"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="50dp"
                 android:layout_marginRight="10dp"
                 android:layout_weight="2"
+                android:background="@drawable/progress_bar_shape"
+                android:max="100"
                 android:padding="5dp"
-                android:progress="20" />
+                android:progress="20"
+                android:progressDrawable="@drawable/progress_bar" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -50,6 +54,7 @@
                 android:textColor="@color/gray"
                 android:textSize="12dp" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="1dp"
@@ -98,71 +103,91 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="50dp"
+            android:layout_marginBottom="70dp"
             android:gravity="center"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
 
             <Button
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_weight="1"
+                android:background="@drawable/btn_white"
                 android:onClick="@{vm.onSelectCommand}"
                 android:text="@{vm.options[0]}"
+                android:textColor="@color/black"
                 tools:text="选项1" />
 
             <Button
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginTop="5dp"
                 android:layout_weight="1"
+                android:background="@drawable/btn_white"
                 android:onClick="@{vm.onSelectCommand}"
                 android:text="@{vm.options[1]}"
+                android:textColor="@color/black"
                 tools:text="选项2" />
 
             <Button
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginTop="5dp"
                 android:layout_weight="1"
+                android:background="@drawable/btn_white"
                 android:onClick="@{vm.onSelectCommand}"
                 android:text="@{vm.options[2]}"
+                android:textColor="@color/black"
                 tools:text="选项2" />
 
             <Button
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginTop="5dp"
                 android:layout_weight="1"
+                android:background="@drawable/btn_white"
                 android:onClick="@{vm.onSelectCommand}"
                 android:text="@{vm.options[3]}"
+                android:textColor="@color/black"
                 tools:text="选项2" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="60dp"
+            android:background="#CDCDCD" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
             android:layout_alignParentBottom="true"
             android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingLeft="120dp"
+            android:paddingRight="10dp">
 
             <Button
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="认识"
+                android:layout_height="40dp"
+                android:layout_weight="3"
+                android:background="@drawable/btn_green_solid"
+                android:text="砍"
+                android:textColor="@color/white"
+                android:textSize="16dp"
                 app:isThrottleFirst="@{Boolean.TRUE}"
                 app:onClickCommand="@{vm.onDoneWordCommand}" />
 
             <Button
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginLeft="10dp"
                 android:layout_weight="1"
-                android:text="下一个"
-                app:isThrottleFirst="@{Boolean.TRUE}"
-                app:onClickCommand="@{vm.onNextWordCommand}" />
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:background="@drawable/btn_green"
                 android:text="提示"
+                android:textSize="16dp"
                 app:isThrottleFirst="@{Boolean.TRUE}"
                 app:onClickCommand="@{vm.onTipCommand}" />
         </LinearLayout>

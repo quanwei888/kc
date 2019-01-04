@@ -48,7 +48,7 @@ public class TaskPlan {
         while (iter.hasNext()) {
             Map.Entry<String, Word> entry = iter.next();
             Word v = entry.getValue();
-            if (v.tag == 1) {
+            if (v.tag == 2) {
                 //已砍
                 iter.remove();
                 continue;

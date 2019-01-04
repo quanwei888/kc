@@ -125,39 +125,23 @@ public class AppDataHelper {
     }
 
     /*****************Cache***************/
-    int getBookDoneCache(int bookId) throws ApiException {
-        if (data.containsKey(KEY_BOOK_DONE) || true) {
-            int count = db.wordDao().doneCount(bookId).blockingGet();
-            data.put(KEY_BOOK_DONE, count);
-        }
-        return data.get(KEY_BOOK_DONE);
+    public int getBookDone(int bookId) throws ApiException {
+        return db.wordDao().doneCount(bookId).blockingGet();
     }
 
-    int getTaskDoneCache(int bookId) throws ApiException {
-        if (data.containsKey(KEY_TASK__DONE) || true) {
-            List<String> ws = getTaskWordSetLocal(bookId);
-            int count = db.wordDao().taskDoneCount(bookId, ws).blockingGet();
-            data.put(KEY_TASK__DONE, count);
-        }
-        return data.get(KEY_TASK__DONE);
+    public int getTaskDone(int bookId) throws ApiException {
+        List<String> ws = getTaskWordSetLocal(bookId);
+        return db.wordDao().taskDoneCount(bookId, ws).blockingGet();
     }
 
-    int getTaskCountCache(int bookId) throws ApiException {
-        if (data.containsKey(KEY_TASK_COUNT) || true) {
-            List<String> ws = getTaskWordSetLocal(bookId);
-            int count = db.wordDao().taskCount(bookId, ws).blockingGet();
-            data.put(KEY_TASK_COUNT, count);
-        }
-        return data.get(KEY_TASK__DONE);
+    public int getTaskCount(int bookId) throws ApiException {
+        List<String> ws = getTaskWordSetLocal(bookId);
+        return db.wordDao().taskCount(bookId, ws).blockingGet();
     }
 
-    int getTaskNewCountCache(int bookId) throws ApiException {
-        if (data.containsKey(KEY_TASK_NEW_COUNT) || true) {
-            List<String> ws = getTaskWordSetLocal(bookId);
-            int count = db.wordDao().taskNewCount(bookId, ws).blockingGet();
-            data.put(KEY_TASK_NEW_COUNT, count);
-        }
-        return data.get(KEY_TASK_NEW_COUNT);
+    public int getTaskNewCount(int bookId) throws ApiException {
+        List<String> ws = getTaskWordSetLocal(bookId);
+        return db.wordDao().taskNewCount(bookId, ws).blockingGet();
     }
 
     void expireWordCache() {
@@ -183,9 +167,9 @@ public class AppDataHelper {
             ws = getTaskWordSetRemote(task.bookId);
         }
 
-        task.doneCount = getTaskDoneCache(task.bookId);
-        task.newCount = getTaskNewCountCache(task.bookId);
-        task.count = getTaskNewCountCache(task.bookId);
+        task.doneCount = getTaskDone(task.bookId);
+        task.newCount = getTaskNewCount(task.bookId);
+        task.count = getTaskNewCount(task.bookId);
         pref.saveTask(task);
 
         return task;
@@ -261,7 +245,7 @@ public class AppDataHelper {
             getBookWordListRemote(bookId);
         }
 
-        book.doneCount = getBookDoneCache(bookId);
+        book.doneCount = getBookDone(bookId);
         pref.saveBook(book);
         return book;
     }

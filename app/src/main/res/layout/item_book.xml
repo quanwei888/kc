@@ -13,35 +13,32 @@
     </data>
 
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="5dp"
-        android:orientation="vertical">
+        android:layout_height="30dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
 
         <TextView
             android:id="@+id/bookNameView"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
             android:text="@{vm.book.name}"
+            android:textColor="@color/green"
             android:textSize="16sp"
             tools:text="大学四级" />
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/bookNameView"
-            android:text='@{vm.book.count+""}'
-            android:textColor="@color/fontGray"
-            android:textSize="12sp"
-            tools:text="2345词" />
-
-        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="10dp"
-            android:text="&gt;"
-            android:textSize="16sp" />
-    </RelativeLayout>
+            android:layout_weight="1"
+            android:gravity="right"
+            android:layout_marginRight="20dp"
+            android:text='@{vm.book.count+""}'
+            android:textColor="@color/green"
+            android:textSize="12sp"
+            tools:text="2345词" />
+    </LinearLayout>
 </layout>

@@ -8,6 +8,7 @@ import com.kanci.BR;
 import com.kanci.R;
 import com.kanci.databinding.ActivityTaskBinding;
 import com.kanci.view.home.HomeActivity;
+import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 
 import me.goldze.mvvmhabit.base.BaseActivity;
 
@@ -20,7 +21,8 @@ public class TaskActivity extends BaseActivity<ActivityTaskBinding, TaskViewMode
 
     @Override
     public int initContentView(Bundle bundle) {
-        return R.layout.activity_task;
+        QMUIStatusBarHelper.translucent(this);
+        return R.layout.activity_task1;
     }
 
     @Override

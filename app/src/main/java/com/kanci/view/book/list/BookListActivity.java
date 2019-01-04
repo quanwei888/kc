@@ -12,6 +12,7 @@ import me.goldze.mvvmhabit.base.BaseActivity;
 public class BookListActivity extends BaseActivity<ActivityBookListBinding, BookListViewModel> {
     @Override
     public int initContentView(Bundle bundle) {
+        QMUIStatusBarHelper.translucent(this);
         return R.layout.activity_book_list;
     }
 
@@ -21,8 +22,6 @@ public class BookListActivity extends BaseActivity<ActivityBookListBinding, Book
     }
     @Override
     public void initData() {
-        QMUIStatusBarHelper.translucent(this);
-        binding.topbar.setTitle("单词书");
         viewModel.doLoadBookList();
     }
 }

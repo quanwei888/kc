@@ -74,30 +74,13 @@ public class TaskViewModel extends BaseViewModel {
             uc.swichNextWord.set(!uc.swichNextWord.get());
         }
     };
-    public BindingCommand onSelect3Command = new BindingCommand(new BindingAction() {
-        int index = 3;
-
-        @Override
-        public void call() {
-            if (options.get(index).equals(anwser)) {
-                word.get().rightCount += 1;
-            } else {
-                word.get().errorCount += 1;
-            }
-        }
-    });
 
     public void doLoadTaskWordList(int bookId) {
-        new Query<TaskPlan>() {
+        new Post() {
             @Override
-            public TaskPlan doQuery() throws ApiException {
+            public void doPost() throws ApiException {
                 List<Word> wordList = DH().getTaskWordListAddDef(bookId);
-                return new TaskPlan(wordList);
-            }
-
-            @Override
-            public void onSuccess(TaskPlan data) {
-                taskPlan = data;
+                taskPlan = new TaskPlan(wordList);
                 uc.finishLoadTaskWord.set(!uc.finishLoadTaskWord.get());
             }
         }.run();
@@ -105,33 +88,28 @@ public class TaskViewModel extends BaseViewModel {
 
     public void doSetWordTag(Word word, int tag) {
         new Post() {
-
             @Override
             public void doPost() throws ApiException {
                 DH().setWordTag(word.bookId, word.word, tag);
-            }
-
-            @Override
-            public void onSuccess() {
-
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                super.onError(e);
             }
         }.run();
     }
 
     public void doNextWord() {
-        if (!taskPlan.hasNext()) {
-            uc.finishTask.set(!uc.finishTask.get());
-            return;
-        }
-        word.set(taskPlan.next());
-        List<String> os = (List<String>) word.get().def.qaEn.get("option");
-        options.clear();
-        options.addAll(os);
-        //anwser = os.get(Integer.parseInt(word.get().def.qaEn.get("rightIndex"))
+        new Post() {
+            @Override
+            public void doPost() throws ApiException {
+                if (!taskPlan.hasNext()) {
+                    uc.finishTask.set(!uc.finishTask.get());
+                    return;
+                }
+                word.set(taskPlan.next());
+                List<String> os = (List<String>) word.get().def.qaEn.get("option");
+                options.clear();
+                options.addAll(os);
+                //anwser = os.get(Integer.parseInt(word.get().def.qaEn.get("rightIndex"))
+            }
+        }.run();
+
     }
 }
